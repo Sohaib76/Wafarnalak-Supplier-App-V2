@@ -1,0 +1,53 @@
+{
+  "expo": {
+    "name": "Wafarnalak supplier",
+    "slug": "sp",
+    "privacy": "public",
+    
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.0.5",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.wafarnalak.supplierapp",
+      "buildNumber": "7",
+      "config": {
+        "googleMapsApiKey": "AIzaSyCZenxJupQXwOicw8u9pBnFiniI8w03Vus"
+      },
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "The app take your photo library pictures to showcase your profile picture in your app account."
+      },
+      "appStoreUrl": "https://apps.apple.com/pk/app/wafarnalak-supplier-app/id1499517266"
+    },
+    "android": {
+      "package": "com.wafarnalak.supplierapp",
+      "versionCode": 7,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCZenxJupQXwOicw8u9pBnFiniI8w03Vus"
+        }
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ],
+      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.wafarnalak.supplierapp"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "scripts": {
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "web": "expo start --web",
+    "postinstall": "jetify"
+  },
+  "dependencies": {
+    "@react-native-picker/picker": "1.9.2",
+    "axios": "^0.21.1",
+    "expo": "^40.0.0",
+    "expo-image-picker": "~9.2.0",
+    "expo-location": "~10.0.0",
+    "expo-permissions": "~10.0.0",
+    "expo-updates": "~0.4.1",
+    "expo-web-browser": "~8.6.0",
+    "native-base": "^2.13.8",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-native": "0.63.4",
+    "react-native-countdown-component": "^2.6.0",
+    "react-native-gesture-handler": "~1.8.0",
+    "react-native-google-places-autocomplete": "^1.4.0",
+    "react-native-loading-spinner-overlay": "^1.1.0",
+    "react-native-maps": "0.27.1",
+    "react-native-phone-call": "^1.0.9",
+    "react-native-reanimated": "~1.13.0",
+    "react-native-screens": "~2.15.2",
+    "react-native-table-component": "^1.2.1",
+    "react-native-unimodules": "~0.12.0",
+    "react-native-web": "~0.13.12",
+    "react-navigation": "^4.0.10",
+    "react-navigation-stack": "^1.10.3",
+    "yarn": "^1.21.1"
+  },
+  "devDependencies": {
+    "@babel/core": "~7.9.0",
+    "babel-jest": "~24.9.0",
+    "babel-preset-expo": "8.3.0",
+    "jest": "~24.9.0",
+    "metro-react-native-babel-preset": "~0.56.0",
+    "react-test-renderer": "~16.9.0"
+  },
+  "private": true
+}
