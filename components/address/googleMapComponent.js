@@ -49,6 +49,10 @@ export default class GoogleMapComponent extends React.Component {
     };
   }
   async componentDidMount() {
+    let lan = await AsyncStorage.getItem("lan");
+    this.setState({
+      lan: lan !== null ? lan : "en",
+    });
     const { navigation } = this.props;
     if (navigation.getParam("user")) {
       this.setState({
@@ -222,7 +226,7 @@ export default class GoogleMapComponent extends React.Component {
               fontWeight: "bold",
             }}
           >
-            Select Location
+            {this.state.lan == "en" ? "Select Location" : "اختر الموقع"}
           </Title>
           <Right />
         </Header>
@@ -327,7 +331,9 @@ export default class GoogleMapComponent extends React.Component {
                 <Text
                   style={{ color: "white", fontSize: 12, alignSelf: "center" }}
                 >
-                  Enter Location Title
+                  {this.state.lan == "en"
+                    ? "Enter Location Title"
+                    : "أدخل عنوان الموقع"}
                 </Text>
 
                 <Input
@@ -363,7 +369,7 @@ export default class GoogleMapComponent extends React.Component {
                       marginLeft: 30,
                     }}
                   >
-                    Submit
+                    {this.state.lan == "en" ? "Submit" : "تسليم"}
                   </Text>
                 </Button>
               </View>
@@ -377,6 +383,7 @@ export default class GoogleMapComponent extends React.Component {
             backgroundColor: "white",
             position: "absolute",
             bottom: 0,
+            width: "100%",
           }}
         >
           <View style={{ alignSelf: "center" }}>
@@ -386,7 +393,9 @@ export default class GoogleMapComponent extends React.Component {
                 style={{ backgroundColor: "#283a97", alignSelf: "center" }}
               >
                 <View>
-                  <Text style={{ color: "white" }}>Select Location</Text>
+                  <Text style={{ color: "white" }}>
+                    {this.state.lan == "en" ? "Select Location" : "اختر الموقع"}
+                  </Text>
                 </View>
               </Button>
             </View>
@@ -402,8 +411,9 @@ export default class GoogleMapComponent extends React.Component {
                 color: "#283a97",
               }}
             >
-              Press the drop pin for 2s and move your finger to drag. Tap to
-              drop the pin
+              {this.state.lan == "en"
+                ? "Press the drop pin for 2s and move your finger to drag. Tap to drop the pin"
+                : "انقر على السهم لمدة ثانيتين وحرك إصبعك للسحب ، انقر لتحريك السهم"}
             </Text>
           </View>
         </View>

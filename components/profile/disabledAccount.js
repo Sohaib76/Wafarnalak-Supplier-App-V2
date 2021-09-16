@@ -27,12 +27,16 @@ export default class DisabledAccountComponent extends React.Component {
   constructor(props) {
     super(props);
   }
-  componentDidMount() {
+  componentDidMount = async () => {
+    let lan = await AsyncStorage.getItem("lan");
+    this.setState({
+      lan: lan !== null ? lan : "en",
+    });
     this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
       this.goBack(); // works best when the goBack is async
       return true;
     });
-  }
+  };
   goBack = () => {
     this.props.navigation.navigate("Login");
   };
@@ -76,7 +80,7 @@ export default class DisabledAccountComponent extends React.Component {
               fontWeight: "bold",
             }}
           >
-            Account Status
+            {this.state.lan == "en" ? "Account Status" : "حالة الحساب"}
           </Title>
           <Right />
         </Header>

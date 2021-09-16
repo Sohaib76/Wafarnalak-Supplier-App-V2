@@ -37,7 +37,11 @@ export default class CategoriesServiceComponent extends React.Component {
       this.setState({ user: u });
     }
   };
-  componentDidMount = () => {
+  componentDidMount = async () => {
+    let lan = await AsyncStorage.getItem("lan");
+    this.setState({
+      lan: lan !== null ? lan : "en",
+    });
     const { navigation } = this.props;
     let category = navigation.getParam("category");
     this.setState({ businessCategory: category });

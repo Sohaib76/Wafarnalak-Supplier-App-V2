@@ -219,6 +219,13 @@ export default class SignupComponent extends React.Component {
   switchAgreement = () => {
     this.setState({ iAgree: !this.state.iAgree });
   };
+
+  componentDidMount = async () => {
+    let lan = await AsyncStorage.getItem("lan");
+    this.setState({
+      lan: lan !== null ? lan : "en",
+    });
+  };
   render() {
     return (
       <Container>
@@ -248,7 +255,7 @@ export default class SignupComponent extends React.Component {
               fontWeight: "bold",
             }}
           >
-            User Details
+            {this.state.lan == "en" ? "User Details" : ""}
           </Title>
           <Right />
         </Header>
@@ -257,7 +264,9 @@ export default class SignupComponent extends React.Component {
           <Spinner visible={this.state.loading} textContent={""} />
           <Form>
             <Item stackedLabel>
-              <Label style={{ color: "#283a97" }}>Full Name</Label>
+              <Label style={{ color: "#283a97" }}>
+                {this.state.lan == "en" ? "Full Name" : "اسم الكامل"}
+              </Label>
               <Input
                 value={this.state.name}
                 onChangeText={(name) => {
@@ -267,7 +276,11 @@ export default class SignupComponent extends React.Component {
               />
             </Item>
             <Item stackedLabel>
-              <Label style={{ color: "#283a97" }}>Email (Optional)</Label>
+              <Label style={{ color: "#283a97" }}>
+                {this.state.lan == "en"
+                  ? "Email (Optional)"
+                  : "(البريد الإلكتروني(اختياري"}
+              </Label>
               <Input
                 value={this.state.email}
                 onChangeText={(email) => {
@@ -279,13 +292,17 @@ export default class SignupComponent extends React.Component {
             <View style={{ flexDirection: "row" }}>
               <View>
                 <Item stackedLabel>
-                  <Label style={{ color: "#283a97" }}>Code</Label>
+                  <Label style={{ color: "#283a97" }}>
+                    {this.state.lan == "en" ? "Code" : "مفتاح الدولة"}
+                  </Label>
                   <Input style={{ width: 90 }} value="+966" editable={false} />
                 </Item>
               </View>
               <View style={{ marginLeft: 15 }}>
                 <Item stackedLabel>
-                  <Label style={{ color: "#283a97" }}>Mobile Number</Label>
+                  <Label style={{ color: "#283a97" }}>
+                    {this.state.lan == "en" ? "Mobile Number" : "رقم الجوال"}
+                  </Label>
                   <Input
                     style={{ width: 250 }}
                     placeholder="05XXXXXXXX"
@@ -314,7 +331,8 @@ export default class SignupComponent extends React.Component {
           <View style={{ alignSelf: "center", marginTop: 15 }}>
             <Button
               full
-              onPress={this.registerNewUser}
+              onPress={this.registerNewUser} //Change this line
+              // onPress={() => this.props.navigation.navigate("BusinessCategory")}
               rounded
               style={{
                 backgroundColor: "#283a97",
@@ -324,7 +342,7 @@ export default class SignupComponent extends React.Component {
               }}
             >
               <Text style={{ color: "white", fontWeight: "bold" }}>
-                Sign Up
+                {this.state.lan == "en" ? "Sign Up" : "اشتراك"}
               </Text>
             </Button>
           </View>
@@ -337,7 +355,10 @@ export default class SignupComponent extends React.Component {
               marginTop: 10,
             }}
           >
-            By sign up,you agree wafarnalak's{"  "}
+            {this.state.lan == "en"
+              ? "By sign up,you agree wafarnalak's"
+              : "بالتسجيل ، أنت توافق على"}
+            {"  "}
             <TouchableWithoutFeedback
               onPress={() => {
                 WebBrowser.openBrowserAsync(
@@ -346,7 +367,9 @@ export default class SignupComponent extends React.Component {
               }}
             >
               <Text style={{ textDecorationLine: "underline" }}>
-                terms and conditions
+                {this.state.lan == "en"
+                  ? "terms and conditions"
+                  : "شروط وأحكام وفرنالك"}
               </Text>
             </TouchableWithoutFeedback>
           </Text>

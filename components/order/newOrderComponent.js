@@ -36,12 +36,15 @@ export default class NewOrderComponent extends React.Component {
     };
   }
   componentDidMount = async () => {
+    const { navigation } = this.props;
+    this.setState({
+      lan: navigation.getParam("lan"),
+    });
     let user = await AsyncStorage.getItem("sp");
     if (user !== null) {
       let spUser = JSON.parse(user);
       this.setState({ user: spUser });
     }
-    const { navigation } = this.props;
     this.setState({ newOrder: navigation.getParam("newOrder") });
   };
   componentWillReceiveProps = (newProps) => {
@@ -127,7 +130,7 @@ export default class NewOrderComponent extends React.Component {
               fontWeight: "bold",
             }}
           >
-            New Order
+            {this.state.lan == "en" ? "New Order" : "طلبات جديدة"}
           </Title>
           <Right />
         </Header>
@@ -137,7 +140,11 @@ export default class NewOrderComponent extends React.Component {
           this.state.newOrder === undefined ||
           this.state.newOrder === null ? (
             <View style={{ alignSelf: "center", marginTop: 90 }}>
-              <Text>Currently No New Order Available!</Text>
+              <Text>
+                {this.state.lan == "en"
+                  ? "Currently No New Order Available!"
+                  : ""}
+              </Text>
             </View>
           ) : (
             <View>
@@ -181,7 +188,8 @@ export default class NewOrderComponent extends React.Component {
                       fontSize: 14,
                     }}
                   >
-                    Order#: {this.state.newOrder.orderid}
+                    {this.state.lan == "en" ? "Order#" : "رقم الطلب#"}:{" "}
+                    {this.state.newOrder.orderid}
                   </Text>
                   <Text
                     style={{
@@ -190,7 +198,8 @@ export default class NewOrderComponent extends React.Component {
                       fontSize: 14,
                     }}
                   >
-                    Category name: {this.state.newOrder.servicename}
+                    {this.state.lan == "en" ? "Category name" : "اسم التصنيف"}:{" "}
+                    {this.state.newOrder.servicename}
                   </Text>
                   <Text
                     style={{
@@ -199,7 +208,8 @@ export default class NewOrderComponent extends React.Component {
                       fontSize: 14,
                     }}
                   >
-                    Date: {this.state.newOrder.appointmentdate}
+                    {this.state.lan == "en" ? "Date" : "تاريخ التعيين للخدمة"}:{" "}
+                    {this.state.newOrder.appointmentdate}
                   </Text>
                   <Text
                     style={{
@@ -208,7 +218,8 @@ export default class NewOrderComponent extends React.Component {
                       fontSize: 14,
                     }}
                   >
-                    Customer Name: {this.state.newOrder.customername}{" "}
+                    {this.state.lan == "en" ? "Customer Name" : ""}:{" "}
+                    {this.state.newOrder.customername}{" "}
                   </Text>
                 </View>
               </View>
@@ -318,7 +329,11 @@ export default class NewOrderComponent extends React.Component {
                       />
                     </View>
                     <View style={{ alignSelf: "center" }}>
-                      <Text style={{ color: "gray" }}>Customer Location</Text>
+                      <Text style={{ color: "gray" }}>
+                        {this.state.lan == "en"
+                          ? "Customer Location"
+                          : "موقع العميل"}
+                      </Text>
                     </View>
                   </View>
                 </TouchableWithoutFeedback>
@@ -341,7 +356,11 @@ export default class NewOrderComponent extends React.Component {
                     <Text>{this.state.newOrder.grandtotalprice} SAR</Text>
                   </View>
                   <View style={{ alignSelf: "center" }}>
-                    <Text style={{ color: "gray" }}>Estimate price</Text>
+                    <Text style={{ color: "gray" }}>
+                      {this.state.lan == "en"
+                        ? "Estimate price"
+                        : "السعر التقديري"}
+                    </Text>
                   </View>
                 </View>
                 <TouchableWithoutFeedback onPress={this.makeCall}>
@@ -362,7 +381,9 @@ export default class NewOrderComponent extends React.Component {
                       />
                     </View>
                     <View style={{ alignSelf: "center" }}>
-                      <Text style={{ color: "gray" }}>Call</Text>
+                      <Text style={{ color: "gray" }}>
+                        {this.state.lan == "en" ? "Call" : "إتصل"}
+                      </Text>
                     </View>
                   </View>
                 </TouchableWithoutFeedback>
@@ -390,7 +411,7 @@ export default class NewOrderComponent extends React.Component {
                 textAlign: "center",
               }}
             >
-              Start Job
+              {this.state.lan == "en" ? "Start Job" : "ابدأ العمل"}
             </Text>
           </Button>
         ) : (

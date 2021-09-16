@@ -69,6 +69,10 @@ export default class BusinessCategoryComponent extends React.Component {
   };
 
   componentDidMount = async () => {
+    let lan = await AsyncStorage.getItem("lan");
+    this.setState({
+      lan: lan !== null ? lan : "en",
+    });
     let user = await AsyncStorage.getItem("sp");
     let spUser = JSON.parse(user);
     if (user !== null) {
@@ -148,15 +152,19 @@ export default class BusinessCategoryComponent extends React.Component {
               fontWeight: "bold",
             }}
           >
-            Primary Business
+            {this.state.lan == "en" ? "Primary Business" : "العمل الرئيسي"}
           </Title>
           <Right />
         </Header>
         <ScrollView>
           {/* Content */}
           <Spinner visible={this.state.loading} textContent={""} />
-          <View style={{ marginTop: 6, marginLeft: 5 }}>
-            <Text style={{ color: "#283a97" }}>Select you business</Text>
+          <View
+            style={{ marginTop: 6, marginLeft: 5, alignSelf: "flex-start" }}
+          >
+            <Text style={{ color: "#283a97" }}>
+              {this.state.lan == "en" ? "Select you business" : "اختر عملك"}
+            </Text>
           </View>
           {this.state.services &&
             this.state.services.map(
@@ -276,6 +284,7 @@ export default class BusinessCategoryComponent extends React.Component {
         {/* Content */}
         <Button
           onPress={this.saveBusinessCategory}
+          // onPress={() => this.props.navigation.navigate("CompanyProfile")} //Change
           rounded
           style={{
             backgroundColor: "#283a97",
@@ -286,7 +295,9 @@ export default class BusinessCategoryComponent extends React.Component {
             justifyContent: "center",
           }}
         >
-          <Text style={{ color: "white", fontWeight: "bold" }}>Proceed</Text>
+          <Text style={{ color: "white", fontWeight: "bold" }}>
+            {this.state.lan == "en" ? "Proceed" : "تقدم"}
+          </Text>
         </Button>
       </Container>
     );

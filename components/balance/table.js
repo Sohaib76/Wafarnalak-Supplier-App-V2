@@ -40,10 +40,15 @@ export default class InvoiceTableComponent extends React.Component {
     super(props);
     this.state = {
       tableHead: ["Order#", "Order date", "Service name", "Charges"],
+      tableHear_ar: ["رقم الطلب", "تاريخ الطلب", "اسم الخدمة", "التكلفة"],
       tableData: [],
     };
   }
   componentDidMount = async () => {
+    let lan = await AsyncStorage.getItem("lan");
+    this.setState({
+      lan: lan !== null ? lan : "en",
+    });
     const { navigation } = this.props;
     let invoices = navigation.getParam("invoice");
     let user = await AsyncStorage.getItem("sp");
@@ -125,7 +130,7 @@ export default class InvoiceTableComponent extends React.Component {
               fontWeight: "bold",
             }}
           >
-            Invoice
+            {this.state.lan == "en" ? "Invoice" : ""}
           </Title>
           <Right />
         </Header>
@@ -134,7 +139,11 @@ export default class InvoiceTableComponent extends React.Component {
           <View style={styles.container}>
             <Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
               <Row
-                data={this.state.tableHead}
+                data={
+                  this.state.lan == "en"
+                    ? this.state.tableHead
+                    : this.state.tableHear_ar
+                }
                 // flexArr={[1.5, 2, 3, 1.5]}
                 style={styles.head}
                 textStyle={styles.headerText}

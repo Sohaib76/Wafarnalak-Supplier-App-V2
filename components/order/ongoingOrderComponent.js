@@ -41,6 +41,9 @@ export default class OngoingOrderComponent extends React.Component {
   };
   componentDidMount = async () => {
     const { navigation } = this.props;
+    this.setState({
+      lan: navigation.getParam("lan"),
+    });
     let completedOrders = navigation.getParam("completedOrder");
     let user = await AsyncStorage.getItem("sp");
     if (user !== null) {
@@ -141,7 +144,9 @@ export default class OngoingOrderComponent extends React.Component {
             }}
           >
             {this.state.isCompleted === true
-              ? "Completed Order"
+              ? this.state.lan == "en"
+                ? "Completed Order"
+                : "الطلب المكتمل"
               : "Ongoing Orders"}
           </Title>
           <Right />
@@ -197,7 +202,7 @@ export default class OngoingOrderComponent extends React.Component {
                       fontSize: 14,
                     }}
                   >
-                    Order#:{" "}
+                    {this.state.lan == "en" ? "Order#" : "رقم الطلب #"}:{" "}
                     {this.state.ongoingOrder && this.state.ongoingOrder.orderid}
                   </Text>
                   <Text
@@ -207,7 +212,7 @@ export default class OngoingOrderComponent extends React.Component {
                       fontSize: 14,
                     }}
                   >
-                    Category Name:{" "}
+                    {this.state.lan == "en" ? "Category Name" : "اسم التصنيف"}:{" "}
                     {this.state.ongoingOrder &&
                       this.state.ongoingOrder.servicename}
                   </Text>
@@ -218,7 +223,7 @@ export default class OngoingOrderComponent extends React.Component {
                       fontSize: 14,
                     }}
                   >
-                    Date:{" "}
+                    {this.state.lan == "en" ? "Date:" : "تاريخ:"}{" "}
                     {this.state.ongoingOrder &&
                       this.state.ongoingOrder.appointmentdate}
                   </Text>
@@ -229,7 +234,7 @@ export default class OngoingOrderComponent extends React.Component {
                       fontSize: 14,
                     }}
                   >
-                    Customer Name:{" "}
+                    {this.state.lan == "en" ? "Customer Name" : ""}:{" "}
                     {this.state.ongoingOrder &&
                       this.state.ongoingOrder.customername}{" "}
                   </Text>
@@ -256,7 +261,8 @@ export default class OngoingOrderComponent extends React.Component {
                             marginRight: 6,
                           }}
                         >
-                          Service: {index + 1}
+                          {this.state.lan == "en" ? "Service" : "الخدمة"}:{" "}
+                          {index + 1}
                         </Text>
                         <View
                           style={{
@@ -282,7 +288,9 @@ export default class OngoingOrderComponent extends React.Component {
                             <View
                               style={{ flexDirection: "row", marginRight: 8 }}
                             >
-                              <Text style={{ color: "gray" }}>SAR </Text>
+                              <Text style={{ color: "gray" }}>
+                                {this.state.lan == "en" ? "SAR" : "ريال"}{" "}
+                              </Text>
                               <Text style={{ color: "gray" }}>
                                 {service.price}
                               </Text>
@@ -308,7 +316,11 @@ export default class OngoingOrderComponent extends React.Component {
                   }.bind(this)
                 )}
               <View style={{ marginTop: 40, marginLeft: 18, marginRight: 35 }}>
-                <Text style={{ color: "#283a97" }}>Cost of materials use</Text>
+                <Text style={{ color: "#283a97" }}>
+                  {this.state.lan == "en"
+                    ? "Cost of materials use"
+                    : "تكلفة استخدام المواد"}
+                </Text>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ marginTop: 3 }}>
                     <Image
@@ -318,7 +330,9 @@ export default class OngoingOrderComponent extends React.Component {
                     />
                   </View>
                   <Input
-                    placeholder="SAR 0000"
+                    placeholder={
+                      this.state.lan == "en" ? "SAR 0000" : "0000 ريال"
+                    }
                     placeholderTextColor="gray"
                     value={this.state.materialCost}
                     keyboardType="decimal-pad"
@@ -335,7 +349,11 @@ export default class OngoingOrderComponent extends React.Component {
                 </View>
               </View>
               <View style={{ marginTop: 20, marginLeft: 18, marginRight: 35 }}>
-                <Text style={{ color: "#283a97" }}>Price of the service</Text>
+                <Text style={{ color: "#283a97" }}>
+                  {this.state.lan == "en"
+                    ? "Price of the service"
+                    : "سعر الخدمة:"}
+                </Text>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ marginTop: 3 }}>
                     <Image
@@ -345,7 +363,9 @@ export default class OngoingOrderComponent extends React.Component {
                     />
                   </View>
                   <Input
-                    placeholder="SAR 0000"
+                    placeholder={
+                      this.state.lan == "en" ? "SAR 0000" : "0000 ريال"
+                    }
                     placeholderTextColor="gray"
                     editable={!this.state.isCompleted}
                     value={this.state.serviceCost}
@@ -393,7 +413,7 @@ export default class OngoingOrderComponent extends React.Component {
                   textAlign: "center",
                 }}
               >
-                Job Finished
+                {this.state.lan == "en" ? "Job Finished" : "انتهى العمل "}
               </Text>
             </Button>
           )

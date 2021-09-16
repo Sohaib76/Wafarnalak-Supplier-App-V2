@@ -40,7 +40,11 @@ export default class UploadDocumentComponent extends React.Component {
       actorId: null,
     };
   }
-  componentDidMount = () => {
+  componentDidMount = async () => {
+    let lan = await AsyncStorage.getItem("lan");
+    this.setState({
+      lan: lan !== null ? lan : "en",
+    });
     const { navigation } = this.props;
     let fileType = navigation.getParam("fileType");
     let user = navigation.getParam("user");
@@ -198,7 +202,7 @@ export default class UploadDocumentComponent extends React.Component {
               fontWeight: "bold",
             }}
           >
-            Upload Pictures
+            {this.state.lan == "en" ? "Upload Pictures" : "تحميل الصور"}
           </Title>
           <Right />
         </Header>
@@ -252,7 +256,11 @@ export default class UploadDocumentComponent extends React.Component {
                   />
                 </View>
                 <View style={{ alignSelf: "center" }}>
-                  <Text>Please upload a picture</Text>
+                  <Text>
+                    {this.state.lan == "en"
+                      ? "Please upload a picture"
+                      : "يرجى تحميل صورة"}
+                  </Text>
                 </View>
               </View>
             </View>
@@ -267,7 +275,9 @@ export default class UploadDocumentComponent extends React.Component {
                 resizeMode="contain"
               />
               <View style={{ alignSelf: "center" }}>
-                <Text>Browse Files</Text>
+                <Text>
+                  {this.state.lan == "en" ? "Browse Files" : "تصفح الملفات"}
+                </Text>
               </View>
             </View>
           </TouchableWithoutFeedback>

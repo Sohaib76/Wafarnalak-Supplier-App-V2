@@ -12,12 +12,26 @@ import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 
 export default function ProfileVerificationComponent(props) {
+  // componentDidMount = async()=>{
+  //   let lan = await AsyncStorage.getItem("lan");
+  //   this.setState({
+  //     lan: lan !== null ? lan : "en",
+  //   });
+  // }
+
+  const lan = props.navigation.getParam("lan");
+
   return (
     <Container>
       <Header style={{ borderBottomWidth: 0 }} />
       <>
         <View style={{ alignSelf: "center", marginTop: 80 }}>
-          <Text>Just one step away from your {"\n"} new customers</Text>
+          <Text>
+            {lan == "en"
+              ? "Just one step away from your"
+              : "على بعد خطوة واحدة"}{" "}
+            {"\n"} {lan == "en" ? "new customers" : "فقط من عملائك الجدد"}
+          </Text>
         </View>
         <View
           style={{ marginTop: 40, flexDirection: "row", alignSelf: "center" }}
@@ -45,7 +59,7 @@ export default function ProfileVerificationComponent(props) {
             <Text
               style={{ textAlign: "center", fontWeight: "bold", marginTop: 8 }}
             >
-              Signup
+              {lan == "en" ? "Signup" : "اشتراك"}
             </Text>
           </View>
           <View style={{ marginLeft: 5 }}>
@@ -71,7 +85,7 @@ export default function ProfileVerificationComponent(props) {
             <Text
               style={{ textAlign: "center", fontWeight: "bold", marginTop: 8 }}
             >
-              Service Info
+              {lan == "en" ? "Service Info" : "معلومات الخدمة"}
             </Text>
           </View>
           <View style={{ marginLeft: 5 }}>
@@ -97,7 +111,7 @@ export default function ProfileVerificationComponent(props) {
             <Text
               style={{ textAlign: "center", fontWeight: "bold", marginTop: 8 }}
             >
-              Details
+              {lan == "en" ? "Details" : "تفاصيل"}
             </Text>
           </View>
           <View style={{ marginLeft: 5 }}>
@@ -123,7 +137,7 @@ export default function ProfileVerificationComponent(props) {
             <Text
               style={{ textAlign: "center", fontWeight: "bold", marginTop: 8 }}
             >
-              Respond{"\n"} to request
+              {lan == "en" ? "Respond \n to request" : "استجب للطلب"}
             </Text>
           </View>
         </View>
@@ -167,11 +181,18 @@ export default function ProfileVerificationComponent(props) {
         </View>
       </>
       <View style={{ marginBottom: 50, alignSelf: "center" }}>
-        <Text style={{ fontSize: 10 }}>
-          Your account is under verification,
+        <Text style={{ fontSize: 10, alignSelf: "flex-start" }}>
+          {lan == "en"
+            ? "Your account is under verification"
+            : "حسابك قيد التحقق"}
+          ,
         </Text>
         <Text style={{ fontWeight: "bold" }}>
-          Wafarnalak will get back{"\n"} to you once done
+          {lan == "en" ? "Wafarnalak will get back" : ""}
+          {"\n"}{" "}
+          {lan == "en"
+            ? "to you once done"
+            : "سوف يعود عليك وفرنالك بمجرد الانتهاء"}
         </Text>
       </View>
     </Container>

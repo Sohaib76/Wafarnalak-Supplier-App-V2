@@ -83,7 +83,11 @@ export default class CompanyProfileComponent extends React.Component {
         });
       });
   };
-  componentDidMount = () => {
+  componentDidMount = async () => {
+    let lan = await AsyncStorage.getItem("lan");
+    this.setState({
+      lan: lan !== null ? lan : "en",
+    });
     this.getNationalities();
   };
 
@@ -198,7 +202,9 @@ export default class CompanyProfileComponent extends React.Component {
             });
 
             if (responseJson.profilestatus === 3) {
-              this.props.navigation.navigate("ProfileVerification");
+              this.props.navigation.navigate("ProfileVerification", {
+                lan: this.state.lan,
+              });
             }
           } else {
             Toast.show({
@@ -244,7 +250,7 @@ export default class CompanyProfileComponent extends React.Component {
               fontWeight: "bold",
             }}
           >
-            User Details
+            {this.state.lan == "en" ? "User Details" : ""}
           </Title>
           <Right />
         </Header>
@@ -314,7 +320,9 @@ export default class CompanyProfileComponent extends React.Component {
             </View>
           </TouchableWithoutFeedback> */}
           <View style={{ marginTop: 20, marginLeft: 18, marginRight: 35 }}>
-            <Text style={{ color: "#283a97" }}>Shop Name</Text>
+            <Text style={{ color: "#283a97" }}>
+              {this.state.lan == "en" ? "Shop Name" : "اسم المحل"}
+            </Text>
             <View style={{ flexDirection: "row" }}>
               <View style={{ marginTop: 5 }}>
                 <Image
@@ -339,7 +347,12 @@ export default class CompanyProfileComponent extends React.Component {
             </View>
           </View>
           <View style={{ marginTop: 20, marginLeft: 18, marginRight: 35 }}>
-            <Text style={{ color: "#283a97" }}>Iqama/National ID Number *</Text>
+            <Text style={{ color: "#283a97" }}>
+              {this.state.lan == "en"
+                ? "Iqama/National ID Number"
+                : "الإقامة / رقم الهوية"}{" "}
+              *
+            </Text>
             <View style={{ flexDirection: "row" }}>
               <View style={{ marginTop: 5 }}>
                 <Image
@@ -372,7 +385,12 @@ export default class CompanyProfileComponent extends React.Component {
             }
           >
             <View style={{ marginTop: 15, marginLeft: 18, marginRight: 35 }}>
-              <Text style={{ color: "#283a97" }}>Iqama/National ID *</Text>
+              <Text style={{ color: "#283a97" }}>
+                {this.state.lan == "en"
+                  ? "Iqama/National ID"
+                  : "الإقامة / الهوية الوطنية"}{" "}
+                *
+              </Text>
               <View style={{ flexDirection: "row" }}>
                 <View style={{ marginTop: 3 }}>
                   <Ionicons name="ios-image" size={22} />
@@ -386,7 +404,11 @@ export default class CompanyProfileComponent extends React.Component {
                   }}
                 >
                   <View style={{ position: "absolute", left: 8, top: 5 }}>
-                    <Text style={{ color: "gray" }}>Upload images</Text>
+                    <Text style={{ color: "gray" }}>
+                      {this.state.lan == "en"
+                        ? "Upload images"
+                        : "تحميل الصورة"}
+                    </Text>
                   </View>
                   <View
                     style={{ position: "absolute", right: 6, marginTop: 3 }}
@@ -465,7 +487,9 @@ export default class CompanyProfileComponent extends React.Component {
             }
           >
             <View style={{ marginTop: 15, marginLeft: 18, marginRight: 35 }}>
-              <Text style={{ color: "#283a97" }}>Pictures of Work</Text>
+              <Text style={{ color: "#283a97" }}>
+                {this.state.lan == "en" ? "Pictures of Work" : "صورة العمل"}
+              </Text>
               <View style={{ flexDirection: "row" }}>
                 <View style={{ marginTop: 3 }}>
                   <Ionicons name="ios-image" size={22} />
@@ -479,7 +503,11 @@ export default class CompanyProfileComponent extends React.Component {
                   }}
                 >
                   <View style={{ position: "absolute", left: 8, top: 5 }}>
-                    <Text style={{ color: "gray" }}>Upload images</Text>
+                    <Text style={{ color: "gray" }}>
+                      {this.state.lan == "en"
+                        ? "Upload images"
+                        : "تحميل الصورة"}
+                    </Text>
                   </View>
                   <View
                     style={{ position: "absolute", right: 6, marginTop: 3 }}
@@ -499,7 +527,9 @@ export default class CompanyProfileComponent extends React.Component {
             }
           >
             <View style={{ marginTop: 15, marginLeft: 18, marginRight: 35 }}>
-              <Text style={{ color: "#283a97" }}>Pictures of Shop</Text>
+              <Text style={{ color: "#283a97" }}>
+                {this.state.lan == "en" ? "Pictures of Shop" : "صورة المحل"}
+              </Text>
               <View style={{ flexDirection: "row" }}>
                 <View style={{ marginTop: 3 }}>
                   <Ionicons name="ios-image" size={22} />
@@ -513,7 +543,11 @@ export default class CompanyProfileComponent extends React.Component {
                   }}
                 >
                   <View style={{ position: "absolute", left: 8, top: 5 }}>
-                    <Text style={{ color: "gray" }}>Upload images</Text>
+                    <Text style={{ color: "gray" }}>
+                      {this.state.lan == "en"
+                        ? "Upload images"
+                        : "تحميل الصورة"}
+                    </Text>
                   </View>
                   <View
                     style={{ position: "absolute", right: 6, marginTop: 3 }}
@@ -532,7 +566,9 @@ export default class CompanyProfileComponent extends React.Component {
             }
           >
             <View style={{ marginTop: 15, marginLeft: 18, marginRight: 35 }}>
-              <Text style={{ color: "#283a97" }}>Select Location *</Text>
+              <Text style={{ color: "#283a97" }}>
+                {this.state.lan == "en" ? "Select Location" : "إختر الموقع"} *
+              </Text>
               <View style={{ flexDirection: "row" }}>
                 <View style={{ marginTop: 3 }}>
                   <Ionicons name="ios-locate" size={22} />
@@ -562,7 +598,9 @@ export default class CompanyProfileComponent extends React.Component {
             </View>
           </TouchableWithoutFeedback>
           <View style={{ marginTop: 15, marginLeft: 18, marginRight: 35 }}>
-            <Text style={{ color: "#283a97" }}>Select Nationality *</Text>
+            <Text style={{ color: "#283a97" }}>
+              {this.state.lan == "en" ? "Select Nationality" : "إختر الجنسية"} *
+            </Text>
             <View style={{ flexDirection: "row" }}>
               <View style={{ marginTop: 5 }}>
                 <Image
@@ -599,6 +637,11 @@ export default class CompanyProfileComponent extends React.Component {
         </>
         <Button
           onPress={this.saveCompanyDetail}
+          // onPress={() =>
+          //   this.props.navigation.navigate("ProfileVerification", {
+          //     lan: this.state.lan,
+          //   })
+          // } //Change
           rounded
           style={{
             backgroundColor: "#283a97",
