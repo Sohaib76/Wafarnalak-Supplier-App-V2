@@ -58,7 +58,7 @@ export default class BalanceComponent extends React.Component {
         .then((response) => response.json())
         .then((responseJson) => {
           if (responseJson.error === false) {
-            console.log(responseJson);
+            console.log("Response", responseJson);
             this.setState({ reports: responseJson, spUser: spUser });
           } else {
             this.setState({ loading: false });

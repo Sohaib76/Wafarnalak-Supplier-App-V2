@@ -56,6 +56,7 @@ export default class AddressesComponent extends React.Component {
     )
       .then((response) => response.json())
       .then((responseJson) => {
+        console.log(responseJson);
         if (responseJson.error === false) {
           let copyLocations = this.state.user.location;
           let index = copyLocations.findIndex(

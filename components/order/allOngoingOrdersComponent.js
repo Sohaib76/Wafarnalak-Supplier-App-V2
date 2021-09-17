@@ -70,8 +70,12 @@ export default class AllOngoingOrderComponent extends React.Component {
               });
             } else {
               this.setState({ loading: false });
+              console.log(responseJson);
               Toast.show({
-                text: responseJson.message,
+                text:
+                  this.state.lan == "en"
+                    ? responseJson.message
+                    : responseJson.message_ar,
                 buttonText: "",
                 position: "bottom",
               });

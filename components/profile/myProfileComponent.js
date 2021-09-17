@@ -257,11 +257,11 @@ export default class MyProfileComponent extends React.Component {
   };
   makeCall = () => {
     const args = {
-      number: "+966577311430",
+      number: "+966530576063", //+966577311430
       prompt: true,
     };
 
-    call(args);
+    call(args).catch(console.error);
   };
 
   render() {

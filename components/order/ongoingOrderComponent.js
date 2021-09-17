@@ -147,7 +147,9 @@ export default class OngoingOrderComponent extends React.Component {
               ? this.state.lan == "en"
                 ? "Completed Order"
                 : "الطلب المكتمل"
-              : "Ongoing Orders"}
+              : this.state.lan == "en"
+              ? "Ongoing Orders"
+              : "الطلبات مستمرة"}
           </Title>
           <Right />
         </Header>
@@ -158,7 +160,12 @@ export default class OngoingOrderComponent extends React.Component {
           this.state.ongoingOrder === undefined ||
           this.state.ongoingOrder === null ? (
             <View style={{ alignSelf: "center", marginTop: 90 }}>
-              <Text>you haven't started any work yet!</Text>
+              <Text>
+                {this.state.lan == "en"
+                  ? "you haven't started any work yet"
+                  : "لم تبدأ أي عمل بعد"}
+                !
+              </Text>
             </View>
           ) : (
             <View>
@@ -213,8 +220,9 @@ export default class OngoingOrderComponent extends React.Component {
                     }}
                   >
                     {this.state.lan == "en" ? "Category Name" : "اسم التصنيف"}:{" "}
-                    {this.state.ongoingOrder &&
-                      this.state.ongoingOrder.servicename}
+                    {this.state.ongoingOrder && this.state.lan == "en"
+                      ? this.state.ongoingOrder.servicename
+                      : this.state.ongoingOrder.servicename_ar}
                   </Text>
                   <Text
                     style={{
@@ -234,7 +242,7 @@ export default class OngoingOrderComponent extends React.Component {
                       fontSize: 14,
                     }}
                   >
-                    {this.state.lan == "en" ? "Customer Name" : ""}:{" "}
+                    {this.state.lan == "en" ? "Customer Name" : "اسم العميل"}:{" "}
                     {this.state.ongoingOrder &&
                       this.state.ongoingOrder.customername}{" "}
                   </Text>
@@ -299,7 +307,8 @@ export default class OngoingOrderComponent extends React.Component {
                         </View>
                         {service.meters ? (
                           <Text style={{ color: "gray", marginLeft: 6 }}>
-                            Meters: {service.meters ? service.meters : ""}
+                            {this.state.lan == "en" ? "Meters" : "أمتار"}:{" "}
+                            {service.meters ? service.meters : ""}
                           </Text>
                         ) : (
                           <View></View>

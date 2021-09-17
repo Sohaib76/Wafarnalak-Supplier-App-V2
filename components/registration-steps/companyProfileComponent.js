@@ -250,7 +250,7 @@ export default class CompanyProfileComponent extends React.Component {
               fontWeight: "bold",
             }}
           >
-            {this.state.lan == "en" ? "User Details" : ""}
+            {this.state.lan == "en" ? "User Details" : "بيانات المستخدم"}
           </Title>
           <Right />
         </Header>

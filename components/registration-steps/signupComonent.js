@@ -255,7 +255,7 @@ export default class SignupComponent extends React.Component {
               fontWeight: "bold",
             }}
           >
-            {this.state.lan == "en" ? "User Details" : ""}
+            {this.state.lan == "en" ? "User Details" : "بيانات المستخدم"}
           </Title>
           <Right />
         </Header>
@@ -409,7 +409,9 @@ export default class SignupComponent extends React.Component {
               <Text
                 style={{ color: "white", fontSize: 12, alignSelf: "center" }}
               >
-                Enter 4-digit code sent to your mobile number
+                {this.state.lan == "en"
+                  ? "Enter 4-digit code sent to your mobile number"
+                  : "أدخل الرمز المكون من 4 أرقام المرسل إلى رقم الجوال"}
               </Text>
               <Input
                 style={{
@@ -434,7 +436,11 @@ export default class SignupComponent extends React.Component {
                   <TouchableWithoutFeedback
                     onPress={this.resendVerficationCode}
                   >
-                    <Text style={{ color: "white" }}>Resend code</Text>
+                    <Text style={{ color: "white" }}>
+                      {this.state.lan == "en"
+                        ? "Resend code"
+                        : "إعادة إرسال الرمز"}
+                    </Text>
                   </TouchableWithoutFeedback>
                 </View>
               ) : (
@@ -452,7 +458,7 @@ export default class SignupComponent extends React.Component {
                       fontWeight: "bold",
                     }}
                   >
-                    Resend in
+                    {this.state.lan == "en" ? "Resend in" : "إعادة الإرسال"}
                   </Text>
                   <CountDown
                     until={60 * 2 + 59}
@@ -503,7 +509,7 @@ export default class SignupComponent extends React.Component {
                       marginTop: 6,
                     }}
                   >
-                    I accept the
+                    {this.state.lan == "en" ? "I accept the" : "أقبل"}
                     <TouchableWithoutFeedback
                       onPress={this.openTermsAndCondition}
                     >
@@ -514,10 +520,12 @@ export default class SignupComponent extends React.Component {
                           fontSize: 12,
                         }}
                       >
-                        terms & conditions
+                        {this.state.lan == "en"
+                          ? "terms & conditions"
+                          : "البنود و الظروف"}
                       </Text>
                     </TouchableWithoutFeedback>
-                    and the
+                    {this.state.lan == "en" ? "and the" : "و ال"}
                     <TouchableWithoutFeedback onPress={this.openPrivacyPolicy}>
                       <Text
                         style={{
@@ -526,7 +534,9 @@ export default class SignupComponent extends React.Component {
                           fontSize: 12,
                         }}
                       >
-                        privacy policies
+                        {this.state.lan == "en"
+                          ? "privacy policies"
+                          : "سياسات الخصوصية"}
                       </Text>
                     </TouchableWithoutFeedback>
                   </Text>
@@ -551,7 +561,9 @@ export default class SignupComponent extends React.Component {
                       marginRight: 12,
                     }}
                   >
-                    Verify and Log In
+                    {this.state.lan == "en"
+                      ? "Verify and Log In"
+                      : "تحقق وتسجيل الدخول"}
                   </Text>
                 </View>
               </Button>

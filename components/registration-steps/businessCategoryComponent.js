@@ -49,6 +49,7 @@ export default class BusinessCategoryComponent extends React.Component {
       .then((response) => response.json())
       .then((responseJson) => {
         if (responseJson.error === false) {
+          console.log(responseJson);
           this.setState({
             loading: false,
             businessCategories: responseJson.categories,
@@ -131,7 +132,10 @@ export default class BusinessCategoryComponent extends React.Component {
       })
       .catch((error) => {
         Toast.show({
-          text: "Something went wrong try again later!",
+          text:
+            this.state.lan == "en"
+              ? "Something went wrong try again later!"
+              : "حدث خطأ ما ، حاول مرة أخرى في وقت لاحق",
           buttonText: "",
           position: "bottom",
         });
@@ -208,7 +212,9 @@ export default class BusinessCategoryComponent extends React.Component {
                           }}
                         />
                         <Text style={{ marginLeft: 6, alignSelf: "center" }}>
-                          {category.servicename}
+                          {this.state.lan == "en"
+                            ? category.servicename
+                            : category.servicename_ar}
                         </Text>
                       </View>
                       {this.state.selectedArrayItem.includes(category) ? (

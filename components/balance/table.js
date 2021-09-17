@@ -76,13 +76,14 @@ export default class InvoiceTableComponent extends React.Component {
             let objArray = [
               element.orderid,
               element.deliverydate,
-              element.servicename,
+              this.state.lan == "en"
+                ? element.servicename
+                : element.servicename_ar,
               element.spservicecharges,
             ];
             array.push(objArray);
           });
           this.setState({ tableData: array });
-          console.log("tableData ", tableData);
         } else {
           this.setState({ loading: false });
           Toast.show({
@@ -130,7 +131,7 @@ export default class InvoiceTableComponent extends React.Component {
               fontWeight: "bold",
             }}
           >
-            {this.state.lan == "en" ? "Invoice" : ""}
+            {this.state.lan == "en" ? "Invoice" : "فاتورة"}
           </Title>
           <Right />
         </Header>

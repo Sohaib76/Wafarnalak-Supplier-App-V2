@@ -143,7 +143,7 @@ export default class NewOrderComponent extends React.Component {
               <Text>
                 {this.state.lan == "en"
                   ? "Currently No New Order Available!"
-                  : ""}
+                  : "الطلب غير متاح حاليا"}
               </Text>
             </View>
           ) : (
@@ -199,7 +199,9 @@ export default class NewOrderComponent extends React.Component {
                     }}
                   >
                     {this.state.lan == "en" ? "Category name" : "اسم التصنيف"}:{" "}
-                    {this.state.newOrder.servicename}
+                    {this.state.lan == "en"
+                      ? this.state.newOrder.servicename
+                      : this.state.newOrder.servicename_ar}
                   </Text>
                   <Text
                     style={{
@@ -218,7 +220,7 @@ export default class NewOrderComponent extends React.Component {
                       fontSize: 14,
                     }}
                   >
-                    {this.state.lan == "en" ? "Customer Name" : ""}:{" "}
+                    {this.state.lan == "en" ? "Customer Name" : "اسم العميل"}:{" "}
                     {this.state.newOrder.customername}{" "}
                   </Text>
                 </View>
@@ -269,7 +271,9 @@ export default class NewOrderComponent extends React.Component {
                             <View
                               style={{ flexDirection: "row", marginRight: 8 }}
                             >
-                              <Text style={{ color: "gray" }}>SAR </Text>
+                              <Text style={{ color: "gray" }}>
+                                {this.state.lan == "en" ? "SAR" : "ريال"}{" "}
+                              </Text>
                               <Text style={{ color: "gray" }}>
                                 {service.price}
                               </Text>
@@ -353,7 +357,10 @@ export default class NewOrderComponent extends React.Component {
                       flexDirection: "row",
                     }}
                   >
-                    <Text>{this.state.newOrder.grandtotalprice} SAR</Text>
+                    <Text>
+                      {this.state.newOrder.grandtotalprice}{" "}
+                      {this.state.lan == "en" ? "SAR" : "ريال"}
+                    </Text>
                   </View>
                   <View style={{ alignSelf: "center" }}>
                     <Text style={{ color: "gray" }}>
