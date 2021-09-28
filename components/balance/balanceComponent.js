@@ -72,7 +72,10 @@ export default class BalanceComponent extends React.Component {
         .catch((error) => {
           this.setState({ loading: false });
           Toast.show({
-            text: "Something went wrong please try again later!",
+            text:
+              this.state.lan == "en"
+                ? "Something went wrong please try again later!"
+                : "هناك شئ خاطئ، يرجى المحاولة فى وقت لاحق!",
             buttonText: "",
             position: "bottom",
           });

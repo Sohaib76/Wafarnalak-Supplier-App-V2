@@ -57,7 +57,10 @@ export default class BusinessCategoryComponent extends React.Component {
           });
         } else {
           Toast.show({
-            text: responseJson.message,
+            text:
+              this.state.lan == "en"
+                ? responseJson.message
+                : responseJson_ar.message,
             buttonText: "",
             position: "bottom",
           });
@@ -123,7 +126,10 @@ export default class BusinessCategoryComponent extends React.Component {
           });
         } else {
           Toast.show({
-            text: responseJson.message,
+            text:
+              this.state.lan == "en"
+                ? responseJson.message
+                : responseJson_ar.message,
             buttonText: "",
             position: "bottom",
           });

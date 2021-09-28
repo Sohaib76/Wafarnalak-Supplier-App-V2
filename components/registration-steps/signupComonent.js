@@ -198,7 +198,10 @@ export default class SignupComponent extends React.Component {
           });
       } else {
         Toast.show({
-          text: "Check the terms and condition & privacy policy!",
+          text:
+            this.state.lan == "en"
+              ? "Check the terms and condition & privacy policy!"
+              : "حدد الشروط والأحكام وسياسة الخصوصية",
           buttonText: "",
           position: "bottom",
         });

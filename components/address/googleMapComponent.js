@@ -146,7 +146,10 @@ export default class GoogleMapComponent extends React.Component {
           if (responseJson.error === false) {
             this.setState({ loading: false });
             Toast.show({
-              text: "Location has been saved successfully!!",
+              text:
+                this.state.lan == "en"
+                  ? "Location has been saved successfully!!"
+                  : "تم حفظ الموقع بنجاح",
               buttonText: "",
               position: "bottom",
             });
@@ -172,7 +175,10 @@ export default class GoogleMapComponent extends React.Component {
         });
     } else {
       Toast.show({
-        text: "please enter location title!",
+        text:
+          this.state.lan == "en"
+            ? "please enter location title!"
+            : "الرجاء إدخال عنوان الموقع",
         buttonText: "",
         position: "bottom",
       });

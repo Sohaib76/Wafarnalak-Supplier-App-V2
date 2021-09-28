@@ -30,6 +30,9 @@ export default class OngoingOrderComponent extends React.Component {
     this.state = {
       materialCost: "",
       serviceCost: "",
+      servicecharges: "initial",
+      comments: "",
+      materialsUsed: "",
       ongoingOrder: null,
       isCompleted: false,
       user: {},
@@ -41,21 +44,48 @@ export default class OngoingOrderComponent extends React.Component {
   };
   componentDidMount = async () => {
     const { navigation } = this.props;
+    let lan = await AsyncStorage.getItem("lan");
     this.setState({
-      lan: navigation.getParam("lan"),
+      lan,
     });
+    // alert(navigation.getParam("lan"));
     let completedOrders = navigation.getParam("completedOrder");
+    console.log(completedOrders);
     let user = await AsyncStorage.getItem("sp");
     if (user !== null) {
       let spUser = JSON.parse(user);
       this.setState({
         user: spUser,
         ongoingOrder: completedOrders,
-        materialCost: completedOrders.materialcost,
-        serviceCost: completedOrders.spservicecost,
+        mlCost: completedOrders.materialcost, //materialCost
         isCompleted: navigation.getParam("isCompleted"),
+        servicecharges: completedOrders.spservicecost,
+        sp_feedback: completedOrders.sp_feedback,
+        materialcost_details: completedOrders.materialcost_details,
       });
     }
+
+    // if (this.state.isCompleted) {
+    //   fetch(
+    //     "http://ec2-13-234-48-248.ap-south-1.compute.amazonaws.com/wf/V1.2/sp_finishes_job",
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         Accept: "application/json",
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({
+    //         spid: this.state.user.spid,
+    //       }),
+    //     }
+    //   )
+    //     .then((response) => response.json())
+    //     .then((responseJson) => {
+    //       console.log(responseJson);
+
+    //       //          console.log(responseJson.Orders);
+    //     });
+    // }
   };
   finsihJob = () => {
     if (this.state.serviceCost !== "") {
@@ -73,13 +103,15 @@ export default class OngoingOrderComponent extends React.Component {
             orderid: this.state.ongoingOrder.orderid,
             materialcost: this.state.materialCost,
             servicecharges: this.state.serviceCost,
+            sp_feedback: this.state.comments,
+            materialcost_details: this.state.materialsUsed,
           }),
         }
       )
         .then((response) => response.json())
         .then((responseJson) => {
           if (responseJson.error === false) {
-            console.log(responseJson);
+            console.log(responseJson, "Job Finished Log");
             this.setState({ loading: false });
             this.props.navigation.navigate("OrderDelivered");
           } else {
@@ -94,7 +126,10 @@ export default class OngoingOrderComponent extends React.Component {
         .catch((error) => {
           this.setState({ loading: false });
           Toast.show({
-            text: "Something went wrong please try again later!",
+            text:
+              this.state.lan == "en"
+                ? "Something went wrong please try again later!"
+                : "هناك شئ خاطئ، يرجى المحاولة فى وقت لاحق!",
             buttonText: "",
             position: "bottom",
           });
@@ -343,7 +378,11 @@ export default class OngoingOrderComponent extends React.Component {
                       this.state.lan == "en" ? "SAR 0000" : "0000 ريال"
                     }
                     placeholderTextColor="gray"
-                    value={this.state.materialCost}
+                    value={
+                      !this.state.isCompleted
+                        ? this.state.materialCost
+                        : `${this.state.mlCost}`
+                    }
                     keyboardType="decimal-pad"
                     editable={!this.state.isCompleted}
                     style={{
@@ -377,7 +416,11 @@ export default class OngoingOrderComponent extends React.Component {
                     }
                     placeholderTextColor="gray"
                     editable={!this.state.isCompleted}
-                    value={this.state.serviceCost}
+                    value={
+                      !this.state.isCompleted
+                        ? this.state.serviceCost
+                        : `${this.state.servicecharges}`
+                    }
                     keyboardType="decimal-pad"
                     style={{
                       backgroundColor: "lightgray",
@@ -386,6 +429,83 @@ export default class OngoingOrderComponent extends React.Component {
                     }}
                     onChangeText={(sCost) => {
                       this.saveState("serviceCost", sCost);
+                    }}
+                  />
+                </View>
+              </View>
+
+              <View style={{ marginTop: 20, marginLeft: 18, marginRight: 35 }}>
+                <Text style={{ color: "#283a97" }}>
+                  {this.state.lan == "en" ? "Order Feedback" : "سعر الخدمة:"}
+                </Text>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ marginTop: 3 }}>
+                    <Image
+                      source={require("../../assets/icons/Comment2-min.png")}
+                      style={{ width: 30, height: 17 }}
+                      resizeMode="contain"
+                    />
+                  </View>
+                  <Input
+                    placeholder={
+                      this.state.lan == "en" ? "Comments" : "تعليقات"
+                    }
+                    placeholderTextColor="gray"
+                    editable={!this.state.isCompleted}
+                    value={
+                      !this.state.isCompleted
+                        ? this.state.comments
+                        : this.state.sp_feedback
+                    }
+                    keyboardType="decimal-pad"
+                    style={{
+                      backgroundColor: "lightgray",
+                      height: 58,
+                      marginLeft: 5,
+                    }}
+                    onChangeText={(sComment) => {
+                      this.saveState("comments", sComment);
+                    }}
+                  />
+                </View>
+              </View>
+
+              <View style={{ marginTop: 20, marginLeft: 18, marginRight: 35 }}>
+                <Text style={{ color: "#283a97" }}>
+                  {this.state.lan == "en"
+                    ? "Detatils of Materials used"
+                    : "تفاصيل المواد المستخدمة"}
+                </Text>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ marginTop: 3 }}>
+                    <Image
+                      source={require("../../assets/icons/Detail-of-Material2-min.png")}
+                      style={{ width: 30, height: 17 }}
+                      resizeMode="contain"
+                    />
+                  </View>
+                  <Input
+                    multiline={true}
+                    placeholder={
+                      this.state.lan == "en"
+                        ? "Material Name 1, \nMaterial Name 2"
+                        : "اسم المادة 1, \n اسم المادة 2"
+                    }
+                    placeholderTextColor="gray"
+                    editable={!this.state.isCompleted}
+                    value={
+                      !this.state.isCompleted
+                        ? this.state.materialsUsed
+                        : this.state.materialcost_details
+                    }
+                    keyboardType="decimal-pad"
+                    style={{
+                      backgroundColor: "lightgray",
+                      height: 58, //28
+                      marginLeft: 5,
+                    }}
+                    onChangeText={(sUsed) => {
+                      this.saveState("materialsUsed", sUsed);
                     }}
                   />
                 </View>

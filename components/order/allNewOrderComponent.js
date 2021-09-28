@@ -34,9 +34,13 @@ export default class AllNewOrderComponent extends React.Component {
   }
   componentDidMount = async () => {
     const { navigation } = this.props;
+    let lan = await AsyncStorage.getItem("lan");
     this.setState({
-      lan: navigation.getParam("lan"),
+      lan,
     });
+    // this.setState({
+    //   lan: navigation.getParam("lan"),
+    // });
     let user = await AsyncStorage.getItem("sp");
     if (user !== null) {
       let spUser = JSON.parse(user);
@@ -75,7 +79,10 @@ export default class AllNewOrderComponent extends React.Component {
         .catch((error) => {
           this.setState({ loading: false });
           Toast.show({
-            text: "Something went wrong please try again later!",
+            text:
+              this.state.lan == "en"
+                ? "Something went wrong please try again later!"
+                : "هناك شئ خاطئ، يرجى المحاولة فى وقت لاحق!",
             buttonText: "",
             position: "bottom",
           });

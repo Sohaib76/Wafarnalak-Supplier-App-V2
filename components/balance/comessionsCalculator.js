@@ -66,7 +66,10 @@ export default class ComessionCalculatorComponent extends React.Component {
         })
         .catch((error) => {
           Toast.show({
-            text: "Something went wrong please try again later!",
+            text:
+              this.state.lan == "en"
+                ? "Something went wrong please try again later!"
+                : "هناك شئ خاطئ، يرجى المحاولة فى وقت لاحق!",
             position: "bottom",
           });
         });

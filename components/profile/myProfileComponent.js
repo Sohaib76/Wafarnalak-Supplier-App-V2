@@ -108,7 +108,10 @@ export default class MyProfileComponent extends React.Component {
         })
         .catch((error) => {
           Toast.show({
-            text: "Something went wrong please try again later!",
+            text:
+              this.state.lan == "en"
+                ? "Something went wrong please try again later!"
+                : "هناك شئ خاطئ، يرجى المحاولة فى وقت لاحق!",
             buttonText: "",
             position: "bottom",
           });
@@ -285,7 +288,10 @@ export default class MyProfileComponent extends React.Component {
             >
               {/* top:56 */}
               {/* top: 45, right: 10 */}
-              <TouchableWithoutFeedback onPress={this.changeLanguage}>
+              <TouchableWithoutFeedback
+                disabled={true}
+                onPress={this.changeLanguage}
+              >
                 <Text style={{ color: "white", fontSize: 12 }}>
                   {this.state.lan == "en" ? "العربية" : "English"}
                 </Text>

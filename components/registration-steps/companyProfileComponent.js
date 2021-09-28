@@ -224,7 +224,10 @@ export default class CompanyProfileComponent extends React.Component {
         });
     } else {
       Toast.show({
-        text: "Please enter the required data!!",
+        text:
+          this.state.lan == "en"
+            ? "Please enter the required data!!"
+            : "الرجاء إدخال البيانات المطلوبة!!",
         buttonText: "",
         position: "bottom",
       });
@@ -628,9 +631,9 @@ export default class CompanyProfileComponent extends React.Component {
                     {nationalityItems}
                   </Picker>
                 </View>
-                <View style={{ position: "absolute", right: 6, marginTop: 3 }}>
+                {/* <View style={{ position: "absolute", right: 6, marginTop: 3 }}>
                   <Ionicons name="ios-arrow-down" size={22} />
-                </View>
+                </View> */}
               </View>
             </View>
           </View>
