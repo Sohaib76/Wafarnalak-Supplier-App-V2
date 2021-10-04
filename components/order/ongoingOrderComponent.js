@@ -88,7 +88,12 @@ export default class OngoingOrderComponent extends React.Component {
     // }
   };
   finsihJob = () => {
-    if (this.state.serviceCost !== "") {
+    if (
+      this.state.serviceCost !== "" &&
+      this.state.materialsUsed !== "" &&
+      this.state.comments !== "" &&
+      this.state.materialCost !== ""
+    ) {
       this.setState({ loading: true });
       fetch(
         "http://ec2-13-234-48-248.ap-south-1.compute.amazonaws.com/wf/V1.2/sp_finishes_job",
@@ -136,7 +141,7 @@ export default class OngoingOrderComponent extends React.Component {
         });
     } else {
       Toast.show({
-        text: "please enter the service cost that you received!",
+        text: "please enter the required fields!",
         buttonText: "",
         position: "bottom",
       });
