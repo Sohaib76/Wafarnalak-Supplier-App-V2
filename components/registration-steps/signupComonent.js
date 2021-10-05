@@ -120,7 +120,10 @@ export default class SignupComponent extends React.Component {
               } else {
                 console.log("error");
                 Toast.show({
-                  text: responseJson.message,
+                  text:
+                    this.state.lan == "en"
+                      ? responseJson.message
+                      : responseJson.message_ar,
                   buttonText: "",
                   position: "bottom",
                 });
@@ -182,7 +185,10 @@ export default class SignupComponent extends React.Component {
             if (responseJson.error === false) {
             } else {
               Toast.show({
-                text: responseJson.message,
+                text:
+                  this.state.lan == "en"
+                    ? responseJson.message
+                    : responseJson.message_ar,
                 buttonText: "",
                 position: "bottom",
               });

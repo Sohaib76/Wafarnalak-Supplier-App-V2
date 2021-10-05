@@ -155,7 +155,10 @@ export default class LoginComponent extends React.Component {
       this.setState({ loading: false });
 
       Toast.show({
-        text: "Please enter your valid phone number!",
+        text:
+          this.state.lan == "en"
+            ? "Please enter your valid phone number!"
+            : "الرجاء إدخال رقم الجوال الصحيح!",
         position: "bottom",
       });
     }

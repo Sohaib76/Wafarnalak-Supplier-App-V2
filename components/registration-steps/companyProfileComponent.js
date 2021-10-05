@@ -196,7 +196,10 @@ export default class CompanyProfileComponent extends React.Component {
           if (responseJson.error === false) {
             this.setState({ loading: false });
             Toast.show({
-              text: "Company detail has been saved successfully!!",
+              text:
+                this.state.lan == "en"
+                  ? "Company detail has been saved successfully!!"
+                  : "تم حفظ تفاصيل الشركة بنجاح !!",
               buttonText: "",
               position: "bottom",
             });
