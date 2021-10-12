@@ -7,6 +7,9 @@ import {
   Text,
   TouchableWithoutFeedback,
   View,
+  ImageBackground,
+  Dimensions,
+  TextInput,
 } from "react-native";
 import {
   Body,
@@ -23,6 +26,7 @@ import {
   Thumbnail,
   Title,
   Toast,
+  Icon,
 } from "native-base";
 let persianNumbers = [
   /۰/g,
@@ -238,151 +242,442 @@ export default class SignupComponent extends React.Component {
   render() {
     return (
       <Container>
-        <Header style={{ backgroundColor: "#283a97", height: 80 }}>
-          <Left
-            style={{
-              marginTop: Platform.OS === "ios" ? 9 : 24,
-              marginLeft: 10,
-              flexDirection: "row",
-            }}
+        <ImageBackground
+          source={require("../../assets/background/Sign-in-Screen.png")}
+          style={{
+            width: Dimensions.get("screen").width,
+            height: Dimensions.get("screen").height,
+          }}
+        >
+          <Header
+            style={{ backgroundColor: "rgba(255,255,255,0)", height: 80 }}
           >
-            <Ionicons
-              onPress={() => {
-                this.props.navigation.goBack();
+            <Left
+              style={{
+                marginTop: Platform.OS === "ios" ? 9 : 24,
+                marginLeft: 10,
+                flexDirection: "row",
               }}
-              name={"ios-arrow-back"}
-              size={30}
-              color={"white"}
-            />
-          </Left>
-          <Title
-            style={{
-              color: "white",
-              position: "absolute",
-              top: Platform.OS === "android" ? 38 : 38,
-              fontSize: 18,
-              fontWeight: "bold",
-            }}
-          >
-            {this.state.lan == "en" ? "User Details" : "بيانات المستخدم"}
-          </Title>
-          <Right />
-        </Header>
-        <>
-          {/* Content */}
-          <Spinner visible={this.state.loading} textContent={""} />
-          <Form>
-            <Item stackedLabel>
-              <Label style={{ color: "#283a97" }}>
-                {this.state.lan == "en" ? "Full Name" : "اسم الكامل"}
-              </Label>
-              <Input
-                value={this.state.name}
-                onChangeText={(name) => {
-                  this.saveState("name", name);
+            >
+              <Ionicons
+                onPress={() => {
+                  this.props.navigation.goBack();
                 }}
-                keyboardType="default"
+                name={"ios-arrow-back"}
+                size={30}
+                color={"white"}
               />
-            </Item>
-            <Item stackedLabel>
-              <Label style={{ color: "#283a97" }}>
-                {this.state.lan == "en"
-                  ? "Email (Optional)"
-                  : "(البريد الإلكتروني(اختياري"}
-              </Label>
-              <Input
-                value={this.state.email}
-                onChangeText={(email) => {
-                  this.saveState("email", email);
-                }}
-                keyboardType="email-address"
-              />
-            </Item>
-            <View style={{ flexDirection: "row" }}>
-              <View>
-                <Item stackedLabel>
-                  <Label style={{ color: "#283a97" }}>
-                    {this.state.lan == "en" ? "Code" : "مفتاح الدولة"}
-                  </Label>
-                  <Input style={{ width: 90 }} value="+966" editable={false} />
-                </Item>
+            </Left>
+            <Title
+              style={{
+                color: "white",
+                position: "absolute",
+                top: Platform.OS === "android" ? 38 : 38,
+                fontSize: 18,
+                fontWeight: "bold",
+              }}
+            >
+              {this.state.lan == "en" ? "User Details" : "بيانات المستخدم"}
+            </Title>
+            <Right />
+          </Header>
+          <>
+            {/* Content */}
+            <Spinner visible={this.state.loading} textContent={""} />
+            {/* <Form>
+              <Item stackedLabel>
+                <Label style={{ color: "#283a97" }}>
+                  {this.state.lan == "en" ? "Full Name" : "اسم الكامل"}
+                </Label>
+                <Input
+                  value={this.state.name}
+                  onChangeText={(name) => {
+                    this.saveState("name", name);
+                  }}
+                  keyboardType="default"
+                />
+              </Item>
+              <Item stackedLabel>
+                <Label style={{ color: "#283a97" }}>
+                  {this.state.lan == "en"
+                    ? "Email (Optional)"
+                    : "(البريد الإلكتروني(اختياري"}
+                </Label>
+                <Input
+                  value={this.state.email}
+                  onChangeText={(email) => {
+                    this.saveState("email", email);
+                  }}
+                  keyboardType="email-address"
+                />
+              </Item>
+              <View style={{ flexDirection: "row" }}>
+                <View>
+                  <Item stackedLabel>
+                    <Label style={{ color: "#283a97" }}>
+                      {this.state.lan == "en" ? "Code" : "مفتاح الدولة"}
+                    </Label>
+                    <Input
+                      style={{ width: 90 }}
+                      value="+966"
+                      editable={false}
+                    />
+                  </Item>
+                </View>
+                <View style={{ marginLeft: 15 }}>
+                  <Item stackedLabel>
+                    <Label style={{ color: "#283a97" }}>
+                      {this.state.lan == "en" ? "Mobile Number" : "رقم الجوال"}
+                    </Label>
+                    <Input
+                      style={{ width: 250 }}
+                      placeholder="05XXXXXXXX"
+                      value={this.state.phone}
+                      // onChangeText={phone => {
+                      //   // fixNumbers = phone => {
+                      //   if (typeof phone === "string") {
+                      //     for (var i = 0; i < 10; i++) {
+                      //       phone = phone.replace(arabicNumbers[i], i);
+                      //     }
+                      //   }
+                      //   // return phone;
+                      //   this.saveState("phone", phone);
+                      //   // this.setState({ mobile: phone.replace(/[^0-9]/g, "") });
+                      //   // };
+                      // }}
+                      onChangeText={(value) => {
+                        this.saveState("phone", value.replace(/[^0-9]/g, ""));
+                      }}
+                      keyboardType="phone-pad"
+                    />
+                  </Item>
+                </View>
               </View>
-              <View style={{ marginLeft: 15 }}>
-                <Item stackedLabel>
-                  <Label style={{ color: "#283a97" }}>
-                    {this.state.lan == "en" ? "Mobile Number" : "رقم الجوال"}
-                  </Label>
-                  <Input
-                    style={{ width: 250 }}
-                    placeholder="05XXXXXXXX"
-                    value={this.state.phone}
-                    // onChangeText={phone => {
-                    //   // fixNumbers = phone => {
-                    //   if (typeof phone === "string") {
-                    //     for (var i = 0; i < 10; i++) {
-                    //       phone = phone.replace(arabicNumbers[i], i);
-                    //     }
-                    //   }
-                    //   // return phone;
-                    //   this.saveState("phone", phone);
-                    //   // this.setState({ mobile: phone.replace(/[^0-9]/g, "") });
-                    //   // };
+            </Form>
+             */}
+
+            {/* <View style={{ alignSelf: "center", marginTop: 15 }}>
+            
+            <Button
+                full
+                onPress={this.registerNewUser} //Change this line
+                // onPress={() => this.props.navigation.navigate("BusinessCategory")}
+                rounded
+                style={{
+                  backgroundColor: "#283a97",
+                  width: 270, //width: 270,
+                  height: 40,
+                  justifyContent: "center",
+                }}
+              >
+                <Text style={{ color: "white", fontWeight: "bold" }}>
+                  {this.state.lan == "en" ? "Sign Up" : "اشتراك"}
+                </Text>
+              </Button>
+            </View> */}
+
+            <View style={{ marginTop: 70 }}>
+              <View style={{ alignItems: "flex-start" }}>
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 15,
+                    marginLeft: 70,
+                    marginBottom: 5,
+                  }}
+                >
+                  {this.state.lan == "en" ? "Full Name" : "اسم الكامل"}
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  // alignSelf: "center",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                  width: "80%",
+                }}
+              >
+                <View
+                  style={{
+                    paddingTop: 4,
+                    marginLeft: 15,
+                    width: 30, // 20
+                    alignSelf: "center",
+                    // marginTop: 90,
+                    marginRight: 10,
+                    marginLeft: 30,
+                  }}
+                >
+                  <Icon name="person" style={{ color: "#fff" }} size={40} />
+                </View>
+                <View
+                  style={{
+                    borderWidth: 1,
+                    height: 50,
+                    width: 290,
+                    // marginTop: 90,
+                    flexDirection: "row",
+                    alignSelf: "center",
+                    backgroundColor: "white",
+                    alignItems: "center",
+                    borderRadius: 10,
+                  }}
+                >
+                  <TextInput
+                    style={{
+                      backgroundColor: "white",
+                      marginLeft: 32,
+                      height: 30,
+                      width: 180, //260
+                    }}
+                    placeholder={
+                      this.state.lan == "en" ? "Abdul Aziz" : "Abdul Aziz"
+                    }
+                    returnKeyType={"done"}
+                    value={this.state.name}
+                    onChangeText={(name) => {
+                      this.saveState("name", name);
+                    }}
+                    keyboardType="default"
+                  />
+                </View>
+              </View>
+            </View>
+
+            <View style={{ marginTop: 40 }}>
+              <View style={{ alignItems: "flex-start" }}>
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 15,
+                    marginLeft: 70,
+                    marginBottom: 5,
+                  }}
+                >
+                  {this.state.lan == "en"
+                    ? "Email (Optional)"
+                    : "(البريد الإلكتروني(اختياري"}
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  // alignSelf: "center",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                  width: "80%",
+                }}
+              >
+                <View
+                  style={{
+                    paddingTop: 4,
+                    marginLeft: 15,
+                    width: 30, // 20
+                    alignSelf: "center",
+                    // marginTop: 90,
+                    marginRight: 10,
+                    marginLeft: 30,
+                  }}
+                >
+                  <Icon name="mail" style={{ color: "#fff" }} size={40} />
+                </View>
+                <View
+                  style={{
+                    borderWidth: 1,
+                    height: 50,
+                    width: 290,
+                    // marginTop: 90,
+                    flexDirection: "row",
+                    alignSelf: "center",
+                    backgroundColor: "white",
+                    alignItems: "center",
+                    borderRadius: 10,
+                  }}
+                >
+                  <TextInput
+                    style={{
+                      backgroundColor: "white",
+                      marginLeft: 32,
+                      height: 30,
+                      width: 180, //260
+                    }}
+                    placeholder={
+                      this.state.lan == "en" ? "abc@gmail.com" : "abc@gmail.com"
+                    }
+                    returnKeyType={"done"}
+                    value={this.state.email}
+                    onChangeText={(email) => {
+                      this.saveState("email", email);
+                    }}
+                    keyboardType="email-address"
+                  />
+                </View>
+              </View>
+            </View>
+
+            <View style={{ marginTop: 40 }}>
+              <View style={{ alignItems: "flex-start" }}>
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 15,
+                    marginLeft: 70,
+                    marginBottom: 5,
+                  }}
+                >
+                  {this.state.lan == "en"
+                    ? "Mobile Number"
+                    : "(البريد الإلكتروني(اختياري"}
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  // alignSelf: "center",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                  width: "80%",
+                }}
+              >
+                <View
+                  style={{
+                    paddingTop: 4,
+                    marginLeft: 15,
+                    width: 30, // 20
+                    alignSelf: "center",
+                    // marginTop: 90,
+                    marginRight: 10,
+                    marginLeft: 30,
+                  }}
+                >
+                  <Icon name="call" style={{ color: "#fff" }} size={40} />
+                </View>
+
+                <View
+                  style={{
+                    borderWidth: 1,
+                    height: 50,
+                    width: 80, //290
+                    // marginTop: 90,
+                    flexDirection: "row",
+                    alignSelf: "center",
+                    backgroundColor: "white",
+                    alignItems: "center",
+                    borderRadius: 10,
+                  }}
+                >
+                  <TextInput
+                    style={{
+                      backgroundColor: "white",
+                      marginLeft: 32,
+                      height: 30,
+                      // width: 10, //260
+                    }}
+                    placeholder={this.state.lan == "en" ? "+966" : "+966"}
+                    value={+966}
+                    defaultValue={+966}
+                    editable={false}
+                    // onChangeText={(value) => {
+                    //   this.saveState("phone", value.replace(/[^0-9]/g, ""));
                     // }}
+                    keyboardType="phone-pad"
+                  />
+                </View>
+
+                <View
+                  style={{
+                    borderWidth: 1,
+                    height: 50,
+                    width: 220, //290
+                    // marginTop: 90,
+                    flexDirection: "row",
+                    alignSelf: "center",
+                    backgroundColor: "white",
+                    alignItems: "center",
+                    borderRadius: 10,
+                  }}
+                >
+                  <TextInput
+                    style={{
+                      backgroundColor: "white",
+                      marginLeft: 32,
+                      height: 30,
+                      width: 180, //260
+                    }}
+                    placeholder={
+                      this.state.lan == "en" ? "05xxxxxxxxx" : "05xxxxxxxxx"
+                    }
+                    returnKeyType={"done"}
+                    value={this.state.phone}
                     onChangeText={(value) => {
                       this.saveState("phone", value.replace(/[^0-9]/g, ""));
                     }}
                     keyboardType="phone-pad"
                   />
-                </Item>
+                </View>
               </View>
             </View>
-          </Form>
-          <View style={{ alignSelf: "center", marginTop: 15 }}>
-            <Button
-              full
-              onPress={this.registerNewUser} //Change this line
-              // onPress={() => this.props.navigation.navigate("BusinessCategory")}
-              rounded
+
+            <View
               style={{
-                backgroundColor: "#283a97",
-                width: 270, //width: 270,
-                height: 40,
                 justifyContent: "center",
+                alignSelf: "center",
+                width: "80%",
+                height: "6.5%",
+                marginTop: 50,
               }}
             >
-              <Text style={{ color: "white", fontWeight: "bold" }}>
-                {this.state.lan == "en" ? "Sign Up" : "اشتراك"}
-              </Text>
-            </Button>
-          </View>
-          <Text
-            style={{
-              color: "#283a97",
-              textAlign: "center",
-              marginLeft: 20,
-              marginRight: 20,
-              marginTop: 10,
-            }}
-          >
-            {this.state.lan == "en"
-              ? "By sign up,you agree wafarnalak's"
-              : "بالتسجيل ، أنت توافق على"}
-            {"  "}
-            <TouchableWithoutFeedback
-              onPress={() => {
-                WebBrowser.openBrowserAsync(
-                  "https://xn--mgbt1ckekl.com/terms-conditions/"
-                );
+              <Button
+                onPress={this.registerNewUser}
+                style={{
+                  justifyContent: "center",
+                  backgroundColor: "#fff",
+                  marginTop: 26,
+                  borderRadius: 12,
+                  alignSelf: "center",
+                  width: "100%", //90
+                  height: "100%",
+                }}
+              >
+                <Text
+                  style={{ color: "black", fontSize: 15, textAlign: "center" }}
+                >
+                  {this.state.lan == "en" ? "Sign Up" : "بالتسجيل الآن"}
+                </Text>
+              </Button>
+            </View>
+            <Text
+              style={{
+                color: "#283a97",
+                textAlign: "center",
+                marginLeft: 20,
+                marginRight: 20,
+                marginTop: "15%",
+                fontSize: 20,
+                color: "white",
               }}
             >
-              <Text style={{ textDecorationLine: "underline" }}>
-                {this.state.lan == "en"
-                  ? "terms and conditions"
-                  : "شروط وأحكام وفرنالك"}
-              </Text>
-            </TouchableWithoutFeedback>
-          </Text>
-        </>
+              {this.state.lan == "en"
+                ? "By signing up, you agree Wafarnalak's"
+                : "بالتسجيل ، أنت توافق على"}
+              {"  "}
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  WebBrowser.openBrowserAsync(
+                    "https://xn--mgbt1ckekl.com/terms-conditions/"
+                  );
+                }}
+              >
+                <Text style={{ textDecorationLine: "underline" }}>
+                  {this.state.lan == "en"
+                    ? "terms and conditions"
+                    : "شروط وأحكام وفرنالك"}
+                </Text>
+              </TouchableWithoutFeedback>
+            </Text>
+          </>
+        </ImageBackground>
         {/* Content */}
         <Modal
           animationType="slide"

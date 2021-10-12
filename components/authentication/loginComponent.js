@@ -99,7 +99,7 @@ export default class LoginComponent extends React.Component {
       this.state.mobile.charAt(1) == 5 &&
       this.state.mobile.length == 10
     ) {
-      if (this.state.iAgree === true) {
+      if (this.state.iAgree === false) {
         this.setState({ loading: true });
         fetch(
           "http://ec2-13-234-48-248.ap-south-1.compute.amazonaws.com/testApi/V1/sp_login",
@@ -359,67 +359,111 @@ export default class LoginComponent extends React.Component {
               resizeMode="contain"
             />
           </View>
+
+          <View style={{ marginTop: "15%" }}>
+            <Text
+              style={{
+                color: "white",
+                fontSize: 20,
+                alignSelf: "center",
+                fontWeight: "bold",
+              }}
+            >
+              {this.state.lan == "en"
+                ? " Welcome to Wafarnalak Supplier App"
+                : "مرحبا بكم في تطبيق وفرنالك للمورد"}
+            </Text>
+          </View>
           <>
             {/* Content */}
             <Spinner visible={this.state.loading} textContent={""} />
-            <View
-              style={{
-                borderWidth: 1,
-                height: 50,
-                width: 270,
-                marginTop: 90,
-                flexDirection: "row",
-                alignSelf: "center",
-                backgroundColor: "white",
-                alignItems: "center",
-              }}
-            >
+
+            <View style={{ marginTop: 90 }}>
+              <View style={{ alignItems: "flex-start" }}>
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 15,
+                    marginLeft: 70,
+                    marginBottom: 5,
+                  }}
+                >
+                  {this.state.lan == "en"
+                    ? "Enter Phone Number"
+                    : "أدخل رقم الجوال"}
+                </Text>
+              </View>
               <View
                 style={{
-                  paddingTop: 4,
-                  marginLeft: 15,
-                  width: 30, // 20
+                  flexDirection: "row",
+                  // alignSelf: "center",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                  width: "80%",
                 }}
               >
-                <Icon
-                  name="ios-person"
-                  style={{ color: "#283a97" }}
-                  size={40}
-                />
-              </View>
-              <TextInput
-                style={{
-                  backgroundColor: "white",
-                  marginLeft: 32,
-                  height: 30,
-                  width: 180, //260
-                }}
-                placeholder={
-                  this.state.lan == "en" ? "Mobile No." : "رقم الجوال"
-                }
-                keyboardType="phone-pad"
-                maxLength={10}
-                returnKeyType={"done"}
-                value={this.state.mobile}
-                onChangeText={(phone) => {
-                  this.saveState("mobile", phone);
-                }}
+                <View
+                  style={{
+                    paddingTop: 4,
+                    marginLeft: 15,
+                    width: 30, // 20
+                    alignSelf: "center",
+                    // marginTop: 90,
+                    marginRight: 10,
+                    marginLeft: 30,
+                  }}
+                >
+                  <Icon name="call" style={{ color: "#fff" }} size={40} />
+                </View>
+                <View
+                  style={{
+                    borderWidth: 1,
+                    height: 50,
+                    width: 290,
+                    // marginTop: 90,
+                    flexDirection: "row",
+                    alignSelf: "center",
+                    backgroundColor: "white",
+                    alignItems: "center",
+                    borderRadius: 10,
+                  }}
+                >
+                  <TextInput
+                    style={{
+                      backgroundColor: "white",
+                      marginLeft: 32,
+                      height: 30,
+                      width: 180, //260
+                    }}
+                    placeholder={
+                      this.state.lan == "en" ? "971548757589" : "971548757589"
+                    }
+                    keyboardType="phone-pad"
+                    maxLength={10}
+                    returnKeyType={"done"}
+                    value={this.state.mobile}
+                    onChangeText={(phone) => {
+                      this.saveState("mobile", phone);
+                    }}
 
-                // onChangeText={phone => {
-                //   // fixNumbers = phone => {
-                //   if (typeof phone === "string") {
-                //     for (var i = 0; i < 10; i++) {
-                //       phone = phone.replace(arabicNumbers[i], i);
-                //     }
-                //   }
-                //   // return phone;
-                //   this.saveState("phone", phone);
-                //   // this.setState({ mobile: phone.replace(/[^0-9]/g, "") });
-                //   // };
-                // }}
-              />
+                    // onChangeText={phone => {
+                    //   // fixNumbers = phone => {
+                    //   if (typeof phone === "string") {
+                    //     for (var i = 0; i < 10; i++) {
+                    //       phone = phone.replace(arabicNumbers[i], i);
+                    //     }
+                    //   }
+                    //   // return phone;
+                    //   this.saveState("phone", phone);
+                    //   // this.setState({ mobile: phone.replace(/[^0-9]/g, "") });
+                    //   // };
+                    // }}
+                  />
+                </View>
+              </View>
             </View>
-            <View
+
+            {/* <View
               style={{
                 flexDirection: "row",
                 marginTop: 50,
@@ -482,60 +526,80 @@ export default class LoginComponent extends React.Component {
                 </Text>
               </View>
             </View>
+            
+             */}
             <Button
               onPress={this.loginUser}
               style={{
                 justifyContent: "center",
-                backgroundColor: "#283a97",
-                marginTop: 26,
-                borderRadius: 18,
+                backgroundColor: "#fff",
+                marginTop: 36, //26
+                borderRadius: 12,
                 alignSelf: "center",
-                width: 100, //90
-                height: 30,
+                width: "80%", //90
+                height: "6.5%",
               }}
             >
-              <Text style={{ color: "white" }}>
+              <Text style={{ color: "black", fontSize: 15 }}>
                 {this.state.lan == "en" ? "Sign In" : "تسجيل الدخول"}
               </Text>
             </Button>
           </>
           {/* Content */}
-
           <View
             style={{
               position: "absolute",
-              bottom: "10%",
+              bottom: "30%",
               alignSelf: "center",
             }}
           >
-            {/*  marginTop: "10%" */}
-            <View
+            <Text style={{ fontSize: 15, color: "white", fontWeight: "bold" }}>
+              {this.state.lan == "en"
+                ? "RIYADH \t | \t AL KHARJ"
+                : "الرياض \t /  \tالخرج."}
+            </Text>
+          </View>
+          <View
+            style={{
+              position: "absolute",
+              bottom: "15%",
+              alignSelf: "center",
+            }}
+          >
+            <Text style={{ fontSize: 20, color: "white" }}>
+              {this.state.lan == "en"
+                ? "Don't have an account?"
+                : "هل لديك حساب"}
+            </Text>
+          </View>
+          <View
+            style={{
+              position: "absolute",
+              bottom: "8%",
+              justifyContent: "center",
+              alignSelf: "center",
+              width: "80%",
+              height: "6.5%",
+            }}
+          >
+            <Button
+              onPress={() => this.props.navigation.navigate("Signup")}
               style={{
-                borderBottomWidth: 1,
-                borderBottomColor: "lightgray",
+                justifyContent: "center",
+                backgroundColor: "#4a4b4c",
+                marginTop: 26,
+                borderRadius: 12,
                 alignSelf: "center",
+                width: "100%", //90
+                height: "100%",
               }}
             >
-              <Text style={{ fontSize: 12, color: "white" }}>
-                {this.state.lan == "en"
-                  ? "Signup on this application and start providing services."
-                  : "قم بتسجيل الدخول على هذا التطبيق وابدأ في تقديم الخدمات."}
+              <Text
+                style={{ color: "white", fontSize: 15, textAlign: "center" }}
+              >
+                {this.state.lan == "en" ? "Sign Up" : "بالتسجيل الآن"}
               </Text>
-            </View>
-            <View style={{ marginTop: 1, alignSelf: "center" }}>
-              <Text style={{ fontSize: 12, color: "white" }}>
-                {this.state.lan == "en"
-                  ? "If you don't have an account,"
-                  : "إذا لم يكن لديك حساب قم"}{" "}
-                <TouchableWithoutFeedback
-                  onPress={() => this.props.navigation.navigate("Signup")}
-                >
-                  <Text style={{ fontSize: 14, fontWeight: "bold" }}>
-                    {this.state.lan == "en" ? "Sign-Up" : "بالتسجيل الآن"}
-                  </Text>
-                </TouchableWithoutFeedback>
-              </Text>
-            </View>
+            </Button>
           </View>
         </ImageBackground>
         <Modal

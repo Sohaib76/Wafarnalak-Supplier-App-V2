@@ -6,6 +6,7 @@ import {
   View,
   TouchableWithoutFeedback,
   AsyncStorage,
+  ImageBackground,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { NavigationEvents } from "react-navigation";
@@ -227,147 +228,200 @@ export default class UpdateProfileComponent extends React.Component {
       gender: value,
     });
   }
+
   render() {
     return (
-      <Container style={{ backgroundColor: "lightgray" }}>
-        <Header style={{ backgroundColor: "#283a97", height: 80 }}>
-          <Left
-            style={{
-              marginTop: Platform.OS === "ios" ? 9 : 24,
-              //  marginTop: Platform.OS === "ios" ? 9 : 24,
-              marginLeft: 10,
-              flexDirection: "row",
-            }}
-          >
-            <Ionicons
-              onPress={() => {
-                this.props.navigation.goBack();
-              }}
-              name={"ios-arrow-back"}
-              size={30}
-              color={"white"}
-            />
-          </Left>
-          <Title
-            style={{
-              color: "white",
-              position: "absolute",
-              top: Platform.OS === "android" ? 38 : 38,
-              fontSize: 18,
-              fontWeight: "bold",
-            }}
-          >
-            {this.state.lan == "en" ? "Profile" : "ملفي الشخصي"}
-          </Title>
-          <Right />
-        </Header>
-        {/* Content */}
-        {/* <View style={{ backgroundColor: "lightgray" }}> */}
-        <ScrollView
-          contentContainerStyle={{
-            justifyContent: "center",
-            // backgroundColor: "lightgray",
-            // height: "100%",
+      <Container>
+        <ImageBackground
+          source={require("../../assets/icons/Background.png")}
+          resizeMode="fill" //cover
+          style={{
+            width: Dimensions.get("screen").width,
+            height: Dimensions.get("screen").height,
           }}
         >
-          {
-            <NavigationEvents
-              onWillFocus={() => {
-                this.getSpUser();
+          <Header
+            style={{
+              backgroundColor: "#fff",
+              height: 80,
+              borderBottomWidth: 2,
+              borderBottomColor: "#00203b",
+            }}
+          >
+            <Left
+              style={{
+                marginTop: Platform.OS === "ios" ? 9 : 24,
+                //  marginTop: Platform.OS === "ios" ? 9 : 24,
+                marginLeft: 10,
+                flexDirection: "row",
               }}
-            />
-          }
-          <Spinner visible={this.state.loading} textContent={""} />
-          <View style={{ marginTop: 20, marginLeft: 35.5, marginRight: 35.5 }}>
-            {/* ml : 18, mr:35 */}
-            <Text style={{ color: "#283a97", marginLeft: 5 }}>
-              {this.state.lan == "en"
-                ? "ID (Iqama) Number"
-                : "رقم هوية الإقامة"}
-              *
-            </Text>
-            <View style={{ flexDirection: "row" }}>
-              <Input
-                placeholder="123"
-                placeholderTextColor="gray"
-                returnKeyType="done"
-                value={this.state.id}
-                style={{
-                  backgroundColor: "white",
-                  height: 28,
-                  marginLeft: 5,
+            >
+              <Ionicons
+                onPress={() => {
+                  this.props.navigation.goBack();
                 }}
-                onChangeText={(id) => {
-                  this.saveState("id", id);
+                name={"ios-arrow-back"}
+                size={30}
+                color={"#00203b"}
+              />
+            </Left>
+            <Title
+              style={{
+                color: "#00203b",
+                position: "absolute",
+                top: Platform.OS === "android" ? 38 : 38,
+                fontSize: 18,
+                fontWeight: "bold",
+              }}
+            >
+              {this.state.lan == "en" ? "Profile" : "ملفي الشخصي"}
+            </Title>
+            <Right />
+          </Header>
+          {/* Content */}
+          {/* <View style={{ backgroundColor: "lightgray" }}> */}
+          <ScrollView
+            contentContainerStyle={{
+              justifyContent: "center",
+              // backgroundColor: "lightgray",
+              // height: "100%",
+            }}
+          >
+            {
+              <NavigationEvents
+                onWillFocus={() => {
+                  this.getSpUser();
                 }}
               />
-            </View>
-          </View>
-          <View style={{ marginTop: 10, marginLeft: 35.5, marginRight: 35.5 }}>
-            <Text style={{ color: "#283a97", marginLeft: 5 }}>
-              {this.state.lan == "en" ? "License Number" : "رقم الرخصة"}*
-            </Text>
-            <View style={{ flexDirection: "row" }}>
-              <Input
-                placeholder="123"
-                placeholderTextColor="gray"
-                value={this.state.licenseNumber}
-                returnKeyType="done"
+            }
+            <Spinner visible={this.state.loading} textContent={""} />
+            <View
+              style={{ marginTop: 20, marginLeft: 35.5, marginRight: 35.5 }}
+            >
+              {/* ml : 18, mr:35 */}
+              <Text style={{ color: "#283a97", marginLeft: 5 }}>
+                {this.state.lan == "en" ? "ID Number" : "رقم هوية الإقامة"}*
+              </Text>
+              <View
                 style={{
-                  backgroundColor: "white",
-                  height: 28,
-                  marginLeft: 5,
+                  flexDirection: "row",
+                  borderColor: "grey",
+                  borderWidth: 0.5,
+                  borderRadius: 20,
+                  marginTop: 5,
                 }}
-                onChangeText={(license) => {
-                  this.saveState("licenseNumber", license);
-                }}
-              />
+              >
+                <Input
+                  placeholder="123"
+                  placeholderTextColor="gray"
+                  returnKeyType="done"
+                  value={this.state.id}
+                  style={{
+                    backgroundColor: "white",
+                    height: 28,
+                    marginLeft: 5,
+                  }}
+                  onChangeText={(id) => {
+                    this.saveState("id", id);
+                  }}
+                />
+              </View>
             </View>
-          </View>
-          <View style={{ marginTop: 10, marginLeft: 35.5, marginRight: 35.5 }}>
-            <Text style={{ color: "#283a97", marginLeft: 5 }}>
-              {this.state.lan == "en" ? "Full Name" : "الاسم بالكامل"}*
-            </Text>
-            <View style={{ flexDirection: "row" }}>
-              <Input
-                placeholder="John Doe"
-                placeholderTextColor="gray"
-                value={this.state.name}
+            <View
+              style={{ marginTop: 10, marginLeft: 35.5, marginRight: 35.5 }}
+            >
+              <Text style={{ color: "#283a97", marginLeft: 5 }}>
+                {this.state.lan == "en" ? "License Number" : "رقم الرخصة"}*
+              </Text>
+              <View
                 style={{
-                  backgroundColor: "white",
-                  height: 28,
-                  marginLeft: 5,
+                  flexDirection: "row",
+                  borderColor: "grey",
+                  borderWidth: 0.5,
+                  borderRadius: 20,
+                  marginTop: 5,
                 }}
-                onChangeText={(name) => {
-                  this.saveState("name", name);
-                }}
-              />
+              >
+                <Input
+                  placeholder="123"
+                  placeholderTextColor="gray"
+                  value={this.state.licenseNumber}
+                  returnKeyType="done"
+                  style={{
+                    backgroundColor: "white",
+                    height: 28,
+                    marginLeft: 5,
+                  }}
+                  onChangeText={(license) => {
+                    this.saveState("licenseNumber", license);
+                  }}
+                />
+              </View>
             </View>
-          </View>
-          <View style={{ marginTop: 10, marginLeft: 35.5, marginRight: 35.5 }}>
-            <Text style={{ color: "#283a97", marginLeft: 5 }}>
-              {this.state.lan == "en"
-                ? "Email Address"
-                : "عنوان البريد الإلكتروني"}
-            </Text>
-            <View style={{ flexDirection: "row" }}>
-              <Input
-                placeholder="John@Doe.com"
-                placeholderTextColor="gray"
-                returnKeyType="done"
-                value={this.state.email}
+            <View
+              style={{ marginTop: 10, marginLeft: 35.5, marginRight: 35.5 }}
+            >
+              <Text style={{ color: "#283a97", marginLeft: 5 }}>
+                {this.state.lan == "en" ? "Full Name" : "الاسم بالكامل"}*
+              </Text>
+              <View
                 style={{
-                  backgroundColor: "white",
-                  height: 28,
-                  marginLeft: 5,
+                  flexDirection: "row",
+                  borderColor: "grey",
+                  borderWidth: 0.5,
+                  borderRadius: 20,
+                  marginTop: 5,
                 }}
-                onChangeText={(email) => {
-                  this.saveState("email", email);
-                }}
-              />
+              >
+                <Input
+                  placeholder="John Doe"
+                  placeholderTextColor="gray"
+                  value={this.state.name}
+                  style={{
+                    backgroundColor: "white",
+                    height: 28,
+                    marginLeft: 5,
+                  }}
+                  onChangeText={(name) => {
+                    this.saveState("name", name);
+                  }}
+                />
+              </View>
             </View>
-          </View>
-          {/* <View style={{ marginTop: 10,  marginLeft: 35.5, marginRight: 35.5 }}>
+            <View
+              style={{ marginTop: 10, marginLeft: 35.5, marginRight: 35.5 }}
+            >
+              <Text style={{ color: "#283a97", marginLeft: 5 }}>
+                {this.state.lan == "en"
+                  ? "Email Address"
+                  : "عنوان البريد الإلكتروني"}
+              </Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  borderColor: "grey",
+                  borderWidth: 0.5,
+                  borderRadius: 20,
+                  marginTop: 5,
+                }}
+              >
+                <Input
+                  placeholder="John@Doe.com"
+                  placeholderTextColor="gray"
+                  returnKeyType="done"
+                  value={this.state.email}
+                  style={{
+                    backgroundColor: "white",
+                    height: 28,
+                    marginLeft: 5,
+                  }}
+                  onChangeText={(email) => {
+                    this.saveState("email", email);
+                  }}
+                />
+              </View>
+            </View>
+            {/* <View style={{ marginTop: 10,  marginLeft: 35.5, marginRight: 35.5 }}>
                         <Text style={{ color: '#283a97', marginLeft: 5 }}>Gender</Text>
                         <View style={{ flexDirection: 'row' }}>
                             <Input placeholder="Male"
@@ -379,56 +433,76 @@ export default class UpdateProfileComponent extends React.Component {
                             <View style={{ marginTop: 8, position: 'absolute', right: 10 }}><Ionicons name="ios-arrow-down" /></View>
                         </View>
                     </View> */}
-          <View style={{ marginTop: 10, marginLeft: 35.5, marginRight: 35.5 }}>
-            <Text style={{ color: "#283a97", marginLeft: 5 }}>
-              {this.state.lan == "en" ? "Mobile Number" : "رقم الجوال"}*
-            </Text>
-            <View style={{ flexDirection: "row" }}>
-              <Input
-                placeholder="+96XXXXXX"
-                placeholderTextColor="gray"
-                value={this.state.mobile}
-                returnKeyType="done"
+            <View
+              style={{ marginTop: 10, marginLeft: 35.5, marginRight: 35.5 }}
+            >
+              <Text style={{ color: "#283a97", marginLeft: 5 }}>
+                {this.state.lan == "en" ? "Mobile Number" : "رقم الجوال"}*
+              </Text>
+              <View
                 style={{
-                  backgroundColor: "white",
-                  height: 28,
-                  marginLeft: 5,
+                  flexDirection: "row",
+                  borderColor: "grey",
+                  borderWidth: 0.5,
+                  borderRadius: 20,
+                  marginTop: 5,
                 }}
-                onChangeText={(mobile) => {
-                  this.saveState("mobile", mobile);
-                }}
-              />
+              >
+                <Input
+                  placeholder="+96XXXXXX"
+                  placeholderTextColor="gray"
+                  value={this.state.mobile}
+                  returnKeyType="done"
+                  style={{
+                    backgroundColor: "white",
+                    height: 28,
+                    marginLeft: 5,
+                  }}
+                  onChangeText={(mobile) => {
+                    this.saveState("mobile", mobile);
+                  }}
+                />
+              </View>
             </View>
-          </View>
-          <View style={{ marginTop: 10, marginLeft: 35.5, marginRight: 35.5 }}>
-            <Text style={{ color: "#283a97", marginLeft: 5 }}>
-              {this.state.lan == "en" ? "Shop Name" : "إسم المحل"}
-            </Text>
-            <View style={{ flexDirection: "row" }}>
-              <Input
-                placeholder="ABC Shop"
-                placeholderTextColor="gray"
-                value={this.state.shopName}
-                returnKeyType="done"
+            <View
+              style={{ marginTop: 10, marginLeft: 35.5, marginRight: 35.5 }}
+            >
+              <Text style={{ color: "#283a97", marginLeft: 5 }}>
+                {this.state.lan == "en" ? "Shop Name" : "إسم المحل"}
+              </Text>
+              <View
                 style={{
-                  backgroundColor: "white",
-                  height: 28,
-                  marginLeft: 5,
+                  flexDirection: "row",
+                  borderColor: "grey",
+                  borderWidth: 0.5,
+                  borderRadius: 20,
+                  marginTop: 5,
                 }}
-                onChangeText={(shopName) => {
-                  this.saveState("shopName", shopName);
-                }}
-              />
+              >
+                <Input
+                  placeholder="ABC Shop"
+                  placeholderTextColor="gray"
+                  value={this.state.shopName}
+                  returnKeyType="done"
+                  style={{
+                    backgroundColor: "white",
+                    height: 28,
+                    marginLeft: 5,
+                  }}
+                  onChangeText={(shopName) => {
+                    this.saveState("shopName", shopName);
+                  }}
+                />
+              </View>
             </View>
-          </View>
-          {/* 35.5 */}
-          <View style={{ marginTop: 10, marginLeft: 35.5, marginRight: 25 }}>
-            {/* marginLeft: 22, marginRight: 35  */}
-            <Text style={{ color: "#283a97", marginLeft: 5, marginRight: 5 }}>
-              {this.state.lan == "en" ? "Gender" : "الجنس"}*
-            </Text>
+            {/* 35.5 */}
+            <View style={{ marginTop: 10, marginLeft: 35.5, marginRight: 25 }}>
+              {/* marginLeft: 22, marginRight: 35  */}
+              <Text style={{ color: "#283a97", marginLeft: 5, marginRight: 5 }}>
+                {this.state.lan == "en" ? "Gender" : "الجنس"}*
+              </Text>
 
-            {/* <View
+              {/* <View
               style={{
                 backgroundColor: "red",
                 flexDirection: "row",
@@ -436,40 +510,40 @@ export default class UpdateProfileComponent extends React.Component {
               }}
             >
             */}
-            <Picker
-              mode="dropdown"
-              iosHeader={"Choose Gender"}
-              iosIcon={<Ionicons name="ios-arrow-down" color="black" />}
-              placeholderStyle={{ color: "#bfc6ea" }}
-              placeholderIconColor="black" //#007aff
-              // Icon={<Ionicons name="arrow-down" color="black" />}
-              selectedValue={this.state.gender}
-              style={{
-                // backgroundColor: "transparent",
+              <Picker
+                mode="dropdown"
+                iosHeader={"Choose Gender"}
+                iosIcon={<Ionicons name="ios-arrow-down" color="black" />}
+                placeholderStyle={{ color: "#bfc6ea" }}
+                placeholderIconColor="black" //#007aff
+                // Icon={<Ionicons name="arrow-down" color="black" />}
+                selectedValue={this.state.gender}
+                style={{
+                  // backgroundColor: "transparent",
 
-                // width: "70%",
-                // color: "#747474",
-                // flex: 0.8,
-                backgroundColor: "white",
-                // height: Platform.OS === "android" ? 40 : 45,
+                  // width: "70%",
+                  // color: "#747474",
+                  // flex: 0.8,
+                  backgroundColor: "white",
+                  // height: Platform.OS === "android" ? 40 : 45,
 
-                height: 32,
-                borderRadius: 0,
-                marginLeft: 5, // marginLeft: 5,
-                marginRight: 10, // marginRight: 10,
-              }}
-              onValueChange={this.onValueChange.bind(this)}
-            >
-              <Picker.Item
-                label={this.state.lan == "en" ? "Female" : "أنثى"}
-                value="0"
-              />
-              <Picker.Item
-                label={this.state.lan == "en" ? "Male" : "ذكر"}
-                value="1"
-              />
-            </Picker>
-            {/* <View
+                  height: 32,
+                  borderRadius: 0,
+                  marginLeft: 5, // marginLeft: 5,
+                  marginRight: 10, // marginRight: 10,
+                }}
+                onValueChange={this.onValueChange.bind(this)}
+              >
+                <Picker.Item
+                  label={this.state.lan == "en" ? "Female" : "أنثى"}
+                  value="0"
+                />
+                <Picker.Item
+                  label={this.state.lan == "en" ? "Male" : "ذكر"}
+                  value="1"
+                />
+              </Picker>
+              {/* <View
                 style={{
                   flex: 0.5,
                   backgroundColor: "black",
@@ -479,29 +553,39 @@ export default class UpdateProfileComponent extends React.Component {
                 <Ionicons name="ios-arrow-down" color="green" size={20} />
               </View>
             </View> */}
-          </View>
-          <View style={{ marginTop: 10, marginLeft: 35.5, marginRight: 35.5 }}>
-            <Text style={{ color: "#283a97", marginLeft: 5 }}>
-              {this.state.lan == "en" ? "CR Number" : "رقم تسجيل الشركة"}
-            </Text>
-            <View style={{ flexDirection: "row" }}>
-              <Input
-                placeholder="9213"
-                placeholderTextColor="gray"
-                value={this.state.crNumber}
-                returnKeyType="done"
-                style={{
-                  backgroundColor: "white",
-                  height: 28,
-                  marginLeft: 5,
-                }}
-                onChangeText={(crNumber) => {
-                  this.saveState("crNumber", crNumber);
-                }}
-              />
             </View>
-          </View>
-          {/* <View style={{ marginTop: 10,  marginLeft: 35.5, marginRight: 35.5 }}>
+            <View
+              style={{ marginTop: 10, marginLeft: 35.5, marginRight: 35.5 }}
+            >
+              <Text style={{ color: "#283a97", marginLeft: 5 }}>
+                {this.state.lan == "en" ? "CR Number" : "رقم تسجيل الشركة"}
+              </Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  borderColor: "grey",
+                  borderWidth: 0.5,
+                  borderRadius: 20,
+                  marginTop: 5,
+                }}
+              >
+                <Input
+                  placeholder="9213"
+                  placeholderTextColor="gray"
+                  value={this.state.crNumber}
+                  returnKeyType="done"
+                  style={{
+                    backgroundColor: "white",
+                    height: 28,
+                    marginLeft: 5,
+                  }}
+                  onChangeText={(crNumber) => {
+                    this.saveState("crNumber", crNumber);
+                  }}
+                />
+              </View>
+            </View>
+            {/* <View style={{ marginTop: 10,  marginLeft: 35.5, marginRight: 35.5 }}>
                         <Text style={{ color: '#283a97', marginLeft: 5 }}>Business Name</Text>
                         <View style={{ flexDirection: 'row' }}>
                             <Input placeholder="Electronic Repair"
@@ -513,7 +597,7 @@ export default class UpdateProfileComponent extends React.Component {
                             <View style={{ marginTop: 8, position: 'absolute', right: 10 }}><Ionicons name="ios-arrow-down" /></View>
                         </View>
                     </View> */}
-          {/* <View style={{ marginTop: 10,  marginLeft: 35.5, marginRight: 35.5 }}>
+            {/* <View style={{ marginTop: 10,  marginLeft: 35.5, marginRight: 35.5 }}>
                         <Text style={{ color: '#283a97', marginLeft: 5 }}>Service Name</Text>
                         <View style={{ flexDirection: 'row' }}>
                             <Input placeholder="Electronic Repair"
@@ -524,107 +608,111 @@ export default class UpdateProfileComponent extends React.Component {
                             />
                         </View>
                     </View> */}
-          <View
-            style={{
-              marginTop: 5,
-              marginBottom: 0,
-              marginLeft: 35.5,
-              marginRight: 35.5,
-            }}
-          >
-            <Text style={{ color: "#283a97", marginLeft: 5 }}>
-              {this.state.lan == "en" ? "Work Pictures" : "صورة العمل"}
-            </Text>
             <View
               style={{
-                flexDirection: "row",
-                backgroundColor: "white",
-                marginLeft: 5,
-                marginRight: 2,
-                height: 80,
+                marginTop: 5,
+                marginBottom: 0,
+                marginLeft: 35.5,
+                marginRight: 35.5,
               }}
             >
-              {this.state.user &&
-                this.state.user.works.map(
-                  function (image, index) {
-                    return (
-                      <View key={index} style={{ marginTop: 5, marginLeft: 5 }}>
-                        <Image
-                          source={{
-                            uri:
-                              "http://ec2-13-234-48-248.ap-south-1.compute.amazonaws.com/testApi/" +
-                              image.path,
-                          }}
-                          style={{ width: 50, height: 70 }}
-                          resizeMode="contain"
-                        />
-                        <TouchableWithoutFeedback
-                          onPress={() => {
-                            this.deleteWorkPicture(image);
-                          }}
+              <Text style={{ color: "#283a97", marginLeft: 5 }}>
+                {this.state.lan == "en" ? "Work Pictures" : "صورة العمل"}
+              </Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  backgroundColor: "white",
+                  marginLeft: 5,
+                  marginRight: 2,
+                  height: 80,
+                }}
+              >
+                {this.state.user &&
+                  this.state.user.works.map(
+                    function (image, index) {
+                      return (
+                        <View
+                          key={index}
+                          style={{ marginTop: 5, marginLeft: 5 }}
                         >
-                          <View style={{ marginTop: -12 }}>
-                            <Image
-                              source={require("../../assets/icons/Delete-Picture.png")}
-                              style={{ width: 15, height: 12 }}
-                              resizeMode="contain"
-                            />
-                          </View>
-                        </TouchableWithoutFeedback>
-                      </View>
-                    );
-                  }.bind(this)
-                )}
-              <TouchableWithoutFeedback onPress={this.addNewWorkImage}>
-                <View
-                  style={{
-                    marginLeft: 5,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    marginTop: 5,
-                    borderWidth: 1,
-                    borderColor: "lightgray",
-                    width: 65,
-                    height: 70,
-                  }}
-                >
-                  <Image
-                    source={require("../../assets/icons/Add-Picture.png")}
-                    style={{ width: 30, height: 20 }}
-                    resizeMode="contain"
-                  />
-                </View>
-              </TouchableWithoutFeedback>
+                          <Image
+                            source={{
+                              uri:
+                                "http://ec2-13-234-48-248.ap-south-1.compute.amazonaws.com/testApi/" +
+                                image.path,
+                            }}
+                            style={{ width: 50, height: 70 }}
+                            resizeMode="contain"
+                          />
+                          <TouchableWithoutFeedback
+                            onPress={() => {
+                              this.deleteWorkPicture(image);
+                            }}
+                          >
+                            <View style={{ marginTop: -12 }}>
+                              <Image
+                                source={require("../../assets/icons/Delete-Picture.png")}
+                                style={{ width: 15, height: 12 }}
+                                resizeMode="contain"
+                              />
+                            </View>
+                          </TouchableWithoutFeedback>
+                        </View>
+                      );
+                    }.bind(this)
+                  )}
+                <TouchableWithoutFeedback onPress={this.addNewWorkImage}>
+                  <View
+                    style={{
+                      marginLeft: 5,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginTop: 5,
+                      borderWidth: 1,
+                      borderColor: "lightgray",
+                      width: 65,
+                      height: 70,
+                    }}
+                  >
+                    <Image
+                      source={require("../../assets/icons/Add-Picture.png")}
+                      style={{ width: 30, height: 20 }}
+                      resizeMode="contain"
+                    />
+                  </View>
+                </TouchableWithoutFeedback>
+              </View>
             </View>
-          </View>
-          <View style={{ marginTop: 10 }}></View>
-        </ScrollView>
-        {/* </View> */}
-        {/* Content */}
-        <View style={{ backgroundColor: "lightgray" }}>
-          <Button
-            onPress={this.updateProfile}
-            rounded
-            style={{
-              marginBottom: 10,
-              justifyContent: "center",
-              backgroundColor: "#283a97",
-              width: 270,
-              height: 40,
-              alignSelf: "center",
-            }}
-          >
-            <Text
+            <View style={{ marginTop: 10 }}></View>
+          </ScrollView>
+          {/* </View> */}
+          {/* Content */}
+          <View style={{ backgroundColor: "lightgray" }}>
+            <Button
+              onPress={this.updateProfile}
+              rounded
               style={{
-                color: "white",
-                fontWeight: "bold",
-                textAlign: "center",
+                marginBottom: 10,
+                justifyContent: "center",
+                backgroundColor: "#283a97",
+                width: 270,
+                height: 40,
+                alignSelf: "center",
               }}
             >
-              {this.state.lan == "en" ? "Update" : "تحديث"}
-            </Text>
-          </Button>
-        </View>
+              <Text
+                style={{
+                  color: "white",
+                  fontWeight: "bold",
+                  textAlign: "center",
+                }}
+              >
+                {this.state.lan == "en" ? "Update" : "تحديث"}
+              </Text>
+            </Button>
+          </View>
+        </ImageBackground>
       </Container>
     );
   }

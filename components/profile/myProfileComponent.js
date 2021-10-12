@@ -1,6 +1,7 @@
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import * as WebBrowser from "expo-web-browser";
+import { Ionicons } from "@expo/vector-icons";
 
 import {
   Alert,
@@ -25,6 +26,7 @@ import {
   Text,
   Thumbnail,
   Title,
+  Icon,
 } from "native-base";
 import * as Updates from "expo-updates";
 import { NavigationEvents } from "react-navigation";
@@ -33,6 +35,7 @@ import React from "react";
 import Spinner from "react-native-loading-spinner-overlay";
 import { StoreReview } from "expo";
 import call from "react-native-phone-call";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default class MyProfileComponent extends React.Component {
   constructor(props) {
@@ -271,19 +274,26 @@ export default class MyProfileComponent extends React.Component {
     return (
       <Container>
         <ImageBackground
-          source={require("../../assets/background/Category-Background-Image.png")}
-          resizeMode="cover"
+          source={require("../../assets/icons/Background.png")}
+          resizeMode="fill" //cover
           style={{
             width: Dimensions.get("screen").width,
             height: Dimensions.get("screen").height,
           }}
         >
-          <Header style={{ backgroundColor: "#283a97", height: 140 }}>
-            <Left
+          <Header
+            style={{
+              backgroundColor: "#00203b", //283a97
+              height: 140,
+              borderBottomEndRadius: 35,
+              borderBottomStartRadius: 35,
+            }}
+          >
+            <Right
               style={{
                 position: "absolute",
                 top: Platform.OS == "ios" ? 56 : 16,
-                left: 10,
+                right: 10,
               }}
             >
               {/* top:56 */}
@@ -296,8 +306,8 @@ export default class MyProfileComponent extends React.Component {
                   {this.state.lan == "en" ? "العربية" : "English"}
                 </Text>
               </TouchableWithoutFeedback>
-            </Left>
-            <Title
+            </Right>
+            {/* <Title
               style={{
                 color: "white",
                 position: "absolute",
@@ -307,28 +317,27 @@ export default class MyProfileComponent extends React.Component {
               }}
             >
               {this.state.lan == "en" ? "My Profile" : "ملفي"}
-            </Title>
+            </Title> */}
 
-            <Right
+            {/* <Right
               style={{
                 position: "absolute",
                 top: Platform.OS == "ios" ? 56 : 16,
                 right: 10,
               }}
             >
-              {/* top:56 */}
-              {/* top: 45, right: 10 */}
+              
               <TouchableWithoutFeedback onPress={this.logoutuser}>
                 <Text style={{ color: "white", fontSize: 12 }}>
                   {this.state.lan == "en" ? "Logout" : "تسجيل الخروج"}
                 </Text>
               </TouchableWithoutFeedback>
-            </Right>
+            </Right> */}
             <View
               style={{
                 position: "absolute",
                 left: 20,
-                bottom: 5,
+                bottom: 20,
                 flexDirection: "row",
               }}
             >
@@ -346,6 +355,7 @@ export default class MyProfileComponent extends React.Component {
                         "http://ec2-13-234-48-248.ap-south-1.compute.amazonaws.com/wf/" +
                         this.state.user.profileimage,
                     }}
+                    style={{ width: 80, height: 80, borderRadius: 80 / 2 }}
                   />
                 )}
               </TouchableWithoutFeedback>
@@ -354,7 +364,8 @@ export default class MyProfileComponent extends React.Component {
                   position: "absolute",
                   color: "white",
                   bottom: 20,
-                  left: 75,
+                  left: 100, //75
+                  fontSize: 20,
                 }}
               >
                 {this.state.user.name}
@@ -382,35 +393,59 @@ export default class MyProfileComponent extends React.Component {
               >
                 <View
                   style={{
-                    backgroundColor: "#EEEEEE",
+                    backgroundColor: "#fff",
                     flexDirection: "row",
                     height: 50,
+                    borderRadius: 20,
+                    width: "90%",
+                    alignSelf: "center",
+                    borderColor: "grey",
+                    borderWidth: 0.5,
+                    marginTop: 40,
+                    marginBottom: 10,
                   }}
                 >
-                  <Image
-                    source={require("../../assets/icons/Profile-Icon.png")}
+                  <View
                     style={{
-                      width: 30,
-                      height: 30,
-                      marginLeft: 30,
-                      marginTop: 10, // marginTop: 10,
-                      resizeMode: "contain",
+                      backgroundColor: "#00203b",
+                      borderTopLeftRadius: 20,
+                      borderBottomLeftRadius: 20,
                     }}
-                  />
-                  <Text
-                    style={{ color: "#4a4b4c", marginLeft: 40, marginTop: 14 }}
                   >
-                    {this.state.lan == "en" ? "Profile" : "ملفي الشخصي"}
-                  </Text>
+                    <Image
+                      source={require("../../assets/icons/Profile.png")}
+                      style={{
+                        width: 30,
+                        height: 30,
+                        marginLeft: 20, //30
+                        marginRight: 10,
+                        marginTop: 10, // marginTop: 10,
+                        resizeMode: "contain",
+                        alignSelf: "center",
+                        // tintColor: "#000000",
+                      }}
+                    />
+                  </View>
+                  <View>
+                    <Text
+                      style={{
+                        color: "#4a4b4c",
+                        marginLeft: 40,
+                        marginTop: 14,
+                      }}
+                    >
+                      {this.state.lan == "en" ? "Profile" : "ملفي الشخصي"}
+                    </Text>
+                  </View>
                 </View>
               </TouchableWithoutFeedback>
-              <View
+              {/* <View
                 style={{
                   width: Dimensions.get("screen").width,
                   height: 1,
                   backgroundColor: "white",
                 }}
-              ></View>
+              ></View> */}
               <TouchableWithoutFeedback
                 onPress={() =>
                   this.props.navigation.navigate("Addresses", {
@@ -421,21 +456,38 @@ export default class MyProfileComponent extends React.Component {
               >
                 <View
                   style={{
-                    backgroundColor: "#EEEEEE",
+                    backgroundColor: "#fff",
                     flexDirection: "row",
                     height: 50,
+                    borderRadius: 20,
+                    width: "90%",
+                    alignSelf: "center",
+                    borderColor: "grey",
+                    borderWidth: 0.5,
+
+                    marginBottom: 10,
                   }}
                 >
-                  <Image
-                    source={require("../../assets/icons/Add-Address-Icon.png")}
+                  <View
                     style={{
-                      width: 30,
-                      height: 30,
-                      marginLeft: 30,
-                      marginTop: 10,
-                      resizeMode: "contain",
+                      backgroundColor: "#00203b",
+                      borderTopLeftRadius: 20,
+                      borderBottomLeftRadius: 20,
                     }}
-                  />
+                  >
+                    <Image
+                      source={require("../../assets/icons/Add-Address.png")}
+                      style={{
+                        width: 30,
+                        height: 30,
+                        marginLeft: 20, //30
+                        marginRight: 10,
+                        marginTop: 10,
+                        resizeMode: "contain",
+                        // tintColor: "#fff",
+                      }}
+                    />
+                  </View>
                   <Text
                     style={{ color: "#4a4b4c", marginLeft: 40, marginTop: 14 }}
                   >
@@ -460,21 +512,38 @@ export default class MyProfileComponent extends React.Component {
               >
                 <View
                   style={{
-                    backgroundColor: "#EEEEEE",
+                    backgroundColor: "#fff",
                     flexDirection: "row",
                     height: 50,
+                    borderRadius: 20,
+                    width: "90%",
+                    alignSelf: "center",
+                    borderColor: "grey",
+                    borderWidth: 0.5,
+
+                    marginBottom: 10,
                   }}
                 >
-                  <Image
-                    source={require("../../assets/icons/Document.png")}
+                  <View
                     style={{
-                      width: 30,
-                      height: 30,
-                      marginLeft: 30,
-                      marginTop: 10,
-                      resizeMode: "contain",
+                      backgroundColor: "#00203b",
+                      borderTopLeftRadius: 20,
+                      borderBottomLeftRadius: 20,
                     }}
-                  />
+                  >
+                    <Image
+                      source={require("../../assets/icons/Documents.png")}
+                      style={{
+                        width: 30,
+                        height: 30,
+                        marginLeft: 20, //30
+                        marginRight: 10,
+                        marginTop: 10,
+                        resizeMode: "contain",
+                        // tintColor: "#fff",
+                      }}
+                    />
+                  </View>
                   <Text
                     style={{ color: "#4a4b4c", marginLeft: 40, marginTop: 14 }}
                   >
@@ -492,21 +561,37 @@ export default class MyProfileComponent extends React.Component {
               <TouchableWithoutFeedback onPress={this.makeCall}>
                 <View
                   style={{
-                    backgroundColor: "#EEEEEE",
+                    backgroundColor: "#fff",
                     flexDirection: "row",
                     height: 50,
+                    borderRadius: 20,
+                    width: "90%",
+                    alignSelf: "center",
+                    borderColor: "grey",
+                    borderWidth: 0.5,
+
+                    marginBottom: 10,
                   }}
                 >
-                  <Image
-                    source={require("../../assets/icons/Help.png")}
+                  <View
                     style={{
-                      width: 30,
-                      height: 30,
-                      marginLeft: 30,
-                      marginTop: 10,
-                      resizeMode: "contain",
+                      backgroundColor: "#00203b",
+                      borderTopLeftRadius: 20,
+                      borderBottomLeftRadius: 20,
                     }}
-                  />
+                  >
+                    <Image
+                      source={require("../../assets/icons/Help2.png")}
+                      style={{
+                        width: 30,
+                        height: 30,
+                        marginLeft: 20, //30
+                        marginRight: 10,
+                        marginTop: 10,
+                        resizeMode: "contain",
+                      }}
+                    />
+                  </View>
                   <Text
                     style={{ color: "#4a4b4c", marginLeft: 40, marginTop: 14 }}
                   >
@@ -531,21 +616,37 @@ export default class MyProfileComponent extends React.Component {
               >
                 <View
                   style={{
-                    backgroundColor: "#EEEEEE",
+                    backgroundColor: "#fff",
                     flexDirection: "row",
                     height: 50,
+                    borderRadius: 20,
+                    width: "90%",
+                    alignSelf: "center",
+                    borderColor: "grey",
+                    borderWidth: 0.5,
+
+                    marginBottom: 10,
                   }}
                 >
-                  <Image
-                    source={require("../../assets/icons/BalanceAndInvoices.png")}
+                  <View
                     style={{
-                      width: 30,
-                      height: 30,
-                      marginLeft: 30,
-                      marginTop: 10,
-                      resizeMode: "contain",
+                      backgroundColor: "#00203b",
+                      borderTopLeftRadius: 20,
+                      borderBottomLeftRadius: 20,
                     }}
-                  />
+                  >
+                    <Image
+                      source={require("../../assets/icons/Balance.png")}
+                      style={{
+                        width: 30,
+                        height: 30,
+                        marginLeft: 20, //30
+                        marginRight: 10,
+                        marginTop: 10,
+                        resizeMode: "contain",
+                      }}
+                    />
+                  </View>
                   <Text
                     style={{ color: "#4a4b4c", marginLeft: 40, marginTop: 14 }}
                   >
@@ -557,8 +658,16 @@ export default class MyProfileComponent extends React.Component {
               </TouchableWithoutFeedback>
               {/* <View style={{ width: Dimensions.get('screen').width, height: 1, backgroundColor: 'white' }}></View>
                             <View style={{ backgroundColor: '#EEEEEE', flexDirection: 'row', height: 50, }}>
-                                <Image source={require('../../assets/icons/Rate-Forense-Icon.png')}
-                                    style={{ width: 30, height: 30, marginLeft: 30, marginTop: 10, resizeMode: 'contain' }} />
+                                <View
+                    style={{
+                      backgroundColor: "#00203b",
+                      borderTopLeftRadius: 20,
+                      borderBottomLeftRadius: 20,
+                    }}
+                  >
+                    <Image source={require('../../assets/icons/Rate-Forense-Icon.png')}
+                                    style={{ width: 30, height: 30, marginLeft: 20, //30
+                        marginRight: 10, marginTop: 10, resizeMode: 'contain' }} />
                                 <Text style={{ color: '#4a4b4c', marginLeft: 40, marginTop: 14 }}>Rate Wafarnalak</Text>
                             </View> */}
               <View
@@ -577,21 +686,38 @@ export default class MyProfileComponent extends React.Component {
               >
                 <View
                   style={{
-                    backgroundColor: "#EEEEEE",
+                    backgroundColor: "#fff",
                     flexDirection: "row",
                     height: 50,
+                    borderRadius: 20,
+                    width: "90%",
+                    alignSelf: "center",
+                    borderColor: "grey",
+                    borderWidth: 0.5,
+
+                    marginBottom: 10,
                   }}
                 >
-                  <Image
-                    source={require("../../assets/icons/Delivered-Orders.png")}
+                  <View
                     style={{
-                      width: 30,
-                      height: 30,
-                      marginLeft: 30,
-                      marginTop: 10,
-                      resizeMode: "contain",
+                      backgroundColor: "#00203b",
+                      borderTopLeftRadius: 20,
+                      borderBottomLeftRadius: 20,
                     }}
-                  />
+                  >
+                    <Image
+                      source={require("../../assets/icons/Deliverered-Order.png")}
+                      style={{
+                        width: 30,
+                        height: 30,
+                        marginLeft: 20, //30
+                        marginRight: 10,
+                        marginTop: 10,
+                        resizeMode: "contain",
+                        // tintColor: "#fff",
+                      }}
+                    />
+                  </View>
                   <Text
                     style={{ color: "#4a4b4c", marginLeft: 40, marginTop: 14 }}
                   >
@@ -617,26 +743,48 @@ export default class MyProfileComponent extends React.Component {
               >
                 <View
                   style={{
-                    backgroundColor: "#EEEEEE",
+                    backgroundColor: "#fff",
                     flexDirection: "row",
                     height: 50,
+                    borderRadius: 20,
+                    width: "90%",
+                    alignSelf: "center",
+                    borderColor: "grey",
+                    borderWidth: 0.5,
+
+                    marginBottom: 10,
                   }}
                 >
-                  <Image
-                    source={require("../../assets/icons/New-Order.png")}
+                  <View
                     style={{
-                      width: 30,
-                      height: 30,
-                      marginLeft: 30,
-                      marginTop: 10,
-                      resizeMode: "contain",
+                      backgroundColor: "#00203b",
+                      borderTopLeftRadius: 20,
+                      borderBottomLeftRadius: 20,
                     }}
-                  />
-                  <Text
-                    style={{ color: "#4a4b4c", marginLeft: 40, marginTop: 14 }}
                   >
-                    {this.state.lan == "en" ? "New Order" : "طلب جديد"}
-                  </Text>
+                    <Image
+                      source={require("../../assets/icons/New-Order-2.png")}
+                      style={{
+                        width: 30,
+                        height: 30,
+                        marginLeft: 20, //30
+                        marginRight: 10,
+                        marginTop: 10,
+                        resizeMode: "contain",
+                      }}
+                    />
+                  </View>
+                  <View>
+                    <Text
+                      style={{
+                        color: "#4a4b4c",
+                        marginLeft: 40,
+                        marginTop: 14,
+                      }}
+                    >
+                      {this.state.lan == "en" ? "New Order" : "طلب جديد"}
+                    </Text>
+                  </View>
                 </View>
               </TouchableWithoutFeedback>
               <View
@@ -656,21 +804,37 @@ export default class MyProfileComponent extends React.Component {
               >
                 <View
                   style={{
-                    backgroundColor: "#EEEEEE",
+                    backgroundColor: "#fff",
                     flexDirection: "row",
                     height: 50,
+                    borderRadius: 20,
+                    width: "90%",
+                    alignSelf: "center",
+                    borderColor: "grey",
+                    borderWidth: 0.5,
+
+                    marginBottom: 10,
                   }}
                 >
-                  <Image
-                    source={require("../../assets/icons/Ongoing.png")}
+                  <View
                     style={{
-                      width: 30,
-                      height: 30,
-                      marginLeft: 30,
-                      marginTop: 10,
-                      resizeMode: "contain",
+                      backgroundColor: "#00203b",
+                      borderTopLeftRadius: 20,
+                      borderBottomLeftRadius: 20,
                     }}
-                  />
+                  >
+                    <Image
+                      source={require("../../assets/icons/Ongoing2.png")}
+                      style={{
+                        width: 30,
+                        height: 30,
+                        marginLeft: 20, //30
+                        marginRight: 10,
+                        marginTop: 10,
+                        resizeMode: "contain",
+                      }}
+                    />
+                  </View>
                   <Text
                     style={{ color: "#4a4b4c", marginLeft: 40, marginTop: 14 }}
                   >
@@ -690,21 +854,39 @@ export default class MyProfileComponent extends React.Component {
               <TouchableWithoutFeedback onPress={this.openbrowser}>
                 <View
                   style={{
-                    backgroundColor: "#EEEEEE",
+                    backgroundColor: "#fff",
                     flexDirection: "row",
                     height: 50,
+                    borderRadius: 20,
+                    width: "90%",
+                    alignSelf: "center",
+                    borderColor: "grey",
+                    borderWidth: 0.5,
+
+                    marginBottom: 10,
                   }}
                 >
-                  <Image
-                    source={require("../../assets/icons/tc.png")}
+                  <View
                     style={{
-                      width: 30,
-                      height: 30,
-                      marginLeft: 30,
-                      marginTop: 10,
-                      resizeMode: "contain",
+                      backgroundColor: "#00203b",
+                      borderTopLeftRadius: 20,
+                      borderBottomLeftRadius: 20,
                     }}
-                  />
+                  >
+                    <Image
+                      source={require("../../assets/icons/Term.png")}
+                      style={{
+                        width: 30,
+                        height: 30,
+                        marginLeft: 20, //30
+                        marginRight: 10,
+                        marginTop: 10,
+                        resizeMode: "contain",
+                        tintColor: "white",
+                      }}
+                      // resizeMode="fill"
+                    />
+                  </View>
                   <Text
                     style={{ color: "#4a4b4c", marginLeft: 40, marginTop: 14 }}
                   >
@@ -721,6 +903,43 @@ export default class MyProfileComponent extends React.Component {
                   backgroundColor: "white",
                 }}
               ></View>
+            </View>
+
+            <View
+              style={{
+                position: "absolute",
+                bottom: 0,
+                width: "100%",
+                height: "8%",
+                backgroundColor: "white",
+                elevation: 3,
+                shadowColor: "black",
+                shadowOpacity: 0.26,
+                shadowOffset: { width: 0, height: 2 },
+                shadowRadius: 10,
+                flexDirection: "column",
+                justifyContent: "center",
+                // alignItems: "center",
+              }}
+            >
+              <TouchableOpacity onPress={this.logoutuser}>
+                <Icon
+                  name="log-out"
+                  style={{ color: "#00203b", alignSelf: "center" }}
+                  size={30}
+                />
+
+                <Text
+                  style={{
+                    fontSize: 13,
+                    alignSelf: "center",
+                    color: "#00203b",
+                  }}
+                >
+                  {this.state.lan == "en" ? "Logout" : "تسجيل الخروج"}
+                </Text>
+                {/* <ion-icon name="log-out-outline"></ion-icon> */}
+              </TouchableOpacity>
             </View>
           </>
         </ImageBackground>

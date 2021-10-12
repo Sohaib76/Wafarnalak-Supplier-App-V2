@@ -85,76 +85,112 @@ export default class BalanceComponent extends React.Component {
   render() {
     return (
       <Container>
-        <Header style={{ backgroundColor: "#283a97", height: 80 }}>
-          <Left
-            style={{
-              marginTop: Platform.OS === "ios" ? 9 : 24,
-              marginLeft: 10,
-              flexDirection: "row",
-            }}
-          >
-            <Ionicons
-              onPress={() => {
-                this.props.navigation.goBack();
-              }}
-              name={"ios-arrow-back"}
-              size={30}
-              color={"white"}
-            />
-          </Left>
-          <Title
-            style={{
-              color: "white",
-              position: "absolute",
-              top: Platform.OS === "android" ? 38 : 38,
-              fontSize: 18,
-              fontWeight: "bold",
-            }}
-          >
-            {this.state.lan == "en" ? "Financials" : "المعلومات المالية"}
-          </Title>
-          <Right />
-        </Header>
-        <>
-          {/* Content */}
-          <View
-            style={{
-              backgroundColor: "#283a97",
-              alignSelf: "center",
-              marginTop: 30,
-            }}
-          >
-            <Text
+        <ImageBackground
+          source={require("../../assets/icons/Background.png")}
+          resizeMode="fill" //cover
+          style={{
+            width: Dimensions.get("screen").width,
+            height: Dimensions.get("screen").height,
+          }}
+        >
+          <Header style={{ backgroundColor: "white", height: 80 }}>
+            <Left
               style={{
-                fontSize: 18,
-                color: "white",
-                paddingLeft: 6,
-                paddingRight: 6,
+                marginTop: Platform.OS === "ios" ? 9 : 24,
+                marginLeft: 10,
+                flexDirection: "row",
               }}
             >
-              {this.state.lan == "en"
-                ? "Your due amount is"
-                : "المبلغ المستحق هو"}
-            </Text>
-          </View>
-
-          <View style={{ alignSelf: "center" }}>
-            <Text
-              style={{ fontSize: 60, color: "#283a97", fontWeight: "bold" }}
+              <Ionicons
+                onPress={() => {
+                  this.props.navigation.goBack();
+                }}
+                name={"ios-arrow-back"}
+                size={30}
+                color={"#00203b"}
+              />
+            </Left>
+            <Title
+              style={{
+                color: "#00203b",
+                position: "absolute",
+                top: Platform.OS === "android" ? 38 : 38,
+                fontSize: 18,
+                fontWeight: "bold",
+              }}
             >
-              {this.state.lan == "en" ? "SAR" : "ريال"}{" "}
-              {this.state.reports.pending_balance}
-            </Text>
-          </View>
-          <View style={{ alignSelf: "center", marginTop: 4 }}>
-            <Text>
-              {this.state.lan == "en"
-                ? "Make the payment before"
-                : "قم بالدفع قبل"}{" "}
-              {this.state.reports.due_date}
-            </Text>
-          </View>
-          {/* 
+              {this.state.lan == "en" ? "Financials" : "المعلومات المالية"}
+            </Title>
+            <Right />
+          </Header>
+          <>
+            {/* Content */}
+            <View
+              style={{
+                backgroundColor: "#00203b",
+                height: "30%",
+                borderBottomEndRadius: 40,
+                borderBottomLeftRadius: 40,
+              }}
+            >
+              <View
+                style={{
+                  alignSelf: "center",
+                  marginTop: 30,
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 15, //18
+                    color: "white",
+                    paddingLeft: 6,
+                    paddingRight: 6,
+                  }}
+                >
+                  {this.state.lan == "en"
+                    ? "Your due amount is"
+                    : "المبلغ المستحق هو"}
+                </Text>
+              </View>
+
+              <View
+                style={{
+                  alignSelf: "center",
+                  justifyContent: "center",
+                  borderRadius: 80,
+                  borderWidth: 5,
+                  borderColor: "white",
+                  width: 130,
+                  height: 130,
+                  marginTop: "4%",
+                }}
+              >
+                <Text
+                  style={{ fontSize: 20, color: "#fff", alignSelf: "center" }}
+                >
+                  {this.state.lan == "en" ? "SAR" : "ريال"}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 50,
+                    color: "#fff",
+                    fontWeight: "bold",
+                    alignSelf: "center",
+                  }}
+                >
+                  {this.state.reports.pending_balance}
+                </Text>
+              </View>
+              <View style={{ alignSelf: "center", marginTop: 15 }}>
+                <Text style={{ color: "white" }}>
+                  {this.state.lan == "en"
+                    ? "Make the payment before"
+                    : "قم بالدفع قبل"}{" "}
+                  {this.state.reports.due_date}
+                </Text>
+              </View>
+            </View>
+            {/* 
           <TouchableWithoutFeedback
             onPress={() => {
               this.props.navigation.navigate("ComessionCalculator", {
@@ -175,46 +211,73 @@ export default class BalanceComponent extends React.Component {
               </Text>
             </View>
           </TouchableWithoutFeedback> */}
-          {this.state.reports.invoices &&
-            this.state.reports.invoices.map(
-              function (invoice, index) {
-                return (
-                  <TouchableWithoutFeedback
-                    key={index}
-                    onPress={() =>
-                      this.props.navigation.navigate("InvoiceTable", {
-                        invoice: invoice,
-                      })
-                    }
-                  >
-                    <View
-                      style={{
-                        marginTop: 40,
-                        flexDirection: "row",
-                        alignItems: "center",
-                        // flex: 1,
-                        justifyContent: "space-between",
-                        width: Dimensions.get("screen").width,
-                        height: 60,
-                        backgroundColor: "lightgray",
-                      }}
+            {this.state.reports.invoices &&
+              this.state.reports.invoices.map(
+                function (invoice, index) {
+                  return (
+                    <TouchableWithoutFeedback
+                      key={index}
+                      onPress={() =>
+                        this.props.navigation.navigate("InvoiceTable", {
+                          invoice: invoice,
+                        })
+                      }
                     >
-                      <View style={{ marginLeft: 20 }}>
-                        <Text>
-                          {this.state.lan == "en" ? "Invoice for" : "فاتورة"}{" "}
-                          {invoice.month} {invoice.year}
-                        </Text>
+                      <View
+                        style={{
+                          marginTop: 30,
+                          flexDirection: "row",
+                          alignItems: "center",
+                          // flex: 1,
+                          // justifyContent: "space-between",
+                          width: Dimensions.get("screen").width,
+                          height: 60,
+                          backgroundColor: "white",
+                          borderRadius: 20,
+                          width: "90%",
+                          alignSelf: "center",
+                          borderColor: "grey",
+                          borderWidth: 0.5,
+                        }}
+                      >
+                        <View style={{ marginLeft: 20 }}>
+                          <Text style={{ color: "gray" }}>
+                            {this.state.lan == "en" ? "Invoice for" : "فاتورة"}{" "}
+                            {invoice.month} {invoice.year}
+                          </Text>
+                        </View>
+                        <View
+                          style={{
+                            // marginRight: 12,
+                            backgroundColor: "#00203b",
+                            // alignContent: "flex-end",
+                            position: "absolute",
+                            right: 0,
+
+                            // borderTopLeftRadius: 20,
+                            borderBottomRightRadius: 20,
+                            borderTopRightRadius: 20,
+                            height: 60,
+                            width: "20%",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            // borderBottomStartRadius: 20,
+                          }}
+                        >
+                          <Ionicons
+                            name={"ios-arrow-forward"}
+                            size={30}
+                            color={"white"}
+                          />
+                        </View>
                       </View>
-                      <View style={{ marginRight: 12 }}>
-                        <Ionicons name={"ios-arrow-forward"} size={30} />
-                      </View>
-                    </View>
-                  </TouchableWithoutFeedback>
-                );
-              }.bind(this)
-            )}
-        </>
-        {/* Content */}
+                    </TouchableWithoutFeedback>
+                  );
+                }.bind(this)
+              )}
+          </>
+          {/* Content */}
+        </ImageBackground>
       </Container>
     );
   }
