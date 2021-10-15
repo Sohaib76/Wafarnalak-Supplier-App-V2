@@ -87,7 +87,7 @@ export default class BalanceComponent extends React.Component {
       <Container>
         <ImageBackground
           source={require("../../assets/icons/Background.png")}
-          resizeMode="fill" //cover
+          resizeMode="contain" //cover
           style={{
             width: Dimensions.get("screen").width,
             height: Dimensions.get("screen").height,

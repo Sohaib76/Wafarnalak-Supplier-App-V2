@@ -10,6 +10,7 @@ import {
   TouchableWithoutFeedback,
   View,
   Toast,
+  ImageBackground,
 } from "react-native";
 import {
   Button,
@@ -176,112 +177,121 @@ export default class UploadDocumentComponent extends React.Component {
   render() {
     return (
       <Container>
-        <Header style={{ backgroundColor: "#283a97", height: 80 }}>
-          <Left
-            style={{
-              marginTop: Platform.OS === "ios" ? 9 : 24,
-              marginLeft: 10,
-              flexDirection: "row",
-            }}
-          >
-            <Ionicons
-              onPress={() => {
-                this.props.navigation.goBack();
+        <ImageBackground
+          source={require("../../assets/icons/Background.png")}
+          resizeMode="contain" //cover
+          style={{
+            width: Dimensions.get("screen").width,
+            height: Dimensions.get("screen").height,
+          }}
+        >
+          <Header style={{ backgroundColor: "#fff", height: 80 }}>
+            <Left
+              style={{
+                marginTop: Platform.OS === "ios" ? 9 : 24,
+                marginLeft: 10,
+                flexDirection: "row",
               }}
-              name={"ios-arrow-back"}
-              size={30}
-              color={"white"}
-            />
-          </Left>
-          <Title
-            style={{
-              color: "white",
-              position: "absolute",
-              top: Platform.OS === "android" ? 38 : 38,
-              fontSize: 18,
-              fontWeight: "bold",
-            }}
-          >
-            {this.state.lan == "en" ? "Upload Pictures" : "تحميل الصور"}
-          </Title>
-          <Right />
-        </Header>
-        <>
-          <Spinner visible={this.state.loading} textContent={""} />
-          {this.state.images && this.state.images.length > 0 ? (
-            <FlatList
-              data={this.state.images}
-              renderItem={({ item }) => (
+            >
+              <Ionicons
+                onPress={() => {
+                  this.props.navigation.goBack();
+                }}
+                name={"ios-arrow-back"}
+                size={30}
+                color={"#00203b"}
+              />
+            </Left>
+            <Title
+              style={{
+                color: "#00203b",
+                position: "absolute",
+                top: Platform.OS === "android" ? 38 : 38,
+                fontSize: 18,
+                fontWeight: "bold",
+              }}
+            >
+              {this.state.lan == "en" ? "Upload Pictures" : "تحميل الصور"}
+            </Title>
+            <Right />
+          </Header>
+          <>
+            <Spinner visible={this.state.loading} textContent={""} />
+            {this.state.images && this.state.images.length > 0 ? (
+              <FlatList
+                data={this.state.images}
+                renderItem={({ item }) => (
+                  <View
+                    style={{
+                      flex: 1,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      margin: 15,
+                    }}
+                  >
+                    <Image
+                      source={{
+                        uri: item.path,
+                      }}
+                      style={{
+                        width: 100,
+                        height: 100,
+                        borderWidth: 1,
+                        borderColor: "black",
+                      }}
+                      resizeMode="contain"
+                    />
+                  </View>
+                )}
+                numColumns={3}
+              />
+            ) : (
+              <View>
                 <View
                   style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    margin: 15,
+                    marginTop: 60,
+                    alignSelf: "center",
+                    borderWidth: 1,
+                    height: 190,
+                    width: Dimensions.get("screen").width - 120,
+                    borderColor: "lightgray",
                   }}
                 >
-                  <Image
-                    source={{
-                      uri: item.path,
-                    }}
-                    style={{
-                      width: 100,
-                      height: 100,
-                      borderWidth: 1,
-                      borderColor: "black",
-                    }}
-                    resizeMode="contain"
-                  />
+                  <View style={{ alignSelf: "center", marginTop: 60 }}>
+                    <Image
+                      source={require("../../assets/icons/CameraC.png")}
+                      style={{ width: 90, height: 40 }}
+                      resizeMode="contain"
+                    />
+                  </View>
+                  <View style={{ alignSelf: "center" }}>
+                    <Text>
+                      {this.state.lan == "en"
+                        ? "Please upload a picture"
+                        : "يرجى تحميل صورة"}
+                    </Text>
+                  </View>
                 </View>
-              )}
-              numColumns={3}
-            />
-          ) : (
-            <View>
+              </View>
+            )}
+            <TouchableWithoutFeedback onPress={this.uploadPicture}>
               <View
-                style={{
-                  marginTop: 60,
-                  alignSelf: "center",
-                  borderWidth: 1,
-                  height: 190,
-                  width: Dimensions.get("screen").width - 120,
-                  borderColor: "lightgray",
-                }}
+                style={{ marginTop: 40, marginBottom: 40, alignSelf: "center" }}
               >
-                <View style={{ alignSelf: "center", marginTop: 60 }}>
-                  <Image
-                    source={require("../../assets/icons/Camera.png")}
-                    style={{ width: 90, height: 40 }}
-                    resizeMode="contain"
-                  />
-                </View>
+                <Image
+                  source={require("../../assets/icons/PlusC.png")}
+                  style={{ width: 90, height: 50 }}
+                  resizeMode="contain"
+                />
                 <View style={{ alignSelf: "center" }}>
                   <Text>
-                    {this.state.lan == "en"
-                      ? "Please upload a picture"
-                      : "يرجى تحميل صورة"}
+                    {this.state.lan == "en" ? "Browse Files" : "تصفح الملفات"}
                   </Text>
                 </View>
               </View>
-            </View>
-          )}
-          <TouchableWithoutFeedback onPress={this.uploadPicture}>
-            <View
-              style={{ marginTop: 40, marginBottom: 40, alignSelf: "center" }}
-            >
-              <Image
-                source={require("../../assets/icons/Plus.png")}
-                style={{ width: 90, height: 50 }}
-                resizeMode="contain"
-              />
-              <View style={{ alignSelf: "center" }}>
-                <Text>
-                  {this.state.lan == "en" ? "Browse Files" : "تصفح الملفات"}
-                </Text>
-              </View>
-            </View>
-          </TouchableWithoutFeedback>
-        </>
+            </TouchableWithoutFeedback>
+          </>
+        </ImageBackground>
       </Container>
     );
   }

@@ -27,7 +27,7 @@ import {
 } from "native-base";
 // import { Picker } from "@react-native-picker/picker";
 
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 export default class UpdateProfileComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -37,7 +37,7 @@ export default class UpdateProfileComponent extends React.Component {
       id: "",
       name: "",
       email: "",
-      gender: "",
+      gender: "1",
       mobile: "",
       shopName: "",
       crNumber: "",
@@ -46,7 +46,8 @@ export default class UpdateProfileComponent extends React.Component {
       licenseNumber: "",
       loading: false,
       selectedNationality: "",
-      gender: "1",
+      // gender: "1",
+      isEditable: false,
     };
   }
   saveState = (label, value) => {
@@ -56,9 +57,11 @@ export default class UpdateProfileComponent extends React.Component {
     const { navigation } = this.props;
     let lan = navigation.getParam("lan");
     let user = navigation.getParam("user");
+    console.log("UUU", user);
     this.setState({
       lan: lan,
       user: user,
+      gender: `${user.gender}`,
       licenseNumber: user.licensenumber,
       id: user.nationaloriqama,
       selectedNationality: user.nationality ? user.nationality.id : "",
@@ -229,12 +232,20 @@ export default class UpdateProfileComponent extends React.Component {
     });
   }
 
+  Edit = () => {
+    if (this.state.isEditable == true) {
+      console.log("update");
+      this.updateProfile();
+    }
+    this.setState({ isEditable: !this.state.isEditable });
+  };
+
   render() {
     return (
       <Container>
         <ImageBackground
           source={require("../../assets/icons/Background.png")}
-          resizeMode="fill" //cover
+          resizeMode="contain" //cover
           style={{
             width: Dimensions.get("screen").width,
             height: Dimensions.get("screen").height,
@@ -276,7 +287,17 @@ export default class UpdateProfileComponent extends React.Component {
             >
               {this.state.lan == "en" ? "Profile" : "ملفي الشخصي"}
             </Title>
-            <Right />
+            <Right
+              style={{
+                marginTop: Platform.OS === "ios" ? 9 : 24,
+                marginRight: 10,
+                flexDirection: "row",
+              }}
+            >
+              <TouchableOpacity onPress={this.Edit}>
+                <Ionicons name="create-outline" color="black" size={25} />
+              </TouchableOpacity>
+            </Right>
           </Header>
           {/* Content */}
           {/* <View style={{ backgroundColor: "lightgray" }}> */}
@@ -299,7 +320,7 @@ export default class UpdateProfileComponent extends React.Component {
               style={{ marginTop: 20, marginLeft: 35.5, marginRight: 35.5 }}
             >
               {/* ml : 18, mr:35 */}
-              <Text style={{ color: "#283a97", marginLeft: 5 }}>
+              <Text style={{ color: "#00203b", marginLeft: 5 }}>
                 {this.state.lan == "en" ? "ID Number" : "رقم هوية الإقامة"}*
               </Text>
               <View
@@ -309,9 +330,11 @@ export default class UpdateProfileComponent extends React.Component {
                   borderWidth: 0.5,
                   borderRadius: 20,
                   marginTop: 5,
+                  padding: 5,
                 }}
               >
                 <Input
+                  editable={this.state.isEditable}
                   placeholder="123"
                   placeholderTextColor="gray"
                   returnKeyType="done"
@@ -320,6 +343,7 @@ export default class UpdateProfileComponent extends React.Component {
                     backgroundColor: "white",
                     height: 28,
                     marginLeft: 5,
+                    color: this.state.isEditable ? "black" : "gray",
                   }}
                   onChangeText={(id) => {
                     this.saveState("id", id);
@@ -330,7 +354,7 @@ export default class UpdateProfileComponent extends React.Component {
             <View
               style={{ marginTop: 10, marginLeft: 35.5, marginRight: 35.5 }}
             >
-              <Text style={{ color: "#283a97", marginLeft: 5 }}>
+              <Text style={{ color: "#00203b", marginLeft: 5 }}>
                 {this.state.lan == "en" ? "License Number" : "رقم الرخصة"}*
               </Text>
               <View
@@ -340,9 +364,11 @@ export default class UpdateProfileComponent extends React.Component {
                   borderWidth: 0.5,
                   borderRadius: 20,
                   marginTop: 5,
+                  padding: 5,
                 }}
               >
                 <Input
+                  editable={this.state.isEditable}
                   placeholder="123"
                   placeholderTextColor="gray"
                   value={this.state.licenseNumber}
@@ -351,6 +377,7 @@ export default class UpdateProfileComponent extends React.Component {
                     backgroundColor: "white",
                     height: 28,
                     marginLeft: 5,
+                    color: this.state.isEditable ? "black" : "gray",
                   }}
                   onChangeText={(license) => {
                     this.saveState("licenseNumber", license);
@@ -361,8 +388,8 @@ export default class UpdateProfileComponent extends React.Component {
             <View
               style={{ marginTop: 10, marginLeft: 35.5, marginRight: 35.5 }}
             >
-              <Text style={{ color: "#283a97", marginLeft: 5 }}>
-                {this.state.lan == "en" ? "Full Name" : "الاسم بالكامل"}*
+              <Text style={{ color: "#00203b", marginLeft: 5 }}>
+                {this.state.lan == "en" ? "Name" : "الاسم بالكامل"}*
               </Text>
               <View
                 style={{
@@ -371,9 +398,11 @@ export default class UpdateProfileComponent extends React.Component {
                   borderWidth: 0.5,
                   borderRadius: 20,
                   marginTop: 5,
+                  padding: 5,
                 }}
               >
                 <Input
+                  editable={this.state.isEditable}
                   placeholder="John Doe"
                   placeholderTextColor="gray"
                   value={this.state.name}
@@ -381,6 +410,7 @@ export default class UpdateProfileComponent extends React.Component {
                     backgroundColor: "white",
                     height: 28,
                     marginLeft: 5,
+                    color: this.state.isEditable ? "black" : "gray",
                   }}
                   onChangeText={(name) => {
                     this.saveState("name", name);
@@ -391,7 +421,7 @@ export default class UpdateProfileComponent extends React.Component {
             <View
               style={{ marginTop: 10, marginLeft: 35.5, marginRight: 35.5 }}
             >
-              <Text style={{ color: "#283a97", marginLeft: 5 }}>
+              <Text style={{ color: "#00203b", marginLeft: 5 }}>
                 {this.state.lan == "en"
                   ? "Email Address"
                   : "عنوان البريد الإلكتروني"}
@@ -403,9 +433,11 @@ export default class UpdateProfileComponent extends React.Component {
                   borderWidth: 0.5,
                   borderRadius: 20,
                   marginTop: 5,
+                  padding: 5,
                 }}
               >
                 <Input
+                  editable={this.state.isEditable}
                   placeholder="John@Doe.com"
                   placeholderTextColor="gray"
                   returnKeyType="done"
@@ -414,6 +446,7 @@ export default class UpdateProfileComponent extends React.Component {
                     backgroundColor: "white",
                     height: 28,
                     marginLeft: 5,
+                    color: this.state.isEditable ? "black" : "gray",
                   }}
                   onChangeText={(email) => {
                     this.saveState("email", email);
@@ -422,9 +455,10 @@ export default class UpdateProfileComponent extends React.Component {
               </View>
             </View>
             {/* <View style={{ marginTop: 10,  marginLeft: 35.5, marginRight: 35.5 }}>
-                        <Text style={{ color: '#283a97', marginLeft: 5 }}>Gender</Text>
+                        <Text style={{ color: '#00203b', marginLeft: 5 }}>Gender</Text>
                         <View style={{ flexDirection: 'row' }}>
-                            <Input placeholder="Male"
+                            <Input
+                  editable={this.state.isEditable} placeholder="Male"
                                 placeholderTextColor="gray"
                                 value={this.state.gender}
                                 style={{ backgroundColor: 'white', height: 28, marginLeft: 5 }}
@@ -436,7 +470,7 @@ export default class UpdateProfileComponent extends React.Component {
             <View
               style={{ marginTop: 10, marginLeft: 35.5, marginRight: 35.5 }}
             >
-              <Text style={{ color: "#283a97", marginLeft: 5 }}>
+              <Text style={{ color: "#00203b", marginLeft: 5 }}>
                 {this.state.lan == "en" ? "Mobile Number" : "رقم الجوال"}*
               </Text>
               <View
@@ -446,9 +480,11 @@ export default class UpdateProfileComponent extends React.Component {
                   borderWidth: 0.5,
                   borderRadius: 20,
                   marginTop: 5,
+                  padding: 5,
                 }}
               >
                 <Input
+                  editable={this.state.isEditable}
                   placeholder="+96XXXXXX"
                   placeholderTextColor="gray"
                   value={this.state.mobile}
@@ -457,6 +493,7 @@ export default class UpdateProfileComponent extends React.Component {
                     backgroundColor: "white",
                     height: 28,
                     marginLeft: 5,
+                    color: this.state.isEditable ? "black" : "gray",
                   }}
                   onChangeText={(mobile) => {
                     this.saveState("mobile", mobile);
@@ -467,7 +504,7 @@ export default class UpdateProfileComponent extends React.Component {
             <View
               style={{ marginTop: 10, marginLeft: 35.5, marginRight: 35.5 }}
             >
-              <Text style={{ color: "#283a97", marginLeft: 5 }}>
+              <Text style={{ color: "#00203b", marginLeft: 5 }}>
                 {this.state.lan == "en" ? "Shop Name" : "إسم المحل"}
               </Text>
               <View
@@ -477,9 +514,11 @@ export default class UpdateProfileComponent extends React.Component {
                   borderWidth: 0.5,
                   borderRadius: 20,
                   marginTop: 5,
+                  padding: 5,
                 }}
               >
                 <Input
+                  editable={this.state.isEditable}
                   placeholder="ABC Shop"
                   placeholderTextColor="gray"
                   value={this.state.shopName}
@@ -488,6 +527,7 @@ export default class UpdateProfileComponent extends React.Component {
                     backgroundColor: "white",
                     height: 28,
                     marginLeft: 5,
+                    color: this.state.isEditable ? "black" : "gray",
                   }}
                   onChangeText={(shopName) => {
                     this.saveState("shopName", shopName);
@@ -498,7 +538,7 @@ export default class UpdateProfileComponent extends React.Component {
             {/* 35.5 */}
             <View style={{ marginTop: 10, marginLeft: 35.5, marginRight: 25 }}>
               {/* marginLeft: 22, marginRight: 35  */}
-              <Text style={{ color: "#283a97", marginLeft: 5, marginRight: 5 }}>
+              <Text style={{ color: "#00203b", marginLeft: 5, marginRight: 5 }}>
                 {this.state.lan == "en" ? "Gender" : "الجنس"}*
               </Text>
 
@@ -510,39 +550,102 @@ export default class UpdateProfileComponent extends React.Component {
               }}
             >
             */}
-              <Picker
-                mode="dropdown"
-                iosHeader={"Choose Gender"}
-                iosIcon={<Ionicons name="ios-arrow-down" color="black" />}
-                placeholderStyle={{ color: "#bfc6ea" }}
-                placeholderIconColor="black" //#007aff
-                // Icon={<Ionicons name="arrow-down" color="black" />}
-                selectedValue={this.state.gender}
-                style={{
-                  // backgroundColor: "transparent",
+              {this.state.isEditable ? (
+                <Picker
+                  mode="dropdown"
+                  iosHeader={"Choose Gender"}
+                  iosIcon={
+                    <Ionicons
+                      name="ios-arrow-down"
+                      color={this.state.isEditable ? "black" : "grey"}
+                    />
+                  }
+                  placeholderStyle={{
+                    color: "#bfc6ea",
+                  }}
+                  placeholderIconColor="black" //#007aff
+                  // Icon={<Ionicons name="arrow-down" color="black" />}
+                  selectedValue={this.state.gender}
+                  style={{
+                    // backgroundColor: "transparent",
 
-                  // width: "70%",
-                  // color: "#747474",
-                  // flex: 0.8,
-                  backgroundColor: "white",
-                  // height: Platform.OS === "android" ? 40 : 45,
+                    // width: "70%",
+                    // color: "#747474",
+                    // flex: 0.8,
+                    backgroundColor: "white",
+                    // height: Platform.OS === "android" ? 40 : 45,
+                    borderWidth: 0.5,
+                    borderRadius: 20,
+                    height: 32,
+                    padding: 10,
+                    // paddingBottom: 10,
+                    // borderRadius: 0,
+                    // marginLeft: 5, // marginLeft: 5,
+                    marginRight: 10, // marginRight: 10,
+                    // marginLeft:-10
+                    paddingLeft: 0,
+                  }}
+                  onValueChange={this.onValueChange.bind(this)}
+                >
+                  <Picker.Item
+                    label={this.state.lan == "en" ? "Female" : "أنثى"}
+                    value="0"
+                  />
+                  <Picker.Item
+                    label={this.state.lan == "en" ? "Male" : "ذكر"}
+                    value="1"
+                  />
+                </Picker>
+              ) : (
+                <TouchableOpacity disabled={true} style={{ opacity: 0.6 }}>
+                  <Picker
+                    mode="dropdown"
+                    iosHeader={"Choose Gender"}
+                    iosIcon={
+                      <Ionicons
+                        name="ios-arrow-down"
+                        color={this.state.isEditable ? "black" : "grey"}
+                      />
+                    }
+                    placeholderStyle={{
+                      color: "#bfc6ea",
+                    }}
+                    placeholderIconColor="black" //#007aff
+                    // Icon={<Ionicons name="arrow-down" color="black" />}
+                    selectedValue={this.state.gender}
+                    style={{
+                      // backgroundColor: "transparent",
 
-                  height: 32,
-                  borderRadius: 0,
-                  marginLeft: 5, // marginLeft: 5,
-                  marginRight: 10, // marginRight: 10,
-                }}
-                onValueChange={this.onValueChange.bind(this)}
-              >
-                <Picker.Item
-                  label={this.state.lan == "en" ? "Female" : "أنثى"}
-                  value="0"
-                />
-                <Picker.Item
-                  label={this.state.lan == "en" ? "Male" : "ذكر"}
-                  value="1"
-                />
-              </Picker>
+                      // width: "70%",
+                      // color: "#747474",
+                      // flex: 0.8,
+                      backgroundColor: "white",
+                      // height: Platform.OS === "android" ? 40 : 45,
+                      borderWidth: 0.5,
+                      borderRadius: 20,
+                      height: 32,
+                      padding: 10,
+                      // paddingBottom: 10,
+                      // borderRadius: 0,
+                      // marginLeft: 5, // marginLeft: 5,
+                      marginRight: 10, // marginRight: 10,
+                      // marginLeft:-10
+                      paddingLeft: 0,
+                    }}
+                    onValueChange={this.onValueChange.bind(this)}
+                  >
+                    <Picker.Item
+                      label={this.state.lan == "en" ? "Female" : "أنثى"}
+                      value="0"
+                    />
+                    <Picker.Item
+                      label={this.state.lan == "en" ? "Male" : "ذكر"}
+                      value="1"
+                    />
+                  </Picker>
+                </TouchableOpacity>
+              )}
+
               {/* <View
                 style={{
                   flex: 0.5,
@@ -557,7 +660,7 @@ export default class UpdateProfileComponent extends React.Component {
             <View
               style={{ marginTop: 10, marginLeft: 35.5, marginRight: 35.5 }}
             >
-              <Text style={{ color: "#283a97", marginLeft: 5 }}>
+              <Text style={{ color: "#00203b", marginLeft: 5 }}>
                 {this.state.lan == "en" ? "CR Number" : "رقم تسجيل الشركة"}
               </Text>
               <View
@@ -567,9 +670,11 @@ export default class UpdateProfileComponent extends React.Component {
                   borderWidth: 0.5,
                   borderRadius: 20,
                   marginTop: 5,
+                  padding: 5,
                 }}
               >
                 <Input
+                  editable={this.state.isEditable}
                   placeholder="9213"
                   placeholderTextColor="gray"
                   value={this.state.crNumber}
@@ -578,6 +683,7 @@ export default class UpdateProfileComponent extends React.Component {
                     backgroundColor: "white",
                     height: 28,
                     marginLeft: 5,
+                    color: this.state.isEditable ? "black" : "gray",
                   }}
                   onChangeText={(crNumber) => {
                     this.saveState("crNumber", crNumber);
@@ -586,9 +692,10 @@ export default class UpdateProfileComponent extends React.Component {
               </View>
             </View>
             {/* <View style={{ marginTop: 10,  marginLeft: 35.5, marginRight: 35.5 }}>
-                        <Text style={{ color: '#283a97', marginLeft: 5 }}>Business Name</Text>
+                        <Text style={{ color: '#00203b', marginLeft: 5 }}>Business Name</Text>
                         <View style={{ flexDirection: 'row' }}>
-                            <Input placeholder="Electronic Repair"
+                            <Input
+                  editable={this.state.isEditable} placeholder="Electronic Repair"
                                 placeholderTextColor="gray"
                                 value={this.state.category}
                                 style={{ backgroundColor: 'white', height: 28, marginLeft: 5 }}
@@ -598,9 +705,10 @@ export default class UpdateProfileComponent extends React.Component {
                         </View>
                     </View> */}
             {/* <View style={{ marginTop: 10,  marginLeft: 35.5, marginRight: 35.5 }}>
-                        <Text style={{ color: '#283a97', marginLeft: 5 }}>Service Name</Text>
+                        <Text style={{ color: '#00203b', marginLeft: 5 }}>Service Name</Text>
                         <View style={{ flexDirection: 'row' }}>
-                            <Input placeholder="Electronic Repair"
+                            <Input
+                  editable={this.state.isEditable} placeholder="Electronic Repair"
                                 placeholderTextColor="gray"
                                 value={this.state.service}
                                 style={{ backgroundColor: 'white', height: 28, marginLeft: 5 }}
@@ -616,7 +724,7 @@ export default class UpdateProfileComponent extends React.Component {
                 marginRight: 35.5,
               }}
             >
-              <Text style={{ color: "#283a97", marginLeft: 5 }}>
+              <Text style={{ color: "#00203b", marginLeft: 5 }}>
                 {this.state.lan == "en" ? "Work Pictures" : "صورة العمل"}
               </Text>
               <View
@@ -626,6 +734,7 @@ export default class UpdateProfileComponent extends React.Component {
                   marginLeft: 5,
                   marginRight: 2,
                   height: 80,
+                  backgroundColor: "rgba(0, 32, 59, 0.2)",
                 }}
               >
                 {this.state.user &&
@@ -634,7 +743,10 @@ export default class UpdateProfileComponent extends React.Component {
                       return (
                         <View
                           key={index}
-                          style={{ marginTop: 5, marginLeft: 5 }}
+                          style={{
+                            marginTop: 5,
+                            marginLeft: 5,
+                          }}
                         >
                           <Image
                             source={{
@@ -646,6 +758,7 @@ export default class UpdateProfileComponent extends React.Component {
                             resizeMode="contain"
                           />
                           <TouchableWithoutFeedback
+                            disabled={!this.state.isEditable}
                             onPress={() => {
                               this.deleteWorkPicture(image);
                             }}
@@ -662,7 +775,10 @@ export default class UpdateProfileComponent extends React.Component {
                       );
                     }.bind(this)
                   )}
-                <TouchableWithoutFeedback onPress={this.addNewWorkImage}>
+                <TouchableWithoutFeedback
+                  disabled={!this.state.isEditable}
+                  onPress={this.addNewWorkImage}
+                >
                   <View
                     style={{
                       marginLeft: 5,
@@ -673,6 +789,8 @@ export default class UpdateProfileComponent extends React.Component {
                       borderColor: "lightgray",
                       width: 65,
                       height: 70,
+                      borderRadius: 5,
+                      backgroundColor: "white",
                     }}
                   >
                     <Image
@@ -688,14 +806,14 @@ export default class UpdateProfileComponent extends React.Component {
           </ScrollView>
           {/* </View> */}
           {/* Content */}
-          <View style={{ backgroundColor: "lightgray" }}>
+          {/* <View style={{ backgroundColor: "lightgray" }}>
             <Button
               onPress={this.updateProfile}
               rounded
               style={{
                 marginBottom: 10,
                 justifyContent: "center",
-                backgroundColor: "#283a97",
+                backgroundColor: "#00203b",
                 width: 270,
                 height: 40,
                 alignSelf: "center",
@@ -711,7 +829,7 @@ export default class UpdateProfileComponent extends React.Component {
                 {this.state.lan == "en" ? "Update" : "تحديث"}
               </Text>
             </Button>
-          </View>
+          </View> */}
         </ImageBackground>
       </Container>
     );

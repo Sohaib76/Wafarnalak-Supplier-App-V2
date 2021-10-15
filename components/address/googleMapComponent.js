@@ -212,7 +212,7 @@ export default class GoogleMapComponent extends React.Component {
   render() {
     return (
       <Container>
-        <Header style={{ backgroundColor: "#283a97", height: 80 }}>
+        <Header style={{ backgroundColor: "white", height: 80 }}>
           <Left style={{ marginTop: Platform.OS === "android" ? 25 : 6 }}>
             <Ionicons
               onPress={() => {
@@ -220,12 +220,12 @@ export default class GoogleMapComponent extends React.Component {
               }}
               name={"ios-arrow-back"}
               size={30}
-              color={"white"}
+              color={"#00203b"}
             />
           </Left>
           <Title
             style={{
-              color: "white",
+              color: "#00203b",
               position: "absolute",
               top: Platform.OS === "android" ? 40.5 : 40,
               fontSize: 18,
@@ -259,6 +259,47 @@ export default class GoogleMapComponent extends React.Component {
                 />
               </MapView>
 
+              {/* <View
+                style={{
+                  fontSize: 10,
+                  backgroundColor: "white",
+                  width: 290,
+                  position: "absolute",
+                  margin: 20,
+                  borderRadius: 10,
+                  height: 45,
+                  elevation: 1,
+                }}
+              >
+                <Ionicons
+                  name={"search-outline"}
+                  size={25}
+                  color={"#00203b"}
+                  style={{ position: "absolute", left: 5, top: 7, zIndex: 2 }}
+                />
+                <GooglePlacesAutocomplete
+                  placeholder={this.state.address}
+                  minLength={3}
+                  styles={{
+                    textInputContainer: {
+                      width: Dimensions.get("screen").width - 60, //-70
+                      alignSelf: "center",
+                      height: 45, //42
+                      backgroundColor: "white",
+                      borderRadius: 10,
+                      elevation: 1,
+                      marginLeft: 100,
+                    },
+                   
+                    poweredContainer: {
+                      justifyContent: "flex-end",
+                      alignItems: "center",
+                      borderBottomRightRadius: 5,
+                      borderBottomLeftRadius: 5,
+                      borderColor: "#fff",
+                      borderTopWidth: 0.5,
+                    },
+                  }} */}
               <View
                 style={{
                   alignSelf: "center",
@@ -267,16 +308,33 @@ export default class GoogleMapComponent extends React.Component {
                   width: 290,
                   position: "absolute",
                   top: 40,
+                  borderRadius: 10,
                 }}
               >
+                <Ionicons
+                  name={"search-outline"}
+                  size={25}
+                  color={"#00203b"}
+                  style={{ position: "absolute", left: -30, top: 7, zIndex: 2 }}
+                />
                 <GooglePlacesAutocomplete
                   placeholder={this.state.address}
                   minLength={3}
                   styles={{
                     textInputContainer: {
-                      width: Dimensions.get("screen").width - 70,
+                      width: Dimensions.get("screen").width - 50, //70
                       alignSelf: "center",
-                      height: 42,
+                      height: 52, //42
+                      backgroundColor: "white",
+                      paddingLeft: 20,
+                    },
+                    poweredContainer: {
+                      justifyContent: "flex-end",
+                      alignItems: "center",
+                      borderBottomRightRadius: 5,
+                      borderBottomLeftRadius: 5,
+                      borderColor: "#fff",
+                      borderTopWidth: 0.5,
                     },
                   }}
                   autoFocus={false}
@@ -307,22 +365,25 @@ export default class GoogleMapComponent extends React.Component {
             animationType="slide"
             transparent={true}
             visible={this.state.modalVisible}
+            // visible={true}
           >
             <View
               style={{
-                marginTop: 170,
+                marginTop: "60%",
                 alignSelf: "center",
-                height: 200,
-                borderRadius: 20,
-                width: 330,
-                backgroundColor: "#293D94",
+                height: 250,
+                // borderRadius: 20,
+                width: "90%", //330
+                backgroundColor: "#00203b",
+                borderTopRightRadius: 20,
+                borderBottomLeftRadius: 20,
               }}
             >
-              <View style={{ flex: 1, alignSelf: "center", marginTop: -24 }}>
+              {/* <View style={{ flex: 1, alignSelf: "center", marginTop: -24 }}>
                 <Thumbnail
                   source={require("../../assets/icons/Language-top-icon.png")}
                 />
-              </View>
+              </View>*/}
               <View style={{ position: "absolute", right: 8, top: 6 }}>
                 <Ionicons
                   onPress={this.hideModal}
@@ -332,47 +393,81 @@ export default class GoogleMapComponent extends React.Component {
                 />
               </View>
               <View
-                style={{ alignSelf: "center", position: "absolute", top: 50 }}
+                style={{
+                  alignSelf: "center",
+                  position: "absolute",
+                  top: 20,
+                  justifyContent: "space-between",
+                }}
               >
                 <Text
-                  style={{ color: "white", fontSize: 12, alignSelf: "center" }}
+                  style={{
+                    color: "white",
+                    fontSize: 20,
+                    alignSelf: "center",
+                    fontWeight: "bold",
+                  }}
                 >
                   {this.state.lan == "en"
                     ? "Enter Location Title"
                     : "أدخل عنوان الموقع"}
                 </Text>
-
-                <Input
+                <View
                   style={{
-                    textAlign: "center",
-                    width: 200,
-                    height: 34,
-                    paddingLeft: 10,
-                    paddingRight: 10,
-                    backgroundColor: "white",
-                    borderRadius: 15,
-                    marginTop: 10,
+                    flexDirection: "row",
+                    width: 180,
+                    alignSelf: "center",
                   }}
-                  onChangeText={(address) => {
-                    this.setState({ title: address });
-                  }}
-                />
+                >
+                  <Ionicons
+                    name="location-outline"
+                    size={28}
+                    color="white"
+                    style={{ marginTop: 50 }}
+                  />
+                  <Input
+                    style={{
+                      textAlign: "center",
+                      width: 150, //200 150
+                      height: 34,
+                      paddingLeft: 10,
+                      paddingRight: 10,
+                      // backgroundColor: "red",
+                      // borderRadius: 15,
+                      marginTop: 50,
+                      borderBottomWidth: 5,
+                      borderBottomColor: "white",
+                      fontSize: 15,
+                      alignSelf: "center",
+                      color: "white",
+                    }}
+                    onChangeText={(address) => {
+                      this.setState({ title: address });
+                    }}
+                    placeholder={
+                      this.state.lan == "en" ? "My Shop Location" : "موقع متجري"
+                    }
+                    placeholderTextColor="rgba(255,255,255,0.6)"
+                  />
+                </View>
                 <Button
                   onPress={this.saveAddress}
                   style={{
-                    width: 140,
-                    borderRadius: 15,
-                    height: 34,
+                    width: "120%", //140
+                    borderRadius: 10,
+                    height: "40%",
                     backgroundColor: "skyblue",
-                    top: 35,
+                    top: 48, //35
                     alignSelf: "center",
+                    backgroundColor: "white",
+                    justifyContent: "center",
                   }}
                 >
                   <Text
                     style={{
-                      color: "white",
+                      color: "grey",
                       alignSelf: "center",
-                      marginLeft: 30,
+                      // marginLeft: 30,
                     }}
                   >
                     {this.state.lan == "en" ? "Submit" : "تسليم"}
@@ -385,27 +480,54 @@ export default class GoogleMapComponent extends React.Component {
         {/* Footer */}
         <View
           style={{
-            height: 180,
+            height: 110, //180
             backgroundColor: "white",
             position: "absolute",
             bottom: 0,
             width: "100%",
           }}
         >
-          <View style={{ alignSelf: "center" }}>
-            <View style={{ height: 38, marginTop: 10, alignSelf: "center" }}>
-              <Button
-                onPress={this.showModal}
-                style={{ backgroundColor: "#283a97", alignSelf: "center" }}
-              >
-                <View>
-                  <Text style={{ color: "white" }}>
-                    {this.state.lan == "en" ? "Select Location" : "اختر الموقع"}
-                  </Text>
-                </View>
-              </Button>
-            </View>
-            <Text
+          <View
+            style={{
+              alignSelf: "center",
+              // backgroundColor: "pink",
+              height: 65,
+              width: 340,
+            }}
+          >
+            {/* <View
+              style={{
+                marginTop: 10,
+                alignSelf: "center",
+                backgroundColor: "red",
+              }}
+            > */}
+            <Button
+              onPress={this.showModal}
+              style={{
+                backgroundColor: "#00203b",
+                alignSelf: "center",
+                height: "100%",
+                width: "100%",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 10,
+              }}
+            >
+              <View>
+                <Text
+                  style={{
+                    color: "white",
+                    alignSelf: "center",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {this.state.lan == "en" ? "Select Location" : "اختر الموقع"}
+                </Text>
+              </View>
+            </Button>
+          </View>
+          {/* <Text
               style={{
                 paddingLeft: 25,
                 paddingRight: 25,
@@ -420,9 +542,9 @@ export default class GoogleMapComponent extends React.Component {
               {this.state.lan == "en"
                 ? "Press the drop pin for 2s and move your finger to drag. Tap to drop the pin"
                 : "انقر على السهم لمدة ثانيتين وحرك إصبعك للسحب ، انقر لتحريك السهم"}
-            </Text>
-          </View>
+            </Text> */}
         </View>
+        {/* </View> */}
         {/* Footer */}
       </Container>
     );

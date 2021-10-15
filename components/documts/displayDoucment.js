@@ -1,5 +1,13 @@
 import React from "react";
-import { Dimensions, Image, Text, View, FlatList } from "react-native";
+import {
+  Dimensions,
+  Image,
+  Text,
+  View,
+  FlatList,
+  ImageBackground,
+  AsyncStorage,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import {
   Container,
@@ -33,69 +41,78 @@ export default class DisplayDocumentsComponent extends React.Component {
   render() {
     return (
       <Container>
-        <Header style={{ backgroundColor: "#283a97", height: 80 }}>
-          <Left
-            style={{
-              marginTop: Platform.OS === "ios" ? 9 : 24,
-              marginLeft: 10,
-              flexDirection: "row",
-            }}
-          >
-            <Ionicons
-              onPress={() => {
-                this.props.navigation.goBack();
+        <ImageBackground
+          source={require("../../assets/icons/Background.png")}
+          resizeMode="contain" //cover
+          style={{
+            width: Dimensions.get("screen").width,
+            height: Dimensions.get("screen").height,
+          }}
+        >
+          <Header style={{ backgroundColor: "white", height: 80 }}>
+            <Left
+              style={{
+                marginTop: Platform.OS === "ios" ? 9 : 24,
+                marginLeft: 10,
+                flexDirection: "row",
               }}
-              name={"ios-arrow-back"}
-              size={30}
-              color={"white"}
-            />
-          </Left>
-          <Title
-            style={{
-              color: "white",
-              position: "absolute",
-              top: Platform.OS === "android" ? 38 : 38,
-              fontSize: 18,
-              fontWeight: "bold",
-            }}
-          >
-            {this.state.lan == "en" ? "Pictures" : "التصوير"}
-          </Title>
-          <Right />
-        </Header>
-        <>
-          {/* Content */}
-          <FlatList
-            data={this.state.images}
-            renderItem={({ item }) => (
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  margin: 15,
+            >
+              <Ionicons
+                onPress={() => {
+                  this.props.navigation.goBack();
                 }}
-              >
-                <Image
-                  source={{
-                    uri:
-                      "http://ec2-13-234-48-248.ap-south-1.compute.amazonaws.com/testApi/" +
-                      item.path,
-                  }}
+                name={"ios-arrow-back"}
+                size={30}
+                color={"#00203b"}
+              />
+            </Left>
+            <Title
+              style={{
+                color: "#00203b",
+                position: "absolute",
+                top: Platform.OS === "android" ? 38 : 38,
+                fontSize: 18,
+                fontWeight: "bold",
+              }}
+            >
+              {this.state.lan == "en" ? "Pictures" : "التصوير"}
+            </Title>
+            <Right />
+          </Header>
+          <>
+            {/* Content */}
+            <FlatList
+              data={this.state.images}
+              renderItem={({ item }) => (
+                <View
                   style={{
-                    width: 90,
-                    height: 80,
-                    borderWidth: 1,
-                    borderColor: "black",
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    margin: 15,
                   }}
-                  resizeMode="contain"
-                />
-              </View>
-            )}
-            numColumns={3}
-          />
-        </>
-        {/* Content */}
+                >
+                  <Image
+                    source={{
+                      uri:
+                        "http://ec2-13-234-48-248.ap-south-1.compute.amazonaws.com/testApi/" +
+                        item.path,
+                    }}
+                    style={{
+                      width: 90,
+                      height: 80,
+                      borderWidth: 1,
+                      borderColor: "black",
+                    }}
+                    resizeMode="contain"
+                  />
+                </View>
+              )}
+              numColumns={3}
+            />
+          </>
+          {/* Content */}
+        </ImageBackground>
       </Container>
     );
   }

@@ -275,7 +275,7 @@ export default class MyProfileComponent extends React.Component {
       <Container>
         <ImageBackground
           source={require("../../assets/icons/Background.png")}
-          resizeMode="fill" //cover
+          resizeMode="contain" //cover
           style={{
             width: Dimensions.get("screen").width,
             height: Dimensions.get("screen").height,
@@ -884,7 +884,7 @@ export default class MyProfileComponent extends React.Component {
                         resizeMode: "contain",
                         tintColor: "white",
                       }}
-                      // resizeMode="fill"
+                      // resizeMode="contain"
                     />
                   </View>
                   <Text
