@@ -6,6 +6,7 @@ import {
   Text,
   View,
   Image,
+  ImageBackground,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Spinner from "react-native-loading-spinner-overlay";
@@ -108,82 +109,179 @@ export default class AllOngoingOrderComponent extends React.Component {
   render() {
     return (
       <Container>
-        <Header style={{ backgroundColor: "#283a97", height: 80 }}>
-          <Left
+        <ImageBackground
+          source={require("../../assets/icons/Background.png")}
+          resizeMode="contain" //cover
+          style={{
+            width: Dimensions.get("screen").width,
+            height: Dimensions.get("screen").height,
+          }}
+        >
+          <Header
             style={{
-              marginTop: Platform.OS === "ios" ? 9 : 24,
-              marginLeft: 10,
-              flexDirection: "row",
+              backgroundColor: "#fff",
+              height: 80,
+              borderBottomColor: "#00203b",
+              borderBottomWidth: 1,
+              marginBottom: 30,
             }}
           >
-            <Ionicons
-              onPress={() => {
-                this.props.navigation.navigate("MyProfile");
+            <Left
+              style={{
+                marginTop: Platform.OS === "ios" ? 9 : 24,
+                marginLeft: 10,
+                flexDirection: "row",
               }}
-              name={"ios-arrow-back"}
-              size={30}
-              color={"white"}
-            />
-          </Left>
-          <Title
-            style={{
-              color: "white",
-              position: "absolute",
-              top: Platform.OS === "android" ? 38 : 38,
-              fontSize: 18,
-              fontWeight: "bold",
-            }}
-          >
-            {this.state.lan == "en"
-              ? "All Ongoing Orders"
-              : "جميع الطلبات الجارية"}
-          </Title>
-          <Right />
-        </Header>
-        <>
-          {/* Content */}
-          <Spinner visible={this.state.loading} textContent={""} />
-          {this.state.onGoingOrders &&
-            this.state.onGoingOrders.map(
-              function (order, index) {
-                return (
-                  <TouchableWithoutFeedback
-                    key={index}
-                    onPress={() =>
-                      this.props.navigation.navigate("OngoingOrder", {
-                        completedOrder: order,
-                        isCompleted: false,
-                      })
-                    }
-                  >
-                    <View
-                      style={{
-                        marginTop: 6,
-                        flexDirection: "row",
-                        alignItems: "center",
-                        // flex: 1,
-                        justifyContent: "space-between",
-                        width: Dimensions.get("screen").width,
-                        height: 60,
-                        backgroundColor: "lightgray",
-                      }}
+            >
+              <Ionicons
+                onPress={() => {
+                  this.props.navigation.navigate("MyProfile");
+                }}
+                name={"ios-arrow-back"}
+                size={30}
+                color={"#00203b"}
+              />
+            </Left>
+            <Title
+              style={{
+                color: "#00203b",
+                position: "absolute",
+                top: Platform.OS === "android" ? 38 : 38,
+                fontSize: 18,
+                fontWeight: "bold",
+              }}
+            >
+              {this.state.lan == "en"
+                ? "Ongoing Orders"
+                : "جميع الطلبات الجارية"}
+            </Title>
+            <Right />
+          </Header>
+          <>
+            {/* Content */}
+            <Spinner visible={this.state.loading} textContent={""} />
+            {this.state.onGoingOrders &&
+              this.state.onGoingOrders.map(
+                function (order, index) {
+                  return (
+                    <TouchableWithoutFeedback
+                      key={index}
+                      onPress={() =>
+                        this.props.navigation.navigate("OngoingOrder", {
+                          completedOrder: order,
+                          isCompleted: false,
+                        })
+                      }
                     >
-                      <View style={{ marginLeft: 20 }}>
-                        <Text>
-                          {this.state.lan == "en" ? "order#" : "طلبيةرقم #"}{" "}
-                          {order.orderid}
-                        </Text>
+                      {/* <View
+                        style={{
+                          marginTop: 6,
+                          flexDirection: "row",
+                          alignItems: "center",
+                          // flex: 1,
+                          justifyContent: "space-between",
+                          width: Dimensions.get("screen").width,
+                          height: 60,
+                          backgroundColor: "lightgray",
+                        }}
+                      >
+                        <View style={{ marginLeft: 20 }}>
+                          <Text>
+                            {this.state.lan == "en" ? "order#" : "طلبيةرقم #"}{" "}
+                            {order.orderid}
+                          </Text>
+                        </View>
+                        <View style={{ marginRight: 12 }}>
+                          <Ionicons name={"ios-arrow-forward"} size={30} />
+                        </View>
                       </View>
-                      <View style={{ marginRight: 12 }}>
-                        <Ionicons name={"ios-arrow-forward"} size={30} />
+                    </TouchableWithoutFeedback> */}
+
+                      <View
+                        style={{
+                          marginTop: 20,
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          width: Dimensions.get("screen").width,
+                          height: "10%", //60
+                          backgroundColor: "#e9edf2",
+                          flexDirection: "row",
+                          marginRight: 10,
+                        }}
+                      >
+                        <View
+                          style={{
+                            flex: 1.8,
+                            alignSelf: "center",
+                            justifyContent: "center",
+                            alignItems: "flex-end",
+                          }}
+                        >
+                          <Image
+                            source={require("../../assets/icons/icon_order.png")}
+                            style={{
+                              width: 90, //55
+                              height: 90,
+                              backgroundColor: "#ece8e8",
+                              borderRadius: 35,
+                              padding: 20,
+                            }}
+                            resizeMode="contain"
+                          />
+                        </View>
+                        <View
+                          style={{
+                            flex: 4.5,
+                            marginLeft: 10,
+                            alignSelf: "center",
+                          }}
+                        >
+                          <Text
+                            style={{ color: "#00203b", fontWeight: "bold" }}
+                          >
+                            Order # {order.orderid}
+                          </Text>
+                          <Text
+                            style={{
+                              color: "rgba(0, 32, 59, 0.8)",
+                              fontSize: 12,
+                            }}
+                          >
+                            {order.orderdetails[0].servicename}
+                          </Text>
+                          <Text
+                            style={{
+                              color: "rgba(0, 32, 59, 0.8)",
+                              fontSize: 12,
+                            }}
+                          >
+                            {order.orderdetails[0].productname}
+                          </Text>
+                          <Text
+                            style={{
+                              color: "rgba(0, 32, 59, 0.8)",
+                              fontSize: 12,
+                            }}
+                          >
+                            {order.orderdetails[0].jobname}
+                          </Text>
+                          <Text
+                            style={{
+                              color: "rgba(0, 32, 59, 0.8)",
+                              fontSize: 12,
+                            }}
+                          >
+                            {order.appointmentdate}
+                          </Text>
+                        </View>
                       </View>
-                    </View>
-                  </TouchableWithoutFeedback>
-                );
-              }.bind(this)
-            )}
-        </>
-        {/* Content */}
+                    </TouchableWithoutFeedback>
+                  );
+                }.bind(this)
+              )}
+          </>
+          {/* Content */}
+        </ImageBackground>
       </Container>
     );
   }

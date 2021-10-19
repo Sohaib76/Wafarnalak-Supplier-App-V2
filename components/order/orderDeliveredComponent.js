@@ -6,6 +6,8 @@ import {
   Text,
   View,
   Image,
+  ImageBackground,
+  ScrollView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Spinner from "react-native-loading-spinner-overlay";
@@ -23,6 +25,7 @@ import {
   Icon,
   Footer,
 } from "native-base";
+// import { ScrollView } from "react-navigation";
 export default class OrderDeliveredComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -90,82 +93,101 @@ export default class OrderDeliveredComponent extends React.Component {
   render() {
     return (
       <Container>
-        <Header style={{ backgroundColor: "#283a97", height: 80 }}>
-          <Left
+        <ImageBackground
+          source={require("../../assets/icons/Background.png")}
+          resizeMode="contain" //cover
+          style={{
+            width: Dimensions.get("screen").width,
+            height: Dimensions.get("screen").height,
+          }}
+        >
+          <Header
             style={{
-              marginTop: Platform.OS === "ios" ? 9 : 24,
-              marginLeft: 10,
-              flexDirection: "row",
+              backgroundColor: "#fff",
+              height: 80,
+              borderBottomColor: "#00203b",
+              borderBottomWidth: 1,
+              marginBottom: 30,
             }}
           >
-            <Ionicons
-              onPress={() => {
-                this.props.navigation.navigate("MyProfile");
+            <Left
+              style={{
+                marginTop: Platform.OS === "ios" ? 9 : 24,
+                marginLeft: 10,
+                flexDirection: "row",
               }}
-              name={"ios-arrow-back"}
-              size={30}
-              color={"white"}
-            />
-          </Left>
-          <Title
-            style={{
-              color: "white",
-              position: "absolute",
-              top: Platform.OS === "android" ? 38 : 38,
-              fontSize: 18,
-              fontWeight: "bold",
-            }}
-          >
-            {this.state.lan == "en"
-              ? "Delivered Orders"
-              : "الطلبات التي تم توصيلها"}
-          </Title>
-          <Right />
-        </Header>
-        <>
+            >
+              <Ionicons
+                onPress={() => {
+                  this.props.navigation.navigate("MyProfile");
+                }}
+                name={"ios-arrow-back"}
+                size={30}
+                color={"#00203b"}
+              />
+            </Left>
+            <Title
+              style={{
+                color: "#00203b",
+                position: "absolute",
+                top: Platform.OS === "android" ? 38 : 38,
+                fontSize: 18,
+                fontWeight: "bold",
+              }}
+            >
+              {this.state.lan == "en"
+                ? "Delivered Orders"
+                : "الطلبات التي تم توصيلها"}
+            </Title>
+            <Right />
+          </Header>
+          <>
+            {/* Content */}
+            <Spinner visible={this.state.loading} textContent={""} />
+            <ScrollView>
+              {this.state.completedOrders &&
+                this.state.completedOrders.map(
+                  function (order, index) {
+                    return (
+                      <TouchableWithoutFeedback
+                        key={index}
+                        onPress={() =>
+                          this.props.navigation.navigate("OngoingOrder", {
+                            isCompleted: true,
+                            completedOrder: order,
+                          })
+                        }
+                      >
+                        <View
+                          style={{
+                            marginTop: 6,
+                            flexDirection: "row",
+                            alignItems: "center",
+                            // flex: 1,
+                            justifyContent: "space-between",
+                            width: Dimensions.get("screen").width,
+                            height: 60,
+                            backgroundColor: "rgba(0, 32, 59, 0.1)",
+                          }}
+                        >
+                          <View style={{ marginLeft: 20 }}>
+                            <Text style={{ color: "rgba(0, 32, 59, 0.9)" }}>
+                              {this.state.lan == "en" ? "Order#" : "طلبيةرقم #"}{" "}
+                              {order.orderid}
+                            </Text>
+                          </View>
+                          <View style={{ marginRight: 12 }}>
+                            <Ionicons name={"ios-arrow-forward"} size={30} />
+                          </View>
+                        </View>
+                      </TouchableWithoutFeedback>
+                    );
+                  }.bind(this)
+                )}
+            </ScrollView>
+          </>
           {/* Content */}
-          <Spinner visible={this.state.loading} textContent={""} />
-          {this.state.completedOrders &&
-            this.state.completedOrders.map(
-              function (order, index) {
-                return (
-                  <TouchableWithoutFeedback
-                    key={index}
-                    onPress={() =>
-                      this.props.navigation.navigate("OngoingOrder", {
-                        isCompleted: true,
-                        completedOrder: order,
-                      })
-                    }
-                  >
-                    <View
-                      style={{
-                        marginTop: 6,
-                        flexDirection: "row",
-                        alignItems: "center",
-                        // flex: 1,
-                        justifyContent: "space-between",
-                        width: Dimensions.get("screen").width,
-                        height: 60,
-                        backgroundColor: "lightgray",
-                      }}
-                    >
-                      <View style={{ marginLeft: 20 }}>
-                        <Text>
-                          {this.state.lan == "en" ? "order#" : "طلبيةرقم #"}{" "}
-                          {order.orderid}
-                        </Text>
-                      </View>
-                      <View style={{ marginRight: 12 }}>
-                        <Ionicons name={"ios-arrow-forward"} size={30} />
-                      </View>
-                    </View>
-                  </TouchableWithoutFeedback>
-                );
-              }.bind(this)
-            )}
-        </>
-        {/* Content */}
+        </ImageBackground>
       </Container>
     );
   }

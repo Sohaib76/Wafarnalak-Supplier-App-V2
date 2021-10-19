@@ -8,6 +8,7 @@ import {
   View,
   Image,
   Toast,
+  ImageBackground,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import {
@@ -31,6 +32,7 @@ import {
   TableWrapper,
   Col,
 } from "react-native-table-component";
+import { ScrollView } from "react-native-gesture-handler";
 const { width, height } = Dimensions.get("screen");
 const SPACING = (height / width) * 9;
 const AVATAR_SIZE = (height / width) * 40;
@@ -83,7 +85,18 @@ export default class InvoiceTableComponent extends React.Component {
             ];
             array.push(objArray);
           });
-          this.setState({ tableData: array });
+          console.log("array", array);
+          var total = 0;
+          array.map(function (service, index) {
+            total = total + service[3];
+          });
+          console.log("total", total);
+          this.setState({
+            tableData: array,
+            total,
+            year: invoices.year,
+            month: invoices.month,
+          });
         } else {
           this.setState({ loading: false });
           Toast.show({
@@ -108,67 +121,207 @@ export default class InvoiceTableComponent extends React.Component {
   render() {
     return (
       <>
-        <Header style={{ backgroundColor: "#283a97", height: 80 }}>
-          <Left
+        <ImageBackground
+          source={require("../../assets/icons/Background.png")}
+          resizeMode="contain" //cover
+          style={{
+            width: Dimensions.get("screen").width,
+            height: Dimensions.get("screen").height,
+          }}
+        >
+          <Header
             style={{
-              marginTop: Platform.OS === "ios" ? 9 : 24,
-              marginLeft: 10,
-              flexDirection: "row",
+              backgroundColor: "#fff",
+              height: 80,
+              borderBottomColor: "#00203b",
+              borderBottomWidth: 1,
+              marginBottom: 30,
             }}
           >
-            <Ionicons
-              onPress={() => {
-                this.props.navigation.goBack();
+            <Left
+              style={{
+                marginTop: Platform.OS === "ios" ? 9 : 24,
+                marginLeft: 10,
+                flexDirection: "row",
               }}
-              name={"ios-arrow-back"}
-              size={30}
-              color={"white"}
-            />
-          </Left>
-          <Title
-            style={{
-              color: "white",
-              position: "absolute",
-              top: Platform.OS === "android" ? 38 : 38,
-              fontSize: 18,
-              fontWeight: "bold",
-            }}
-          >
-            {this.state.lan == "en" ? "Invoice" : "فاتورة"}
-          </Title>
-          <Right />
-        </Header>
-        <View style={{ height: "100%" }}>
-          {/* Content */}
-          <View style={styles.container}>
-            <Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
-              <Row
-                data={
-                  this.state.lan == "en"
-                    ? this.state.tableHead
-                    : this.state.tableHear_ar
-                }
-                // flexArr={[1.5, 2, 3, 1.5]}
-                style={styles.head}
-                textStyle={styles.headerText}
+            >
+              <Ionicons
+                onPress={() => {
+                  this.props.navigation.goBack();
+                }}
+                name={"ios-arrow-back"}
+                size={30}
+                color={"#00203b"}
               />
+            </Left>
+            <Title
+              style={{
+                color: "#00203b",
+                position: "absolute",
+                top: Platform.OS === "android" ? 38 : 38,
+                fontSize: 18,
+                fontWeight: "bold",
+              }}
+            >
+              {this.state.lan == "en" ? "Invoice" : "فاتورة"}
+            </Title>
+            <Right />
+          </Header>
 
-              <Rows
-                data={this.state.tableData}
-                // flexArr={[1.5, 2, 3, 1.5]}
-                style={{ height: 60, backgroundColor: "white" }}
-                // textStyle={styles.text}
-                textStyle={[
-                  styles.text,
-                  styles.timeText,
-                  styles.text,
-                  styles.text,
-                ]}
-              />
-            </Table>
-          </View>
-        </View>
-        {/* Content */}
+          {/* <View> */}
+          {/* Content */}
+          {/* <View style={styles.container}>
+              <Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
+                <Row
+                  data={
+                    this.state.lan == "en"
+                      ? this.state.tableHead
+                      : this.state.tableHear_ar
+                  }
+                  // flexArr={[1.5, 2, 3, 1.5]}
+                  style={styles.head}
+                  textStyle={styles.headerText}
+                />
+
+                <Rows
+                  data={this.state.tableData}
+                  // flexArr={[1.5, 2, 3, 1.5]}
+                  style={{ height: 60, backgroundColor: "white" }}
+                  // textStyle={styles.text}
+                  textStyle={[
+                    styles.text,
+                    styles.timeText,
+                    styles.text,
+                    styles.text,
+                  ]}
+                />
+              </Table>
+            </View> */}
+          {/* </View> */}
+          <ScrollView>
+            <View style={{ paddingBottom: 30 }}>
+              {this.state.tableData &&
+                this.state.tableData.map(function (service, index) {
+                  return (
+                    // <View
+                    //   key={index}
+                    //   style={{
+                    //     backgroundColor: "red",
+
+                    //     // justifyContent: "space-around",
+                    //   }}
+                    // >
+                    <View
+                      key={index}
+                      style={{
+                        width: "90%",
+                        marginLeft: 20,
+                        marginRight: 20,
+                        borderWidth: 0.5,
+                        height: 90,
+                        borderRadius: 8,
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        padding: 10,
+                        shadowColor: "black",
+                        shadowOpacity: 0.26,
+                        shadowOffset: { width: 0, height: 1 },
+                        shadowRadius: 2,
+                        backgroundColor: "white",
+                        borderColor: "grey",
+                        marginTop: 15,
+                      }}
+                    >
+                      <View style={{ justifyContent: "center" }}>
+                        <Text
+                          style={{
+                            color: "rgba(0, 32, 59, 1)",
+                            fontWeight: "bold",
+                            fontSize: 18,
+                          }}
+                        >
+                          Order# {service[0]}
+                        </Text>
+                        <Text style={{ color: "rgba(0, 32, 59, 0.8)" }}>
+                          {service[2]}
+                        </Text>
+                        <Text style={{ color: "rgba(0, 32, 59, 0.8)" }}>
+                          {service[1]}
+                        </Text>
+                      </View>
+                      <View style={{ margin: 5, justifyContent: "center" }}>
+                        <Text style={{ color: "rgba(0, 32, 59, 0.8)" }}>
+                          Charges
+                        </Text>
+                        <Text
+                          style={{
+                            color: "rgba(0, 32, 59, 1)",
+                            fontWeight: "bold",
+                            fontSize: 18,
+                          }}
+                        >
+                          SAR {service[3]}
+                        </Text>
+                      </View>
+                    </View>
+                    // <View
+                    //   style={{ height: 10, width: 200, backgroundColor: "black" }}
+                    // ></View>
+                    // </View>
+                  );
+                })}
+
+              <View
+                style={{
+                  borderColor: "grey",
+                  borderWidth: 0.5,
+                  height: 20,
+                  width: "77%",
+                  marginTop: "15%",
+                  alignSelf: "center",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  padding: 2,
+                }}
+              >
+                <Text style={{ color: "rgba(0, 32, 59, 0.8)" }}>
+                  {this.state.month} {this.state.year} Total Charges
+                </Text>
+                <Text
+                  style={{ color: "rgba(0, 32, 59, 1)", fontWeight: "bold" }}
+                >
+                  SAR {this.state.total}
+                </Text>
+              </View>
+              <Button
+                //onPress={this.startJob}
+                // rounded
+                style={{
+                  marginTop: "0%",
+                  backgroundColor: "#283a97",
+                  justifyContent: "center",
+                  width: "82%",
+                  height: 60,
+                  alignSelf: "center",
+                  backgroundColor: "rgba(0, 32, 59, 1)",
+                  borderRadius: 12,
+                }}
+              >
+                <Text
+                  style={{
+                    color: "white",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    fontSize: 18,
+                  }}
+                >
+                  {this.state.lan == "en" ? "Download" : ""}
+                </Text>
+              </Button>
+            </View>
+          </ScrollView>
+          {/* Content */}
+        </ImageBackground>
       </>
     );
   }
