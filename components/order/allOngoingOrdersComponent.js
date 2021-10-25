@@ -7,6 +7,7 @@ import {
   View,
   Image,
   ImageBackground,
+  Platform,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Spinner from "react-native-loading-spinner-overlay";
@@ -41,7 +42,7 @@ export default class AllOngoingOrderComponent extends React.Component {
     // });
     let lan = await AsyncStorage.getItem("lan");
     this.setState({
-      lan,
+      lan: lan !== null ? lan : "en",
     });
     let user = await AsyncStorage.getItem("sp");
     // const { navigation } = this.props;
@@ -203,7 +204,7 @@ export default class AllOngoingOrderComponent extends React.Component {
                           flexDirection: "row",
                           justifyContent: "space-between",
                           width: Dimensions.get("screen").width,
-                          height: "10%", //60
+                          height: Platform.OS == "ios" ? "10%" : "12%", //60
                           backgroundColor: "#e9edf2",
                           flexDirection: "row",
                           marginRight: 10,
@@ -234,6 +235,7 @@ export default class AllOngoingOrderComponent extends React.Component {
                             flex: 4.5,
                             marginLeft: 10,
                             alignSelf: "center",
+                            alignItems: "flex-start",
                           }}
                         >
                           <Text

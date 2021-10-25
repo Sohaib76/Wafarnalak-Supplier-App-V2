@@ -29,7 +29,7 @@ import {
   Icon,
 } from "native-base";
 import * as Updates from "expo-updates";
-import { NavigationEvents } from "react-navigation";
+import { NavigationEvents, ScrollView } from "react-navigation";
 import { Notifications } from "expo";
 import React from "react";
 import Spinner from "react-native-loading-spinner-overlay";
@@ -382,51 +382,115 @@ export default class MyProfileComponent extends React.Component {
               />
             }
             <Spinner visible={this.state.loading} textContent={""} />
-            <View>
-              <TouchableWithoutFeedback
-                onPress={() =>
-                  this.props.navigation.navigate("UpdateProfile", {
-                    user: this.state.user,
-                    lan: this.state.lan,
-                  })
-                }
-              >
-                <View
-                  style={{
-                    backgroundColor: "#fff",
-                    flexDirection: "row",
-                    height: 50,
-                    borderRadius: 20,
-                    width: "90%",
-                    alignSelf: "center",
-                    borderColor: "grey",
-                    borderWidth: 0.5,
-                    marginTop: 40,
-                    marginBottom: 10,
-                  }}
+            <ScrollView
+              style={{ marginBottom: Platform.OS == "android" && 150 }}
+            >
+              <View>
+                <TouchableWithoutFeedback
+                  onPress={() =>
+                    this.props.navigation.navigate("UpdateProfile", {
+                      user: this.state.user,
+                      lan: this.state.lan,
+                    })
+                  }
                 >
                   <View
                     style={{
-                      backgroundColor: "#00203b",
-                      borderTopLeftRadius: 20,
-                      borderBottomLeftRadius: 20,
+                      backgroundColor: "#fff",
+                      flexDirection: "row",
+                      height: 50,
+                      borderRadius: 20,
+                      width: "90%",
+                      alignSelf: "center",
+                      borderColor: "grey",
+                      borderWidth: 0.5,
+                      marginTop: 40,
+                      marginBottom: 10,
                     }}
                   >
-                    <Image
-                      source={require("../../assets/icons/Profile.png")}
+                    <View
                       style={{
-                        width: 30,
-                        height: 30,
-                        marginLeft: 20, //30
-                        marginRight: 10,
-                        marginTop: 10, // marginTop: 10,
-                        resizeMode: "contain",
-                        alignSelf: "center",
-                        // tintColor: "#000000",
+                        backgroundColor: "#00203b",
+                        borderTopLeftRadius: 20,
+                        borderBottomLeftRadius: 20,
                       }}
-                    />
+                    >
+                      <Image
+                        source={require("../../assets/icons/Profile.png")}
+                        style={{
+                          width: 30,
+                          height: 30,
+                          marginLeft: 20, //30
+                          marginRight: 10,
+                          marginTop: 10, // marginTop: 10,
+                          resizeMode: "contain",
+                          alignSelf: "center",
+                          // tintColor: "#000000",
+                        }}
+                      />
+                    </View>
+                    <View>
+                      <Text
+                        style={{
+                          color: "#4a4b4c",
+                          marginLeft: 40,
+                          marginTop: 14,
+                        }}
+                      >
+                        {this.state.lan == "en" ? "Profile" : "ملفي الشخصي"}
+                      </Text>
+                    </View>
                   </View>
-                  <View>
+                </TouchableWithoutFeedback>
+                {/* <View
+                style={{
+                  width: Dimensions.get("screen").width,
+                  height: 1,
+                  backgroundColor: "white",
+                }}
+              ></View> */}
+                <TouchableWithoutFeedback
+                  onPress={() =>
+                    this.props.navigation.navigate("Addresses", {
+                      user: this.state.user,
+                      lan: this.state.lan,
+                    })
+                  }
+                >
+                  <View
+                    style={{
+                      backgroundColor: "#fff",
+                      flexDirection: "row",
+                      height: 50,
+                      borderRadius: 20,
+                      width: "90%",
+                      alignSelf: "center",
+                      borderColor: "grey",
+                      borderWidth: 0.5,
+
+                      marginBottom: 10,
+                    }}
+                  >
+                    <View
+                      style={{
+                        backgroundColor: "#00203b",
+                        borderTopLeftRadius: 20,
+                        borderBottomLeftRadius: 20,
+                      }}
+                    >
+                      <Image
+                        source={require("../../assets/icons/Add-Address.png")}
+                        style={{
+                          width: 30,
+                          height: 30,
+                          marginLeft: 20, //30
+                          marginRight: 10,
+                          marginTop: 10,
+                          resizeMode: "contain",
+                          // tintColor: "#fff",
+                        }}
+                      />
+                    </View>
                     <Text
                       style={{
                         color: "#4a4b4c",
@@ -434,229 +498,184 @@ export default class MyProfileComponent extends React.Component {
                         marginTop: 14,
                       }}
                     >
-                      {this.state.lan == "en" ? "Profile" : "ملفي الشخصي"}
+                      {this.state.lan == "en" ? "Add Address" : "أضف عنوان"}
                     </Text>
                   </View>
-                </View>
-              </TouchableWithoutFeedback>
-              {/* <View
-                style={{
-                  width: Dimensions.get("screen").width,
-                  height: 1,
-                  backgroundColor: "white",
-                }}
-              ></View> */}
-              <TouchableWithoutFeedback
-                onPress={() =>
-                  this.props.navigation.navigate("Addresses", {
-                    user: this.state.user,
-                    lan: this.state.lan,
-                  })
-                }
-              >
+                </TouchableWithoutFeedback>
                 <View
                   style={{
-                    backgroundColor: "#fff",
-                    flexDirection: "row",
-                    height: 50,
-                    borderRadius: 20,
-                    width: "90%",
-                    alignSelf: "center",
-                    borderColor: "grey",
-                    borderWidth: 0.5,
-
-                    marginBottom: 10,
+                    width: Dimensions.get("screen").width,
+                    height: 1,
+                    backgroundColor: "white",
                   }}
+                ></View>
+                <TouchableWithoutFeedback
+                  onPress={() =>
+                    this.props.navigation.navigate("ViewDocuments", {
+                      user: this.state.user,
+                      lan: this.state.lan,
+                    })
+                  }
                 >
                   <View
                     style={{
-                      backgroundColor: "#00203b",
-                      borderTopLeftRadius: 20,
-                      borderBottomLeftRadius: 20,
+                      backgroundColor: "#fff",
+                      flexDirection: "row",
+                      height: 50,
+                      borderRadius: 20,
+                      width: "90%",
+                      alignSelf: "center",
+                      borderColor: "grey",
+                      borderWidth: 0.5,
+
+                      marginBottom: 10,
                     }}
                   >
-                    <Image
-                      source={require("../../assets/icons/Add-Address.png")}
+                    <View
                       style={{
-                        width: 30,
-                        height: 30,
-                        marginLeft: 20, //30
-                        marginRight: 10,
-                        marginTop: 10,
-                        resizeMode: "contain",
-                        // tintColor: "#fff",
+                        backgroundColor: "#00203b",
+                        borderTopLeftRadius: 20,
+                        borderBottomLeftRadius: 20,
                       }}
-                    />
+                    >
+                      <Image
+                        source={require("../../assets/icons/Documents.png")}
+                        style={{
+                          width: 30,
+                          height: 30,
+                          marginLeft: 20, //30
+                          marginRight: 10,
+                          marginTop: 10,
+                          resizeMode: "contain",
+                          // tintColor: "#fff",
+                        }}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        color: "#4a4b4c",
+                        marginLeft: 40,
+                        marginTop: 14,
+                      }}
+                    >
+                      {this.state.lan == "en" ? "Documents" : "مستندات"}
+                    </Text>
                   </View>
-                  <Text
-                    style={{ color: "#4a4b4c", marginLeft: 40, marginTop: 14 }}
-                  >
-                    {this.state.lan == "en" ? "Add Address" : "أضف عنوان"}
-                  </Text>
-                </View>
-              </TouchableWithoutFeedback>
-              <View
-                style={{
-                  width: Dimensions.get("screen").width,
-                  height: 1,
-                  backgroundColor: "white",
-                }}
-              ></View>
-              <TouchableWithoutFeedback
-                onPress={() =>
-                  this.props.navigation.navigate("ViewDocuments", {
-                    user: this.state.user,
-                    lan: this.state.lan,
-                  })
-                }
-              >
+                </TouchableWithoutFeedback>
                 <View
                   style={{
-                    backgroundColor: "#fff",
-                    flexDirection: "row",
-                    height: 50,
-                    borderRadius: 20,
-                    width: "90%",
-                    alignSelf: "center",
-                    borderColor: "grey",
-                    borderWidth: 0.5,
-
-                    marginBottom: 10,
+                    width: Dimensions.get("screen").width,
+                    height: 1,
+                    backgroundColor: "white",
                   }}
+                ></View>
+                <TouchableWithoutFeedback onPress={this.makeCall}>
+                  <View
+                    style={{
+                      backgroundColor: "#fff",
+                      flexDirection: "row",
+                      height: 50,
+                      borderRadius: 20,
+                      width: "90%",
+                      alignSelf: "center",
+                      borderColor: "grey",
+                      borderWidth: 0.5,
+
+                      marginBottom: 10,
+                    }}
+                  >
+                    <View
+                      style={{
+                        backgroundColor: "#00203b",
+                        borderTopLeftRadius: 20,
+                        borderBottomLeftRadius: 20,
+                      }}
+                    >
+                      <Image
+                        source={require("../../assets/icons/Help2.png")}
+                        style={{
+                          width: 30,
+                          height: 30,
+                          marginLeft: 20, //30
+                          marginRight: 10,
+                          marginTop: 10,
+                          resizeMode: "contain",
+                        }}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        color: "#4a4b4c",
+                        marginLeft: 40,
+                        marginTop: 14,
+                      }}
+                    >
+                      {this.state.lan == "en" ? "Help" : "مساعدة"}
+                    </Text>
+                  </View>
+                </TouchableWithoutFeedback>
+
+                <View
+                  style={{
+                    width: Dimensions.get("screen").width,
+                    height: 1,
+                    backgroundColor: "white",
+                  }}
+                ></View>
+                <TouchableWithoutFeedback
+                  onPress={() =>
+                    this.props.navigation.navigate("Balance", {
+                      lan: this.state.lan,
+                    })
+                  }
                 >
                   <View
                     style={{
-                      backgroundColor: "#00203b",
-                      borderTopLeftRadius: 20,
-                      borderBottomLeftRadius: 20,
+                      backgroundColor: "#fff",
+                      flexDirection: "row",
+                      height: 50,
+                      borderRadius: 20,
+                      width: "90%",
+                      alignSelf: "center",
+                      borderColor: "grey",
+                      borderWidth: 0.5,
+
+                      marginBottom: 10,
                     }}
                   >
-                    <Image
-                      source={require("../../assets/icons/Documents.png")}
+                    <View
                       style={{
-                        width: 30,
-                        height: 30,
-                        marginLeft: 20, //30
-                        marginRight: 10,
-                        marginTop: 10,
-                        resizeMode: "contain",
-                        // tintColor: "#fff",
+                        backgroundColor: "#00203b",
+                        borderTopLeftRadius: 20,
+                        borderBottomLeftRadius: 20,
                       }}
-                    />
-                  </View>
-                  <Text
-                    style={{ color: "#4a4b4c", marginLeft: 40, marginTop: 14 }}
-                  >
-                    {this.state.lan == "en" ? "Documents" : "مستندات"}
-                  </Text>
-                </View>
-              </TouchableWithoutFeedback>
-              <View
-                style={{
-                  width: Dimensions.get("screen").width,
-                  height: 1,
-                  backgroundColor: "white",
-                }}
-              ></View>
-              <TouchableWithoutFeedback onPress={this.makeCall}>
-                <View
-                  style={{
-                    backgroundColor: "#fff",
-                    flexDirection: "row",
-                    height: 50,
-                    borderRadius: 20,
-                    width: "90%",
-                    alignSelf: "center",
-                    borderColor: "grey",
-                    borderWidth: 0.5,
-
-                    marginBottom: 10,
-                  }}
-                >
-                  <View
-                    style={{
-                      backgroundColor: "#00203b",
-                      borderTopLeftRadius: 20,
-                      borderBottomLeftRadius: 20,
-                    }}
-                  >
-                    <Image
-                      source={require("../../assets/icons/Help2.png")}
+                    >
+                      <Image
+                        source={require("../../assets/icons/Balance.png")}
+                        style={{
+                          width: 30,
+                          height: 30,
+                          marginLeft: 20, //30
+                          marginRight: 10,
+                          marginTop: 10,
+                          resizeMode: "contain",
+                        }}
+                      />
+                    </View>
+                    <Text
                       style={{
-                        width: 30,
-                        height: 30,
-                        marginLeft: 20, //30
-                        marginRight: 10,
-                        marginTop: 10,
-                        resizeMode: "contain",
+                        color: "#4a4b4c",
+                        marginLeft: 40,
+                        marginTop: 14,
                       }}
-                    />
+                    >
+                      {this.state.lan == "en"
+                        ? "Balance and invoices"
+                        : "الرصيد والفواتير"}
+                    </Text>
                   </View>
-                  <Text
-                    style={{ color: "#4a4b4c", marginLeft: 40, marginTop: 14 }}
-                  >
-                    {this.state.lan == "en" ? "Help" : "مساعدة"}
-                  </Text>
-                </View>
-              </TouchableWithoutFeedback>
-
-              <View
-                style={{
-                  width: Dimensions.get("screen").width,
-                  height: 1,
-                  backgroundColor: "white",
-                }}
-              ></View>
-              <TouchableWithoutFeedback
-                onPress={() =>
-                  this.props.navigation.navigate("Balance", {
-                    lan: this.state.lan,
-                  })
-                }
-              >
-                <View
-                  style={{
-                    backgroundColor: "#fff",
-                    flexDirection: "row",
-                    height: 50,
-                    borderRadius: 20,
-                    width: "90%",
-                    alignSelf: "center",
-                    borderColor: "grey",
-                    borderWidth: 0.5,
-
-                    marginBottom: 10,
-                  }}
-                >
-                  <View
-                    style={{
-                      backgroundColor: "#00203b",
-                      borderTopLeftRadius: 20,
-                      borderBottomLeftRadius: 20,
-                    }}
-                  >
-                    <Image
-                      source={require("../../assets/icons/Balance.png")}
-                      style={{
-                        width: 30,
-                        height: 30,
-                        marginLeft: 20, //30
-                        marginRight: 10,
-                        marginTop: 10,
-                        resizeMode: "contain",
-                      }}
-                    />
-                  </View>
-                  <Text
-                    style={{ color: "#4a4b4c", marginLeft: 40, marginTop: 14 }}
-                  >
-                    {this.state.lan == "en"
-                      ? "Balance and invoices"
-                      : "الرصيد والفواتير"}
-                  </Text>
-                </View>
-              </TouchableWithoutFeedback>
-              {/* <View style={{ width: Dimensions.get('screen').width, height: 1, backgroundColor: 'white' }}></View>
+                </TouchableWithoutFeedback>
+                {/* <View style={{ width: Dimensions.get('screen').width, height: 1, backgroundColor: 'white' }}></View>
                             <View style={{ backgroundColor: '#EEEEEE', flexDirection: 'row', height: 50, }}>
                                 <View
                     style={{
@@ -670,111 +689,54 @@ export default class MyProfileComponent extends React.Component {
                         marginRight: 10, marginTop: 10, resizeMode: 'contain' }} />
                                 <Text style={{ color: '#4a4b4c', marginLeft: 40, marginTop: 14 }}>Rate Wafarnalak</Text>
                             </View> */}
-              <View
-                style={{
-                  width: Dimensions.get("screen").width,
-                  height: 1,
-                  backgroundColor: "white",
-                }}
-              ></View>
-              <TouchableWithoutFeedback
-                onPress={() =>
-                  this.props.navigation.navigate("OrderDelivered", {
-                    lan: this.state.lan,
-                  })
-                }
-              >
                 <View
                   style={{
-                    backgroundColor: "#fff",
-                    flexDirection: "row",
-                    height: 50,
-                    borderRadius: 20,
-                    width: "90%",
-                    alignSelf: "center",
-                    borderColor: "grey",
-                    borderWidth: 0.5,
-
-                    marginBottom: 10,
+                    width: Dimensions.get("screen").width,
+                    height: 1,
+                    backgroundColor: "white",
                   }}
+                ></View>
+                <TouchableWithoutFeedback
+                  onPress={() =>
+                    this.props.navigation.navigate("OrderDelivered", {
+                      lan: this.state.lan,
+                    })
+                  }
                 >
                   <View
                     style={{
-                      backgroundColor: "#00203b",
-                      borderTopLeftRadius: 20,
-                      borderBottomLeftRadius: 20,
-                    }}
-                  >
-                    <Image
-                      source={require("../../assets/icons/Deliverered-Order.png")}
-                      style={{
-                        width: 30,
-                        height: 30,
-                        marginLeft: 20, //30
-                        marginRight: 10,
-                        marginTop: 10,
-                        resizeMode: "contain",
-                        // tintColor: "#fff",
-                      }}
-                    />
-                  </View>
-                  <Text
-                    style={{ color: "#4a4b4c", marginLeft: 40, marginTop: 14 }}
-                  >
-                    {this.state.lan == "en"
-                      ? "Delivered Orders"
-                      : "الطلبات التي تم توصيلها"}
-                  </Text>
-                </View>
-              </TouchableWithoutFeedback>
-              <View
-                style={{
-                  width: Dimensions.get("screen").width,
-                  height: 1,
-                  backgroundColor: "white",
-                }}
-              ></View>
-              <TouchableWithoutFeedback
-                onPress={() =>
-                  this.props.navigation.navigate("AllNewOrder", {
-                    lan: this.state.lan,
-                  })
-                }
-              >
-                <View
-                  style={{
-                    backgroundColor: "#fff",
-                    flexDirection: "row",
-                    height: 50,
-                    borderRadius: 20,
-                    width: "90%",
-                    alignSelf: "center",
-                    borderColor: "grey",
-                    borderWidth: 0.5,
+                      backgroundColor: "#fff",
+                      flexDirection: "row",
+                      height: 50,
+                      borderRadius: 20,
+                      width: "90%",
+                      alignSelf: "center",
+                      borderColor: "grey",
+                      borderWidth: 0.5,
 
-                    marginBottom: 10,
-                  }}
-                >
-                  <View
-                    style={{
-                      backgroundColor: "#00203b",
-                      borderTopLeftRadius: 20,
-                      borderBottomLeftRadius: 20,
+                      marginBottom: 10,
                     }}
                   >
-                    <Image
-                      source={require("../../assets/icons/New-Order-2.png")}
+                    <View
                       style={{
-                        width: 30,
-                        height: 30,
-                        marginLeft: 20, //30
-                        marginRight: 10,
-                        marginTop: 10,
-                        resizeMode: "contain",
+                        backgroundColor: "#00203b",
+                        borderTopLeftRadius: 20,
+                        borderBottomLeftRadius: 20,
                       }}
-                    />
-                  </View>
-                  <View>
+                    >
+                      <Image
+                        source={require("../../assets/icons/Deliverered-Order.png")}
+                        style={{
+                          width: 30,
+                          height: 30,
+                          marginLeft: 20, //30
+                          marginRight: 10,
+                          marginTop: 10,
+                          resizeMode: "contain",
+                          // tintColor: "#fff",
+                        }}
+                      />
+                    </View>
                     <Text
                       style={{
                         color: "#4a4b4c",
@@ -782,133 +744,203 @@ export default class MyProfileComponent extends React.Component {
                         marginTop: 14,
                       }}
                     >
-                      {this.state.lan == "en" ? "New Order" : "طلب جديد"}
+                      {this.state.lan == "en"
+                        ? "Delivered Orders"
+                        : "الطلبات التي تم توصيلها"}
                     </Text>
                   </View>
-                </View>
-              </TouchableWithoutFeedback>
-              <View
-                style={{
-                  width: Dimensions.get("screen").width,
-                  height: 1,
-                  backgroundColor: "white",
-                }}
-              ></View>
-              <TouchableWithoutFeedback
-                onPress={() =>
-                  this.props.navigation.navigate("AllOngoingOrder", {
-                    isCompleted: false,
-                    lan: this.state.lan,
-                  })
-                }
-              >
+                </TouchableWithoutFeedback>
                 <View
                   style={{
-                    backgroundColor: "#fff",
-                    flexDirection: "row",
-                    height: 50,
-                    borderRadius: 20,
-                    width: "90%",
-                    alignSelf: "center",
-                    borderColor: "grey",
-                    borderWidth: 0.5,
-
-                    marginBottom: 10,
+                    width: Dimensions.get("screen").width,
+                    height: 1,
+                    backgroundColor: "white",
                   }}
+                ></View>
+                <TouchableWithoutFeedback
+                  onPress={() =>
+                    this.props.navigation.navigate("AllNewOrder", {
+                      lan: this.state.lan,
+                    })
+                  }
                 >
                   <View
                     style={{
-                      backgroundColor: "#00203b",
-                      borderTopLeftRadius: 20,
-                      borderBottomLeftRadius: 20,
+                      backgroundColor: "#fff",
+                      flexDirection: "row",
+                      height: 50,
+                      borderRadius: 20,
+                      width: "90%",
+                      alignSelf: "center",
+                      borderColor: "grey",
+                      borderWidth: 0.5,
+
+                      marginBottom: 10,
                     }}
                   >
-                    <Image
-                      source={require("../../assets/icons/Ongoing2.png")}
+                    <View
                       style={{
-                        width: 30,
-                        height: 30,
-                        marginLeft: 20, //30
-                        marginRight: 10,
-                        marginTop: 10,
-                        resizeMode: "contain",
+                        backgroundColor: "#00203b",
+                        borderTopLeftRadius: 20,
+                        borderBottomLeftRadius: 20,
                       }}
-                    />
+                    >
+                      <Image
+                        source={require("../../assets/icons/New-Order-2.png")}
+                        style={{
+                          width: 30,
+                          height: 30,
+                          marginLeft: 20, //30
+                          marginRight: 10,
+                          marginTop: 10,
+                          resizeMode: "contain",
+                        }}
+                      />
+                    </View>
+                    <View>
+                      <Text
+                        style={{
+                          color: "#4a4b4c",
+                          marginLeft: 40,
+                          marginTop: 14,
+                        }}
+                      >
+                        {this.state.lan == "en" ? "New Order" : "طلب جديد"}
+                      </Text>
+                    </View>
                   </View>
-                  <Text
-                    style={{ color: "#4a4b4c", marginLeft: 40, marginTop: 14 }}
-                  >
-                    {this.state.lan == "en"
-                      ? "Ongoing"
-                      : "طلبات مستمرة/أوامر جارية"}
-                  </Text>
-                </View>
-              </TouchableWithoutFeedback>
-              <View
-                style={{
-                  width: Dimensions.get("screen").width,
-                  height: 1,
-                  backgroundColor: "white",
-                }}
-              ></View>
-              <TouchableWithoutFeedback onPress={this.openbrowser}>
+                </TouchableWithoutFeedback>
                 <View
                   style={{
-                    backgroundColor: "#fff",
-                    flexDirection: "row",
-                    height: 50,
-                    borderRadius: 20,
-                    width: "90%",
-                    alignSelf: "center",
-                    borderColor: "grey",
-                    borderWidth: 0.5,
-
-                    marginBottom: 10,
+                    width: Dimensions.get("screen").width,
+                    height: 1,
+                    backgroundColor: "white",
                   }}
+                ></View>
+                <TouchableWithoutFeedback
+                  onPress={() =>
+                    this.props.navigation.navigate("AllOngoingOrder", {
+                      isCompleted: false,
+                      lan: this.state.lan,
+                    })
+                  }
                 >
                   <View
                     style={{
-                      backgroundColor: "#00203b",
-                      borderTopLeftRadius: 20,
-                      borderBottomLeftRadius: 20,
+                      backgroundColor: "#fff",
+                      flexDirection: "row",
+                      height: 50,
+                      borderRadius: 20,
+                      width: "90%",
+                      alignSelf: "center",
+                      borderColor: "grey",
+                      borderWidth: 0.5,
+
+                      marginBottom: 10,
                     }}
                   >
-                    <Image
-                      source={require("../../assets/icons/Term.png")}
+                    <View
                       style={{
-                        width: 30,
-                        height: 30,
-                        marginLeft: 20, //30
-                        marginRight: 10,
-                        marginTop: 10,
-                        resizeMode: "contain",
-                        tintColor: "white",
+                        backgroundColor: "#00203b",
+                        borderTopLeftRadius: 20,
+                        borderBottomLeftRadius: 20,
                       }}
-                      // resizeMode="contain"
-                    />
+                    >
+                      <Image
+                        source={require("../../assets/icons/Ongoing2.png")}
+                        style={{
+                          width: 30,
+                          height: 30,
+                          marginLeft: 20, //30
+                          marginRight: 10,
+                          marginTop: 10,
+                          resizeMode: "contain",
+                        }}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        color: "#4a4b4c",
+                        marginLeft: 40,
+                        marginTop: 14,
+                      }}
+                    >
+                      {this.state.lan == "en"
+                        ? "Ongoing"
+                        : "طلبات مستمرة/أوامر جارية"}
+                    </Text>
                   </View>
-                  <Text
-                    style={{ color: "#4a4b4c", marginLeft: 40, marginTop: 14 }}
+                </TouchableWithoutFeedback>
+                <View
+                  style={{
+                    width: Dimensions.get("screen").width,
+                    height: 1,
+                    backgroundColor: "white",
+                  }}
+                ></View>
+                <TouchableWithoutFeedback onPress={this.openbrowser}>
+                  <View
+                    style={{
+                      backgroundColor: "#fff",
+                      flexDirection: "row",
+                      height: 50,
+                      borderRadius: 20,
+                      width: "90%",
+                      alignSelf: "center",
+                      borderColor: "grey",
+                      borderWidth: 0.5,
+
+                      marginBottom: 10,
+                    }}
                   >
-                    {this.state.lan == "en"
-                      ? "Terms and Conditions"
-                      : "الأحكام والشروط"}
-                  </Text>
-                </View>
-              </TouchableWithoutFeedback>
-              <View
-                style={{
-                  width: Dimensions.get("screen").width,
-                  height: 1,
-                  backgroundColor: "white",
-                }}
-              ></View>
-            </View>
+                    <View
+                      style={{
+                        backgroundColor: "#00203b",
+                        borderTopLeftRadius: 20,
+                        borderBottomLeftRadius: 20,
+                      }}
+                    >
+                      <Image
+                        source={require("../../assets/icons/Term.png")}
+                        style={{
+                          width: 30,
+                          height: 30,
+                          marginLeft: 20, //30
+                          marginRight: 10,
+                          marginTop: 10,
+                          resizeMode: "contain",
+                          tintColor: "white",
+                        }}
+                        // resizeMode="contain"
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        color: "#4a4b4c",
+                        marginLeft: 40,
+                        marginTop: 14,
+                      }}
+                    >
+                      {this.state.lan == "en"
+                        ? "Terms and Conditions"
+                        : "الأحكام والشروط"}
+                    </Text>
+                  </View>
+                </TouchableWithoutFeedback>
+                <View
+                  style={{
+                    width: Dimensions.get("screen").width,
+                    height: 1,
+                    backgroundColor: "white",
+                  }}
+                ></View>
+              </View>
+            </ScrollView>
 
             <View
               style={{
                 position: "absolute",
-                bottom: 0,
+                bottom: Platform.OS == "ios" ? 10 : 80,
                 width: "100%",
                 height: "8%",
                 backgroundColor: "white",

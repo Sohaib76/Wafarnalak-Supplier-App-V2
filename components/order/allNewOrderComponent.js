@@ -7,6 +7,7 @@ import {
   View,
   Image,
   ImageBackground,
+  PlatformColor,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Spinner from "react-native-loading-spinner-overlay";
@@ -37,7 +38,7 @@ export default class AllNewOrderComponent extends React.Component {
     const { navigation } = this.props;
     let lan = await AsyncStorage.getItem("lan");
     this.setState({
-      lan,
+      lan: lan !== null ? lan : "en",
     });
     // this.setState({
     //   lan: navigation.getParam("lan"),
@@ -163,7 +164,7 @@ export default class AllNewOrderComponent extends React.Component {
                           // flex: 1,
                           justifyContent: "space-between",
                           width: Dimensions.get("screen").width,
-                          height: "10%", //60
+                          height: Platform.OS == "ios" ? "10%" : "14%", //60
                           backgroundColor: "#e9edf2",
                           flexDirection: "row",
                           marginRight: 10,
@@ -218,7 +219,7 @@ export default class AllNewOrderComponent extends React.Component {
                         <View
                           style={{
                             flex: 4.5,
-                            marginLeft: 10,
+                            marginLeft: "5%",
                             alignSelf: "center",
                           }}
                         >

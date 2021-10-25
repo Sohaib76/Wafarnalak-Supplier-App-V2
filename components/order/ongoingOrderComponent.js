@@ -25,6 +25,7 @@ import {
   Toast,
   Footer,
 } from "native-base";
+import { ScrollView } from "react-navigation";
 export default class OngoingOrderComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -47,7 +48,7 @@ export default class OngoingOrderComponent extends React.Component {
     const { navigation } = this.props;
     let lan = await AsyncStorage.getItem("lan");
     this.setState({
-      lan,
+      lan: lan !== null ? lan : "en",
     });
     // alert(navigation.getParam("lan"));
     let completedOrders = navigation.getParam("completedOrder");
@@ -210,7 +211,7 @@ export default class OngoingOrderComponent extends React.Component {
             </Title>
             <Right />
           </Header>
-          <>
+          <ScrollView style={{ marginBottom: Platform.OS == "android" && 80 }}>
             {/* Content */}
             <Spinner visible={this.state.loading} textContent={""} />
             {(this.state.ongoingOrder &&
@@ -311,7 +312,7 @@ export default class OngoingOrderComponent extends React.Component {
 
                 <View
                   style={{
-                    marginTop: 20,
+                    marginTop: 10,
                     flexDirection: "row",
                     justifyContent: "space-between",
                     width: Dimensions.get("screen").width,
@@ -344,8 +345,10 @@ export default class OngoingOrderComponent extends React.Component {
                   <View
                     style={{
                       flex: 5,
-                      marginLeft: 10,
+                      marginLeft: "5%", //10
                       alignSelf: "center",
+                      // justifyContent: "flex-start",
+                      alignItems: "flex-start",
                     }}
                   >
                     <Text style={{ color: "#00203b", fontWeight: "bold" }}>
@@ -403,7 +406,7 @@ export default class OngoingOrderComponent extends React.Component {
                             backgroundColor: "#fff",
                             // flex: 1,
                             flexDirection: "column",
-                            // elevation: 2,
+                            elevation: 2,
                             shadowColor: "black",
                             shadowOpacity: 0.26,
                             shadowOffset: { width: 0, height: 1 },
@@ -481,7 +484,7 @@ export default class OngoingOrderComponent extends React.Component {
                     }.bind(this)
                   )}
                 <View
-                  style={{ marginTop: 40, marginLeft: 18, marginRight: 35 }}
+                  style={{ marginTop: 20, marginLeft: 18, marginRight: 35 }}
                 >
                   <Text
                     style={{
@@ -504,7 +507,9 @@ export default class OngoingOrderComponent extends React.Component {
                           backgroundColor: this.state.isCompleted
                             ? "rgba(0, 32, 59, 1)"
                             : "white",
-                          tintColor: this.state.isCompleted && "white",
+                          tintColor: this.state.isCompleted
+                            ? "white"
+                            : "rgba(0, 32, 59, 1)",
                           borderTopLeftRadius: this.state.isCompleted ? 20 : 0,
                           borderBottomLeftRadius: this.state.isCompleted
                             ? 20
@@ -538,7 +543,9 @@ export default class OngoingOrderComponent extends React.Component {
                         borderBottomRightRadius: this.state.isCompleted
                           ? 20
                           : 0,
-                        color: this.state.isCompleted && "gray",
+                        color: this.state.isCompleted
+                          ? "gray"
+                          : "rgba(0, 32, 59, 1)",
                       }}
                       onChangeText={(mCost) => {
                         this.saveState("materialCost", mCost);
@@ -570,7 +577,9 @@ export default class OngoingOrderComponent extends React.Component {
                           backgroundColor: this.state.isCompleted
                             ? "rgba(0, 32, 59, 1)"
                             : "white",
-                          tintColor: this.state.isCompleted && "white",
+                          tintColor: this.state.isCompleted
+                            ? "white"
+                            : "rgba(0, 32, 59, 1)",
                           borderTopLeftRadius: this.state.isCompleted ? 20 : 0,
                           borderBottomLeftRadius: this.state.isCompleted
                             ? 20
@@ -608,7 +617,9 @@ export default class OngoingOrderComponent extends React.Component {
                         borderBottomRightRadius: this.state.isCompleted
                           ? 20
                           : 0,
-                        color: this.state.isCompleted && "gray",
+                        color: this.state.isCompleted
+                          ? "gray"
+                          : "rgba(0, 32, 59, 1)",
                       }}
                       onChangeText={(sCost) => {
                         this.saveState("serviceCost", sCost);
@@ -633,11 +644,13 @@ export default class OngoingOrderComponent extends React.Component {
                     <View
                       style={{
                         marginTop: 0,
-                        height: this.state.isCompleted && 58,
+                        height: this.state.isCompleted ? 58 : 0,
                         backgroundColor: this.state.isCompleted
                           ? "rgba(0, 32, 59, 1)"
                           : "white",
-                        justifyContent: this.state.isCompleted && "center",
+                        justifyContent: this.state.isCompleted
+                          ? "center"
+                          : "flex-start",
                       }}
                     >
                       <Image
@@ -648,7 +661,9 @@ export default class OngoingOrderComponent extends React.Component {
                           backgroundColor: this.state.isCompleted
                             ? "rgba(0, 32, 59, 1)"
                             : "white",
-                          tintColor: this.state.isCompleted && "white",
+                          tintColor: this.state.isCompleted
+                            ? "white"
+                            : "rgba(0, 32, 59, 1)",
                           borderTopLeftRadius: this.state.isCompleted ? 20 : 0,
                           borderBottomLeftRadius: this.state.isCompleted
                             ? 20
@@ -682,7 +697,9 @@ export default class OngoingOrderComponent extends React.Component {
                         borderBottomRightRadius: this.state.isCompleted
                           ? 20
                           : 0,
-                        color: this.state.isCompleted && "gray",
+                        color: this.state.isCompleted
+                          ? "gray"
+                          : "rgba(0, 32, 59, 1)",
                       }}
                       onChangeText={(sComment) => {
                         this.saveState("comments", sComment);
@@ -709,11 +726,13 @@ export default class OngoingOrderComponent extends React.Component {
                     <View
                       style={{
                         marginTop: 0,
-                        height: this.state.isCompleted && 58,
+                        height: this.state.isCompleted ? 58 : 0,
                         backgroundColor: this.state.isCompleted
                           ? "rgba(0, 32, 59, 1)"
                           : "white",
-                        justifyContent: this.state.isCompleted && "center",
+                        justifyContent: this.state.isCompleted
+                          ? "center"
+                          : "flex-start",
                       }}
                     >
                       <Image
@@ -724,7 +743,9 @@ export default class OngoingOrderComponent extends React.Component {
                           backgroundColor: this.state.isCompleted
                             ? "rgba(0, 32, 59, 1)"
                             : "white",
-                          tintColor: this.state.isCompleted && "white",
+                          tintColor: this.state.isCompleted
+                            ? "white"
+                            : "rgba(0, 32, 59, 1)",
                           borderTopLeftRadius: this.state.isCompleted ? 20 : 0,
                           borderBottomLeftRadius: this.state.isCompleted
                             ? 20
@@ -761,7 +782,9 @@ export default class OngoingOrderComponent extends React.Component {
                         borderBottomRightRadius: this.state.isCompleted
                           ? 20
                           : 0,
-                        color: this.state.isCompleted && "gray",
+                        color: this.state.isCompleted
+                          ? "gray"
+                          : "rgba(0, 32, 59, 1)",
                       }}
                       onChangeText={(sUsed) => {
                         this.saveState("materialsUsed", sUsed);
@@ -771,7 +794,7 @@ export default class OngoingOrderComponent extends React.Component {
                 </View>
               </View>
             )}
-          </>
+          </ScrollView>
           {/* Content */}
           {this.state.isCompleted === false ? (
             (this.state.ongoingOrder && this.state.ongoingOrder.length === 0) ||
@@ -805,8 +828,7 @@ export default class OngoingOrderComponent extends React.Component {
               //   </Text>
               // </Button>
               <Button
-                onPress={this.startJob}
-                // rounded
+                onPress={this.finsihJob} // rounded
                 style={{
                   marginTop: "20%",
                   backgroundColor: "#283a97",
@@ -816,6 +838,8 @@ export default class OngoingOrderComponent extends React.Component {
                   alignSelf: "center",
                   backgroundColor: "rgba(0, 32, 59, 1)",
                   borderRadius: 12,
+                  // position: "absolute",
+                  bottom: 30,
                 }}
               >
                 <Text

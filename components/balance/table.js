@@ -198,7 +198,7 @@ export default class InvoiceTableComponent extends React.Component {
               </Table>
             </View> */}
           {/* </View> */}
-          <ScrollView>
+          <ScrollView style={{ marginBottom: Platform.OS == "android" && 80 }}>
             <View style={{ paddingBottom: 30 }}>
               {this.state.tableData &&
                 this.state.tableData.map(function (service, index) {
@@ -285,7 +285,10 @@ export default class InvoiceTableComponent extends React.Component {
                 }}
               >
                 <Text style={{ color: "rgba(0, 32, 59, 0.8)" }}>
-                  {this.state.month} {this.state.year} Total Charges
+                  {this.state.month} {this.state.year}{" "}
+                  {this.state.lan == "en"
+                    ? "Total Charges"
+                    : "الكلفة الاجماليه"}
                 </Text>
                 <Text
                   style={{ color: "rgba(0, 32, 59, 1)", fontWeight: "bold" }}
@@ -315,7 +318,7 @@ export default class InvoiceTableComponent extends React.Component {
                     fontSize: 18,
                   }}
                 >
-                  {this.state.lan == "en" ? "Download" : ""}
+                  {this.state.lan == "en" ? "Download" : "تحميل"}
                 </Text>
               </Button>
             </View>

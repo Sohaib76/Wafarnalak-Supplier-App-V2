@@ -7,6 +7,7 @@ import {
   TouchableWithoutFeedback,
   AsyncStorage,
   ImageBackground,
+  Platform,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { NavigationEvents } from "react-navigation";
@@ -302,6 +303,7 @@ export default class UpdateProfileComponent extends React.Component {
           {/* Content */}
           {/* <View style={{ backgroundColor: "lightgray" }}> */}
           <ScrollView
+            style={{ marginBottom: Platform.OS == "android" && 80 }}
             contentContainerStyle={{
               justifyContent: "center",
               // backgroundColor: "lightgray",

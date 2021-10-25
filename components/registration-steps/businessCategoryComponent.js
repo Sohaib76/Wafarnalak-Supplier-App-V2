@@ -4,6 +4,8 @@ import {
   Text,
   TouchableWithoutFeedback,
   View,
+  Dimensions,
+  ImageBackground,
 } from "react-native";
 import {
   Button,
@@ -151,96 +153,146 @@ export default class BusinessCategoryComponent extends React.Component {
   render() {
     return (
       <Container>
-        <Header style={{ backgroundColor: "#283a97", height: 80 }}>
-          <Left />
-          <Title
+        <ImageBackground
+          source={require("../../assets/icons/Background.png")}
+          resizeMode="contain" //cover
+          style={{
+            width: Dimensions.get("screen").width,
+            height: Dimensions.get("screen").height,
+          }}
+        >
+          <Header
             style={{
-              width: 200,
-              alignSelf: "center",
-              color: "white",
-              fontSize: 18,
-              fontWeight: "bold",
+              backgroundColor: "#fff",
+              height: 80,
+              borderBottomColor: "#00203b",
+              borderBottomWidth: 1,
+              //marginBottom: 30,
             }}
           >
-            {this.state.lan == "en" ? "Primary Business" : "العمل الرئيسي"}
-          </Title>
-          <Right />
-        </Header>
-        <ScrollView>
-          {/* Content */}
-          <Spinner visible={this.state.loading} textContent={""} />
-          <View
-            style={{ marginTop: 6, marginLeft: 5, alignSelf: "flex-start" }}
-          >
-            <Text style={{ color: "#283a97" }}>
+            <Left
+              style={{
+                marginTop: Platform.OS === "ios" ? 9 : 24,
+                marginLeft: 10,
+                flexDirection: "row",
+              }}
+            >
+              <Ionicons
+                onPress={() => {
+                  this.props.navigation.goBack();
+                }}
+                name={"ios-arrow-back"}
+                size={30}
+                color={"#00203b"}
+              />
+            </Left>
+            <Title
+              style={{
+                width: 200,
+                alignSelf: "center",
+                color: "#00203b",
+                fontSize: 18,
+                fontWeight: "bold",
+              }}
+            >
+              {this.state.lan == "en" ? "Select the Service" : "حدد الخدمة"}
+            </Title>
+            <Right />
+          </Header>
+          <ScrollView style={{ marginBottom: Platform.OS === "ios" ? 0 : 150 }}>
+            {/* Content */}
+            <Spinner visible={this.state.loading} textContent={""} />
+            <View
+              style={{
+                margin: 10,
+                marginLeft: 5,
+                alignSelf: "center",
+              }}
+            >
+              <Image
+                resizeMode="cover"
+                style={{ height: 40, width: 150 }}
+                source={require("../../assets/profile-logo.png")}
+              />
+              {/* <Text style={{ color: "#283a97" }}>
               {this.state.lan == "en" ? "Select you business" : "اختر عملك"}
-            </Text>
-          </View>
-          {this.state.services &&
-            this.state.services.map(
-              function (category, index) {
-                return (
-                  <TouchableWithoutFeedback
-                    key={index}
-                    onPress={() => {
-                      let array = this.state.selectedArrayItem;
-                      let itemIndex = array.indexOf(category);
+            </Text> */}
+            </View>
+            {this.state.services &&
+              this.state.services.map(
+                function (category, index) {
+                  return (
+                    <TouchableWithoutFeedback
+                      key={index}
+                      onPress={() => {
+                        let array = this.state.selectedArrayItem;
+                        let itemIndex = array.indexOf(category);
 
-                      if (!array.includes(category)) {
-                        array.push(category);
-                        this.setState({ isSelected: true });
-                      } else if (array.includes(category)) {
-                        array.splice(itemIndex, 1);
-                        this.setState({ isSelected: true });
-                      }
-                    }}
-                  >
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        justifyContent: "space-between",
+                        if (!array.includes(category)) {
+                          array.push(category);
+                          this.setState({ isSelected: true });
+                        } else if (array.includes(category)) {
+                          array.splice(itemIndex, 1);
+                          this.setState({ isSelected: true });
+                        }
                       }}
                     >
                       <View
                         style={{
                           flexDirection: "row",
-                          marginTop: 15,
-                          marginLeft: 5,
+                          justifyContent: "space-between",
+                          backgroundColor: "lightgrey",
+                          marginLeft: 20,
+                          marginRight: 20,
+                          marginBottom: 10,
+                          alignItems: "center",
                         }}
                       >
-                        <Image
-                          resizeMode="contain"
-                          source={{ uri: category.serviceseoname }}
+                        <View
                           style={{
-                            width: 45,
-                            height: 45,
-                            backgroundColor: "#ece8e8",
+                            flexDirection: "row",
+                            // marginTop: 15,
+                            marginLeft: 5,
+                            // alignItems: "center",
+                            // justifyContent: "center",
+                            // backgroundColor: "red",
+                            alignSelf: "center",
                           }}
-                        />
-                        <Text style={{ marginLeft: 6, alignSelf: "center" }}>
-                          {this.state.lan == "en"
-                            ? category.servicename
-                            : category.servicename_ar}
-                        </Text>
-                      </View>
-                      {this.state.selectedArrayItem.includes(category) ? (
-                        <View style={{ marginRight: 12, marginTop: 27 }}>
-                          <Ionicons
-                            name="ios-checkmark-circle"
-                            size={22}
-                            color="#283a97"
+                        >
+                          <Image
+                            resizeMode="contain"
+                            source={{ uri: category.serviceseoname }}
+                            style={{
+                              width: 45,
+                              height: 45,
+                              backgroundColor: "#ece8e8",
+                              alignSelf: "center",
+                            }}
                           />
+                          <Text style={{ marginLeft: 6, alignSelf: "center" }}>
+                            {this.state.lan == "en"
+                              ? category.servicename
+                              : category.servicename_ar}
+                          </Text>
                         </View>
-                      ) : (
-                        <View></View>
-                      )}
-                    </View>
-                  </TouchableWithoutFeedback>
-                );
-              }.bind(this)
-            )}
+                        {this.state.selectedArrayItem.includes(category) ? (
+                          <View style={{ marginRight: 12, marginTop: 0 }}>
+                            <Ionicons
+                              name="ios-checkmark-circle"
+                              size={22}
+                              color="#4cb71a"
+                            />
+                          </View>
+                        ) : (
+                          <View></View>
+                        )}
+                      </View>
+                    </TouchableWithoutFeedback>
+                  );
+                }.bind(this)
+              )}
 
-          {/* {this.state.services &&
+            {/* {this.state.services &&
             this.state.services.map(
               function (category, index) {
                 return (
@@ -292,25 +344,28 @@ export default class BusinessCategoryComponent extends React.Component {
                 );
               }.bind(this)
             )} */}
-        </ScrollView>
-        {/* Content */}
-        <Button
-          onPress={this.saveBusinessCategory}
-          // onPress={() => this.props.navigation.navigate("CompanyProfile")} //Change
-          rounded
-          style={{
-            backgroundColor: "#283a97",
-            alignSelf: "center",
-            marginBottom: 20,
-            width: 270,
-            height: 40,
-            justifyContent: "center",
-          }}
-        >
-          <Text style={{ color: "white", fontWeight: "bold" }}>
-            {this.state.lan == "en" ? "Proceed" : "تقدم"}
-          </Text>
-        </Button>
+          </ScrollView>
+          {/* Content */}
+          <Button
+            onPress={this.saveBusinessCategory}
+            // onPress={() => this.props.navigation.navigate("CompanyProfile")} //Change
+            style={{
+              backgroundColor: "#00203b",
+              alignSelf: "center",
+              marginBottom: 20,
+              width: "85%",
+              height: 55,
+              justifyContent: "center",
+              borderRadius: 10,
+              position: Platform.OS === "android" && "absolute",
+              bottom: Platform.OS === "android" && 80,
+            }}
+          >
+            <Text style={{ color: "white", fontWeight: "bold" }}>
+              {this.state.lan == "en" ? "Next" : "التالي"}
+            </Text>
+          </Button>
+        </ImageBackground>
       </Container>
     );
   }

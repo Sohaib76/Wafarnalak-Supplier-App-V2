@@ -395,7 +395,7 @@ export default class SignupComponent extends React.Component {
                   // alignSelf: "center",
                   justifyContent: "space-between",
                   alignItems: "flex-start",
-                  width: "80%",
+                  width: "70%",
                 }}
               >
                 <View
@@ -415,7 +415,7 @@ export default class SignupComponent extends React.Component {
                   style={{
                     borderWidth: 1,
                     height: 50,
-                    width: 290,
+                    width: "100%",
                     // marginTop: 90,
                     flexDirection: "row",
                     alignSelf: "center",
@@ -466,7 +466,7 @@ export default class SignupComponent extends React.Component {
                   // alignSelf: "center",
                   justifyContent: "space-between",
                   alignItems: "flex-start",
-                  width: "80%",
+                  width: "70%",
                 }}
               >
                 <View
@@ -486,7 +486,7 @@ export default class SignupComponent extends React.Component {
                   style={{
                     borderWidth: 1,
                     height: 50,
-                    width: 290,
+                    width: "100%",
                     // marginTop: 90,
                     flexDirection: "row",
                     alignSelf: "center",
@@ -537,7 +537,7 @@ export default class SignupComponent extends React.Component {
                   // alignSelf: "center",
                   justifyContent: "space-between",
                   alignItems: "flex-start",
-                  width: "80%",
+                  width: "50%",
                 }}
               >
                 <View
@@ -589,7 +589,7 @@ export default class SignupComponent extends React.Component {
                   style={{
                     borderWidth: 1,
                     height: 50,
-                    width: 220, //290
+                    width: "100%", //290 //220 //170
                     // marginTop: 90,
                     flexDirection: "row",
                     alignSelf: "center",
@@ -601,9 +601,10 @@ export default class SignupComponent extends React.Component {
                   <TextInput
                     style={{
                       backgroundColor: "white",
-                      marginLeft: 32,
+                      alignSelf: "center",
+                      marginLeft: 10, //32
                       height: 30,
-                      width: 180, //260
+                      width: "90%", //260
                     }}
                     placeholder={
                       this.state.lan == "en" ? "05xxxxxxxxx" : "05xxxxxxxxx"
@@ -630,6 +631,9 @@ export default class SignupComponent extends React.Component {
             >
               <Button
                 onPress={this.registerNewUser}
+                // onPress={() =>
+                //   this.props.navigation.navigate("BusinessCategory")
+                // }
                 style={{
                   justifyContent: "center",
                   backgroundColor: "#fff",
@@ -654,7 +658,7 @@ export default class SignupComponent extends React.Component {
                 marginLeft: 20,
                 marginRight: 20,
                 marginTop: "15%",
-                fontSize: 20,
+                fontSize: 18,
                 color: "white",
               }}
             >

@@ -351,7 +351,12 @@ export default class LoginComponent extends React.Component {
             height: Dimensions.get("screen").height,
           }}
         >
-          <View style={{ marginTop: 50, alignSelf: "center" }}>
+          <View
+            style={{
+              marginTop: Platform.OS == "ios" ? 50 : 40,
+              alignSelf: "center",
+            }}
+          >
             {/* marginTop: 30 */}
             <Image
               source={require("../../assets/icons/Logo.png")}
@@ -364,7 +369,7 @@ export default class LoginComponent extends React.Component {
             <Text
               style={{
                 color: "white",
-                fontSize: 20,
+                fontSize: Platform.OS == "ios" ? 20 : 17,
                 alignSelf: "center",
                 fontWeight: "bold",
               }}
@@ -378,7 +383,7 @@ export default class LoginComponent extends React.Component {
             {/* Content */}
             <Spinner visible={this.state.loading} textContent={""} />
 
-            <View style={{ marginTop: 90 }}>
+            <View style={{ marginTop: Platform.OS == "ios" ? 90 : 85 }}>
               <View style={{ alignItems: "flex-start" }}>
                 <Text
                   style={{
@@ -399,7 +404,7 @@ export default class LoginComponent extends React.Component {
                   // alignSelf: "center",
                   justifyContent: "space-between",
                   alignItems: "flex-start",
-                  width: "80%",
+                  width: "70%",
                 }}
               >
                 <View
@@ -419,7 +424,7 @@ export default class LoginComponent extends React.Component {
                   style={{
                     borderWidth: 1,
                     height: 50,
-                    width: 290,
+                    width: "100%",
                     // marginTop: 90,
                     flexDirection: "row",
                     alignSelf: "center",
@@ -433,7 +438,7 @@ export default class LoginComponent extends React.Component {
                       backgroundColor: "white",
                       marginLeft: 32,
                       height: 30,
-                      width: 180, //260
+                      width: "80%", //260
                     }}
                     placeholder={
                       this.state.lan == "en" ? "971548757589" : "971548757589"
@@ -549,7 +554,7 @@ export default class LoginComponent extends React.Component {
           <View
             style={{
               position: "absolute",
-              bottom: "30%",
+              bottom: Platform.OS == "ios" ? "30%" : "32%",
               alignSelf: "center",
             }}
           >
@@ -562,11 +567,16 @@ export default class LoginComponent extends React.Component {
           <View
             style={{
               position: "absolute",
-              bottom: "15%",
+              bottom: Platform.OS == "ios" ? "15%" : "18%",
               alignSelf: "center",
             }}
           >
-            <Text style={{ fontSize: 20, color: "white" }}>
+            <Text
+              style={{
+                fontSize: Platform.OS == "ios" ? 20 : 17,
+                color: "white",
+              }}
+            >
               {this.state.lan == "en"
                 ? "Don't have an account?"
                 : "هل لديك حساب"}
@@ -575,7 +585,7 @@ export default class LoginComponent extends React.Component {
           <View
             style={{
               position: "absolute",
-              bottom: "8%",
+              bottom: Platform.OS == "ios" ? "8%" : "10%",
               justifyContent: "center",
               alignSelf: "center",
               width: "80%",

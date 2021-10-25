@@ -8,6 +8,7 @@ import {
   Image,
   ImageBackground,
   ScrollView,
+  Platform,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Spinner from "react-native-loading-spinner-overlay";
@@ -41,7 +42,7 @@ export default class OrderDeliveredComponent extends React.Component {
     // });
     let lan = await AsyncStorage.getItem("lan");
     this.setState({
-      lan,
+      lan: lan !== null ? lan : "en",
     });
     let user = await AsyncStorage.getItem("sp");
     if (user !== null) {
@@ -144,7 +145,9 @@ export default class OrderDeliveredComponent extends React.Component {
           <>
             {/* Content */}
             <Spinner visible={this.state.loading} textContent={""} />
-            <ScrollView>
+            <ScrollView
+              style={{ marginBottom: Platform.OS == "android" && 90 }}
+            >
               {this.state.completedOrders &&
                 this.state.completedOrders.map(
                   function (order, index) {

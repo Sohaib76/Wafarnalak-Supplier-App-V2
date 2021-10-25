@@ -21,6 +21,8 @@ import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import Spinner from "react-native-loading-spinner-overlay";
 
+const pics = ["Electrician", "Plumber", "Carpenter", "Packer-&-Mover", "Ac"];
+
 export default class CategoriesServiceComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -120,6 +122,7 @@ export default class CategoriesServiceComponent extends React.Component {
       });
     }
   };
+
   render() {
     return (
       <Container>

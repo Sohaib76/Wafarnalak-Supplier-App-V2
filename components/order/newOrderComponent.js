@@ -48,7 +48,7 @@ export default class NewOrderComponent extends React.Component {
     // });
     let lan = await AsyncStorage.getItem("lan");
     this.setState({
-      lan,
+      lan: lan !== null ? lan : "en",
     });
     let user = await AsyncStorage.getItem("sp");
     if (user !== null) {
@@ -334,7 +334,10 @@ export default class NewOrderComponent extends React.Component {
                       {this.state.newOrder.appointmentdate}
                     </Text>
                   </View>
-                  <View style={{ flex: 1.5, alignSelf: "center" }}>
+                  <TouchableOpacity
+                    onPress={this.makeCall}
+                    style={{ flex: 1.5, alignSelf: "center" }}
+                  >
                     <Image
                       source={require("../../assets/icons/Call-Icon2.png")}
                       style={{
@@ -346,7 +349,7 @@ export default class NewOrderComponent extends React.Component {
                       }}
                       resizeMode="contain"
                     />
-                  </View>
+                  </TouchableOpacity>
                 </View>
                 {/* {this.state.newOrder.orderdetails &&
                   this.state.newOrder.orderdetails.map(
@@ -521,6 +524,11 @@ export default class NewOrderComponent extends React.Component {
 
                 <View style={{ flexDirection: "row", marginBottom: 30 }}>
                   <TouchableOpacity
+                    onPress={() => {
+                      Linking.openURL(
+                        `https://www.google.com/maps/search/?api=1&query=${this.state.newOrder.latitude},${this.state.newOrder.longitude}`
+                      );
+                    }}
                     style={{
                       flexDirection: "column",
                       marginTop: 60,
@@ -555,7 +563,9 @@ export default class NewOrderComponent extends React.Component {
                           textAlign: "center",
                         }}
                       >
-                        Customer {"\n"}Location
+                        {this.state.lan == "en"
+                          ? `Customer \nLocation`
+                          : "موقع\n العميل"}
                       </Text>
                     </View>
                   </TouchableOpacity>
@@ -607,7 +617,10 @@ export default class NewOrderComponent extends React.Component {
                           textAlign: "center",
                         }}
                       >
-                        Estimated Price: SAR {this.state.newOrder.totalprice}
+                        {this.state.lan == "en"
+                          ? "Estimated Price:"
+                          : "السعر التقديري"}{" "}
+                        SAR {this.state.newOrder.totalprice}
                       </Text>
                     </View>
                   </TouchableOpacity>
