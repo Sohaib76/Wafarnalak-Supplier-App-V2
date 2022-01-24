@@ -101,6 +101,12 @@ export default class LoginComponent extends React.Component {
     ) {
       if (this.state.iAgree === false) {
         this.setState({ loading: true });
+        console.log(
+          JSON.stringify({
+            mobile: this.state.mobile,
+            spdeviceid: this.state.token,
+          })
+        );
         fetch(
           "http://ec2-13-234-48-248.ap-south-1.compute.amazonaws.com/testApi/V1/sp_login",
           {
@@ -133,6 +139,7 @@ export default class LoginComponent extends React.Component {
           })
           .catch((error) => {
             this.setState({ loading: false });
+            console.log("login error code", error);
             Toast.show({
               text:
                 this.state.lan == "en"
@@ -359,7 +366,11 @@ export default class LoginComponent extends React.Component {
           >
             {/* marginTop: 30 */}
             <Image
-              source={require("../../assets/icons/Logo.png")}
+              source={
+                this.state.lan == "en"
+                  ? require("../../assets/icons/Logo.png")
+                  : require("../../assets/icons/Logo-Arabic.png")
+              }
               style={{ width: Dimensions.get("screen").width - 50, height: 90 }}
               resizeMode="contain"
             />
@@ -567,7 +578,7 @@ export default class LoginComponent extends React.Component {
           <View
             style={{
               position: "absolute",
-              bottom: Platform.OS == "ios" ? "15%" : "18%",
+              bottom: Platform.OS == "ios" ? "18%" : "21%", // 15%, 18%
               alignSelf: "center",
             }}
           >
@@ -585,7 +596,7 @@ export default class LoginComponent extends React.Component {
           <View
             style={{
               position: "absolute",
-              bottom: Platform.OS == "ios" ? "8%" : "10%",
+              bottom: Platform.OS == "ios" ? "11%" : "13%", //8% ,10
               justifyContent: "center",
               alignSelf: "center",
               width: "80%",
@@ -597,7 +608,7 @@ export default class LoginComponent extends React.Component {
               style={{
                 justifyContent: "center",
                 backgroundColor: "#4a4b4c",
-                marginTop: 26,
+                marginTop: 16, //26
                 borderRadius: 12,
                 alignSelf: "center",
                 width: "100%", //90
@@ -607,7 +618,7 @@ export default class LoginComponent extends React.Component {
               <Text
                 style={{ color: "white", fontSize: 15, textAlign: "center" }}
               >
-                {this.state.lan == "en" ? "Sign Up" : "بالتسجيل الآن"}
+                {this.state.lan == "en" ? "Sign Up" : "إشتراك"}
               </Text>
             </Button>
           </View>

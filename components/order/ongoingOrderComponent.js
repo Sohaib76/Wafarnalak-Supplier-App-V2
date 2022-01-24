@@ -8,6 +8,7 @@ import {
   View,
   Image,
   ImageBackground,
+  KeyboardAvoidingView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Spinner from "react-native-loading-spinner-overlay";
@@ -91,10 +92,11 @@ export default class OngoingOrderComponent extends React.Component {
   };
   finsihJob = () => {
     if (
-      this.state.serviceCost !== "" &&
-      this.state.materialsUsed !== "" &&
-      this.state.comments !== "" &&
-      this.state.materialCost !== ""
+      //this.state.comments !== "" &&
+      //this.state.materialCost !== ""
+      // this.state.materialsUsed !== ""
+
+      this.state.serviceCost !== ""
     ) {
       this.setState({ loading: true });
       fetch(
@@ -122,6 +124,7 @@ export default class OngoingOrderComponent extends React.Component {
             this.setState({ loading: false });
             this.props.navigation.navigate("OrderDelivered");
           } else {
+            console.log(responseJson);
             this.setState({ loading: false });
             Toast.show({
               text: responseJson.message,
@@ -143,7 +146,10 @@ export default class OngoingOrderComponent extends React.Component {
         });
     } else {
       Toast.show({
-        text: "please enter the required fields!",
+        text:
+          this.state.lan == "en"
+            ? "please enter the required fields!"
+            : "الرجاء إدخال الحقول المطلوبة",
         buttonText: "",
         position: "bottom",
       });
@@ -211,7 +217,8 @@ export default class OngoingOrderComponent extends React.Component {
             </Title>
             <Right />
           </Header>
-          <ScrollView style={{ marginBottom: Platform.OS == "android" && 80 }}>
+          <ScrollView style={{ marginBottom: Platform.OS == "android" && 100 }}>
+            {/* 80 */}
             {/* Content */}
             <Spinner visible={this.state.loading} textContent={""} />
             {(this.state.ongoingOrder &&
@@ -498,12 +505,24 @@ export default class OngoingOrderComponent extends React.Component {
                       : "تكلفة استخدام المواد"}
                   </Text>
                   <View style={{ flexDirection: "row" }}>
-                    <View style={{ marginTop: 0 }}>
+                    <View
+                      style={{
+                        marginTop: 0,
+                        height: this.state.isCompleted ? 42 : 35,
+                        backgroundColor: this.state.isCompleted
+                          ? "rgba(0, 32, 59, 1)"
+                          : "white",
+                        justifyContent: "center",
+                        // borderTopLeftRadius: 20,
+                        // borderBottomLeftRadius: 20,
+                      }}
+                    >
                       <Image
                         source={require("../../assets/icons/Riyal-grey.png")}
                         style={{
-                          width: 70,
-                          height: 35,
+                          marginLeft: this.state.isCompleted ? 7 : 0,
+                          width: this.state.isCompleted ? 63 : 70,
+                          height: this.state.isCompleted ? 32 : 35,
                           backgroundColor: this.state.isCompleted
                             ? "rgba(0, 32, 59, 1)"
                             : "white",
@@ -528,13 +547,13 @@ export default class OngoingOrderComponent extends React.Component {
                           ? this.state.materialCost
                           : `${this.state.mlCost}`
                       }
-                      keyboardType="decimal-pad"
+                      // keyboardType="decimal-pad"
                       editable={!this.state.isCompleted}
                       style={{
                         backgroundColor: this.state.isCompleted
                           ? "white"
                           : "lightgray",
-                        height: 35, //35
+                        height: this.state.isCompleted ? 42 : 35, //35
                         marginLeft: this.state.isCompleted ? 0 : 5,
                         borderBottomWidth: 1,
                         borderBottomColor: "rgba(0, 32, 59, 1)",
@@ -568,15 +587,29 @@ export default class OngoingOrderComponent extends React.Component {
                       : "سعر الخدمة:"}
                   </Text>
                   <View style={{ flexDirection: "row" }}>
-                    <View style={{ marginTop: 0 }}>
+                    <View
+                      style={{
+                        marginTop: 0,
+                        height: this.state.isCompleted ? 42 : 35,
+                        backgroundColor: this.state.isCompleted
+                          ? "rgba(0, 32, 59, 1)"
+                          : "white",
+                        justifyContent: "center",
+                        // borderTopLeftRadius: 20,
+                        // borderBottomLeftRadius: 20,
+                      }}
+                    >
                       <Image
                         source={require("../../assets/icons/Riyal-grey.png")}
                         style={{
-                          width: 70,
-                          height: 35,
+                          marginLeft: this.state.isCompleted ? 7 : 0,
+                          width: this.state.isCompleted ? 63 : 70,
+                          height: this.state.isCompleted ? 32 : 35,
                           backgroundColor: this.state.isCompleted
                             ? "rgba(0, 32, 59, 1)"
                             : "white",
+                          // backgroundColor: "red",
+
                           tintColor: this.state.isCompleted
                             ? "white"
                             : "rgba(0, 32, 59, 1)",
@@ -603,12 +636,12 @@ export default class OngoingOrderComponent extends React.Component {
                           ? this.state.serviceCost
                           : `${this.state.servicecharges}`
                       }
-                      keyboardType="decimal-pad"
+                      // keyboardType="decimal-pad"
                       style={{
                         backgroundColor: this.state.isCompleted
                           ? "white"
                           : "lightgray",
-                        height: 35, //35
+                        height: this.state.isCompleted ? 42 : 35, //35
                         marginLeft: this.state.isCompleted ? 0 : 5,
                         borderBottomWidth: 1,
                         borderBottomColor: "rgba(0, 32, 59, 1)",
@@ -644,7 +677,7 @@ export default class OngoingOrderComponent extends React.Component {
                     <View
                       style={{
                         marginTop: 0,
-                        height: this.state.isCompleted ? 58 : 0,
+                        height: this.state.isCompleted ? 48 : 0, //58
                         backgroundColor: this.state.isCompleted
                           ? "rgba(0, 32, 59, 1)"
                           : "white",
@@ -657,7 +690,7 @@ export default class OngoingOrderComponent extends React.Component {
                         source={require("../../assets/icons/Comment2-min.png")}
                         style={{
                           width: 70,
-                          height: 35,
+                          height: 30,
                           backgroundColor: this.state.isCompleted
                             ? "rgba(0, 32, 59, 1)"
                             : "white",
@@ -683,12 +716,12 @@ export default class OngoingOrderComponent extends React.Component {
                           ? this.state.comments
                           : this.state.sp_feedback
                       }
-                      keyboardType="decimal-pad"
+                      // // keyboardType="decimal-pad"
                       style={{
                         backgroundColor: this.state.isCompleted
                           ? "white"
                           : "lightgray",
-                        height: 58, //35
+                        height: 48, //35 58
                         marginLeft: this.state.isCompleted ? 0 : 5,
                         borderBottomWidth: 1,
                         borderBottomColor: "rgba(0, 32, 59, 1)",
@@ -719,14 +752,14 @@ export default class OngoingOrderComponent extends React.Component {
                     }}
                   >
                     {this.state.lan == "en"
-                      ? "Detatils of Materials used"
+                      ? "Details of Materials used"
                       : "تفاصيل المواد المستخدمة"}
                   </Text>
                   <View style={{ flexDirection: "row" }}>
                     <View
                       style={{
                         marginTop: 0,
-                        height: this.state.isCompleted ? 58 : 0,
+                        height: this.state.isCompleted ? 48 : 0,
                         backgroundColor: this.state.isCompleted
                           ? "rgba(0, 32, 59, 1)"
                           : "white",
@@ -739,21 +772,26 @@ export default class OngoingOrderComponent extends React.Component {
                         source={require("../../assets/icons/Detail-of-Material2-min.png")}
                         style={{
                           width: 70,
-                          height: 35, //58
+                          height: 30, //58 35
                           backgroundColor: this.state.isCompleted
                             ? "rgba(0, 32, 59, 1)"
                             : "white",
+
                           tintColor: this.state.isCompleted
                             ? "white"
                             : "rgba(0, 32, 59, 1)",
-                          borderTopLeftRadius: this.state.isCompleted ? 20 : 0,
-                          borderBottomLeftRadius: this.state.isCompleted
-                            ? 20
-                            : 0,
+                          // borderTopLeftRadius: this.state.isCompleted ? 20 : 0,
+                          // borderBottomLeftRadius: this.state.isCompleted
+                          //   ? 20
+                          //   : 0,
                         }}
                         resizeMode="contain"
                       />
                     </View>
+                    {/* <KeyboardAvoidingView
+                      behavior="position"
+                      keyboardVerticalOffset={100}
+                    > */}
                     <Input
                       multiline={true}
                       placeholder={
@@ -768,12 +806,12 @@ export default class OngoingOrderComponent extends React.Component {
                           ? this.state.materialsUsed
                           : this.state.materialcost_details
                       }
-                      keyboardType="decimal-pad"
+                      // keyboardType="decimal-pad"
                       style={{
                         backgroundColor: this.state.isCompleted
                           ? "white"
                           : "lightgray",
-                        height: 58, //35
+                        height: 48, //35
                         marginLeft: this.state.isCompleted ? 0 : 5,
                         borderBottomWidth: 1,
                         borderBottomColor: "rgba(0, 32, 59, 1)",
@@ -790,6 +828,7 @@ export default class OngoingOrderComponent extends React.Component {
                         this.saveState("materialsUsed", sUsed);
                       }}
                     />
+                    {/* </KeyboardAvoidingView> */}
                   </View>
                 </View>
               </View>
@@ -830,16 +869,16 @@ export default class OngoingOrderComponent extends React.Component {
               <Button
                 onPress={this.finsihJob} // rounded
                 style={{
-                  marginTop: "20%",
+                  marginTop: 0, //20%
                   backgroundColor: "#283a97",
                   justifyContent: "center",
                   width: "82%",
-                  height: "7.2%",
+                  height: "7.2%", //7.2%
                   alignSelf: "center",
                   backgroundColor: "rgba(0, 32, 59, 1)",
                   borderRadius: 12,
-                  // position: "absolute",
-                  bottom: 30,
+                  position: "absolute",
+                  bottom: 100, //30
                 }}
               >
                 <Text
@@ -850,7 +889,7 @@ export default class OngoingOrderComponent extends React.Component {
                     fontSize: 18,
                   }}
                 >
-                  {this.state.lan == "en" ? "Job Finished" : "انتهى العمل "}
+                  {this.state.lan == "en" ? "Job Finish" : "انتهى العمل "}
                 </Text>
               </Button>
             )

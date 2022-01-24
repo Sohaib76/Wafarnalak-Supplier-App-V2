@@ -383,7 +383,7 @@ export default class MyProfileComponent extends React.Component {
             }
             <Spinner visible={this.state.loading} textContent={""} />
             <ScrollView
-              style={{ marginBottom: Platform.OS == "android" && 150 }}
+              style={{ marginBottom: Platform.OS == "android" && 85 }} //150
             >
               <View>
                 <TouchableWithoutFeedback
@@ -418,8 +418,8 @@ export default class MyProfileComponent extends React.Component {
                       <Image
                         source={require("../../assets/icons/Profile.png")}
                         style={{
-                          width: 30,
-                          height: 30,
+                          width: 25,
+                          height: 25,
                           marginLeft: 20, //30
                           marginRight: 10,
                           marginTop: 10, // marginTop: 10,
@@ -435,6 +435,7 @@ export default class MyProfileComponent extends React.Component {
                           color: "#4a4b4c",
                           marginLeft: 40,
                           marginTop: 14,
+                          fontSize: 15,
                         }}
                       >
                         {this.state.lan == "en" ? "Profile" : "ملفي الشخصي"}
@@ -481,8 +482,8 @@ export default class MyProfileComponent extends React.Component {
                       <Image
                         source={require("../../assets/icons/Add-Address.png")}
                         style={{
-                          width: 30,
-                          height: 30,
+                          width: 25,
+                          height: 25,
                           marginLeft: 20, //30
                           marginRight: 10,
                           marginTop: 10,
@@ -496,6 +497,7 @@ export default class MyProfileComponent extends React.Component {
                         color: "#4a4b4c",
                         marginLeft: 40,
                         marginTop: 14,
+                        fontSize: 15,
                       }}
                     >
                       {this.state.lan == "en" ? "Add Address" : "أضف عنوان"}
@@ -541,8 +543,8 @@ export default class MyProfileComponent extends React.Component {
                       <Image
                         source={require("../../assets/icons/Documents.png")}
                         style={{
-                          width: 30,
-                          height: 30,
+                          width: 25,
+                          height: 25,
                           marginLeft: 20, //30
                           marginRight: 10,
                           marginTop: 10,
@@ -556,6 +558,7 @@ export default class MyProfileComponent extends React.Component {
                         color: "#4a4b4c",
                         marginLeft: 40,
                         marginTop: 14,
+                        fontSize: 15,
                       }}
                     >
                       {this.state.lan == "en" ? "Documents" : "مستندات"}
@@ -594,8 +597,8 @@ export default class MyProfileComponent extends React.Component {
                       <Image
                         source={require("../../assets/icons/Help2.png")}
                         style={{
-                          width: 30,
-                          height: 30,
+                          width: 25,
+                          height: 25,
                           marginLeft: 20, //30
                           marginRight: 10,
                           marginTop: 10,
@@ -608,6 +611,7 @@ export default class MyProfileComponent extends React.Component {
                         color: "#4a4b4c",
                         marginLeft: 40,
                         marginTop: 14,
+                        fontSize: 15,
                       }}
                     >
                       {this.state.lan == "en" ? "Help" : "مساعدة"}
@@ -653,8 +657,8 @@ export default class MyProfileComponent extends React.Component {
                       <Image
                         source={require("../../assets/icons/Balance.png")}
                         style={{
-                          width: 30,
-                          height: 30,
+                          width: 25,
+                          height: 25,
                           marginLeft: 20, //30
                           marginRight: 10,
                           marginTop: 10,
@@ -667,6 +671,7 @@ export default class MyProfileComponent extends React.Component {
                         color: "#4a4b4c",
                         marginLeft: 40,
                         marginTop: 14,
+                        fontSize: 15,
                       }}
                     >
                       {this.state.lan == "en"
@@ -727,8 +732,8 @@ export default class MyProfileComponent extends React.Component {
                       <Image
                         source={require("../../assets/icons/Deliverered-Order.png")}
                         style={{
-                          width: 30,
-                          height: 30,
+                          width: 25,
+                          height: 25,
                           marginLeft: 20, //30
                           marginRight: 10,
                           marginTop: 10,
@@ -742,6 +747,7 @@ export default class MyProfileComponent extends React.Component {
                         color: "#4a4b4c",
                         marginLeft: 40,
                         marginTop: 14,
+                        fontSize: 15,
                       }}
                     >
                       {this.state.lan == "en"
@@ -788,8 +794,8 @@ export default class MyProfileComponent extends React.Component {
                       <Image
                         source={require("../../assets/icons/New-Order-2.png")}
                         style={{
-                          width: 30,
-                          height: 30,
+                          width: 25,
+                          height: 25,
                           marginLeft: 20, //30
                           marginRight: 10,
                           marginTop: 10,
@@ -803,6 +809,7 @@ export default class MyProfileComponent extends React.Component {
                           color: "#4a4b4c",
                           marginLeft: 40,
                           marginTop: 14,
+                          fontSize: 15,
                         }}
                       >
                         {this.state.lan == "en" ? "New Order" : "طلب جديد"}
@@ -849,8 +856,8 @@ export default class MyProfileComponent extends React.Component {
                       <Image
                         source={require("../../assets/icons/Ongoing2.png")}
                         style={{
-                          width: 30,
-                          height: 30,
+                          width: 25,
+                          height: 25,
                           marginLeft: 20, //30
                           marginRight: 10,
                           marginTop: 10,
@@ -863,11 +870,10 @@ export default class MyProfileComponent extends React.Component {
                         color: "#4a4b4c",
                         marginLeft: 40,
                         marginTop: 14,
+                        fontSize: 15,
                       }}
                     >
-                      {this.state.lan == "en"
-                        ? "Ongoing"
-                        : "طلبات مستمرة/أوامر جارية"}
+                      {this.state.lan == "en" ? "Ongoing" : "طلبات مستمرة"}
                     </Text>
                   </View>
                 </TouchableWithoutFeedback>
@@ -903,8 +909,8 @@ export default class MyProfileComponent extends React.Component {
                       <Image
                         source={require("../../assets/icons/Term.png")}
                         style={{
-                          width: 30,
-                          height: 30,
+                          width: 25,
+                          height: 25,
                           marginLeft: 20, //30
                           marginRight: 10,
                           marginTop: 10,
@@ -919,6 +925,7 @@ export default class MyProfileComponent extends React.Component {
                         color: "#4a4b4c",
                         marginLeft: 40,
                         marginTop: 14,
+                        fontSize: 15,
                       }}
                     >
                       {this.state.lan == "en"
@@ -934,13 +941,69 @@ export default class MyProfileComponent extends React.Component {
                     backgroundColor: "white",
                   }}
                 ></View>
+                <TouchableWithoutFeedback
+                  onPress={() =>
+                    this.props.navigation.navigate("GetPrice", {
+                      lan: this.state.lan,
+                    })
+                  }
+                >
+                  <View
+                    style={{
+                      backgroundColor: "#fff",
+                      flexDirection: "row",
+                      height: 50,
+                      borderRadius: 20,
+                      width: "90%",
+                      alignSelf: "center",
+                      borderColor: "grey",
+                      borderWidth: 0.5,
+
+                      marginBottom: 10,
+                    }}
+                  >
+                    <View
+                      style={{
+                        backgroundColor: "#00203b",
+                        borderTopLeftRadius: 20,
+                        borderBottomLeftRadius: 20,
+                      }}
+                    >
+                      <Image
+                        source={require("../../assets/icons/Balance.png")}
+                        style={{
+                          width: 25,
+                          height: 25,
+                          marginLeft: 20, //30
+                          marginRight: 10,
+                          marginTop: 10,
+                          resizeMode: "contain",
+                          tintColor: "white",
+                        }}
+                        // resizeMode="contain"
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        color: "#4a4b4c",
+                        marginLeft: 40,
+                        marginTop: 14,
+                        fontSize: 15,
+                      }}
+                    >
+                      {this.state.lan == "en"
+                        ? "Calculate Price"
+                        : "احسب السعر"}
+                    </Text>
+                  </View>
+                </TouchableWithoutFeedback>
               </View>
             </ScrollView>
 
             <View
               style={{
                 position: "absolute",
-                bottom: Platform.OS == "ios" ? 10 : 80,
+                bottom: Platform.OS == "ios" ? 10 : 40, //30
                 width: "100%",
                 height: "8%",
                 backgroundColor: "white",

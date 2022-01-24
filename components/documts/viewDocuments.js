@@ -33,6 +33,9 @@ export default class ViewDocumentsComponent extends React.Component {
     let user = navigation.getParam("user");
     let lan = navigation.getParam("lan");
     this.setState({ user: user, lan: lan });
+    console.log("user", user);
+
+    console.log("id", user.national_ids);
   };
   render() {
     return (

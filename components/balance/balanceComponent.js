@@ -176,6 +176,7 @@ export default class BalanceComponent extends React.Component {
                     color: "#fff",
                     fontWeight: "bold",
                     alignSelf: "center",
+                    marginTop: -10,
                   }}
                 >
                   {this.state.reports.pending_balance}

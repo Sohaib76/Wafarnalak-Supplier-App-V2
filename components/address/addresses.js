@@ -169,7 +169,7 @@ export default class AddressesComponent extends React.Component {
                         style={{
                           marginTop: 10, //6
                           flexDirection: "row",
-                          height: 60,
+                          height: 70, //60
                           width: Dimensions.get("window").width,
                           backgroundColor: "rgba(0, 32, 59, 0.1)",
                           paddingLeft: 10,

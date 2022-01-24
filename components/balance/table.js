@@ -275,13 +275,14 @@ export default class InvoiceTableComponent extends React.Component {
                 style={{
                   borderColor: "grey",
                   borderWidth: 0.5,
-                  height: 20,
+                  height: 25, //20
                   width: "77%",
                   marginTop: "15%",
                   alignSelf: "center",
                   flexDirection: "row",
                   justifyContent: "space-between",
                   padding: 2,
+                  // paddingBottom: 5,
                 }}
               >
                 <Text style={{ color: "rgba(0, 32, 59, 0.8)" }}>

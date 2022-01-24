@@ -303,7 +303,7 @@ export default class UpdateProfileComponent extends React.Component {
           {/* Content */}
           {/* <View style={{ backgroundColor: "lightgray" }}> */}
           <ScrollView
-            style={{ marginBottom: Platform.OS == "android" && 80 }}
+            style={{ marginBottom: Platform.OS == "android" && 95 }} //80
             contentContainerStyle={{
               justifyContent: "center",
               // backgroundColor: "lightgray",

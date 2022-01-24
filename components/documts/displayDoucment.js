@@ -37,6 +37,7 @@ export default class DisplayDocumentsComponent extends React.Component {
     });
     let images = navigation.getParam("images");
     this.setState({ images: images });
+    console.log("Image", images);
   };
   render() {
     return (

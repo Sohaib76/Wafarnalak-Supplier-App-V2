@@ -276,7 +276,11 @@ export default class UploadDocumentComponent extends React.Component {
             )}
             <TouchableWithoutFeedback onPress={this.uploadPicture}>
               <View
-                style={{ marginTop: 40, marginBottom: 40, alignSelf: "center" }}
+                style={{
+                  marginTop: 40,
+                  marginBottom: 120,
+                  alignSelf: "center",
+                }}
               >
                 <Image
                   source={require("../../assets/icons/PlusC.png")}

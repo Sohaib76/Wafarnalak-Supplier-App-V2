@@ -26,6 +26,7 @@ import UploadDocumentComponent from "../components/documts/uploadDocumentCompone
 import ViewDocumentsComponent from "../components/documts/viewDocuments";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
+import { GetPrice } from "../components/balance/GetPrice";
 
 const profileNavigator = createStackNavigator(
   {
@@ -55,6 +56,7 @@ const profileNavigator = createStackNavigator(
     AllNewOrder: { screen: AllNewOrderComponent },
     AllOngoingOrder: { screen: AllOngoingOrderComponent },
     ComessionCalculator: { screen: ComessionCalculatorComponent },
+    GetPrice: { screen: GetPrice },
   },
   {
     initialRouteName: "Login",

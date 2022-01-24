@@ -630,10 +630,10 @@ export default class SignupComponent extends React.Component {
               }}
             >
               <Button
-                onPress={this.registerNewUser}
-                // onPress={() =>
-                //   this.props.navigation.navigate("BusinessCategory")
-                // }
+                // onPress={this.registerNewUser}
+                onPress={() =>
+                  this.props.navigation.navigate("BusinessCategory")
+                }
                 style={{
                   justifyContent: "center",
                   backgroundColor: "#fff",

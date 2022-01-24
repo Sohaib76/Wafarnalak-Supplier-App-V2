@@ -875,12 +875,12 @@ export default class CompanyProfileComponent extends React.Component {
           </Button> */}
 
           <Button
-            onPress={this.saveCompanyDetail}
-            // onPress={() =>
-            //   this.props.navigation.navigate("ProfileVerification", {
-            //     lan: this.state.lan,
-            //   })
-            // }
+            // onPress={this.saveCompanyDetail}
+            onPress={() =>
+              this.props.navigation.navigate("ProfileVerification", {
+                lan: this.state.lan,
+              })
+            }
             // onPress={() =>
             //   this.props.navigation.navigate("DisabledAccount", {
             //     lan: this.state.lan,

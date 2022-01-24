@@ -269,9 +269,15 @@ export default class BusinessCategoryComponent extends React.Component {
                               alignSelf: "center",
                             }}
                           />
-                          <Text style={{ marginLeft: 6, alignSelf: "center" }}>
+                          <Text
+                            style={{
+                              marginLeft: 26,
+                              alignSelf: "center",
+                              fontSize: 12,
+                            }}
+                          >
                             {this.state.lan == "en"
-                              ? category.servicename
+                              ? category.servicename.toUpperCase()
                               : category.servicename_ar}
                           </Text>
                         </View>
@@ -347,8 +353,8 @@ export default class BusinessCategoryComponent extends React.Component {
           </ScrollView>
           {/* Content */}
           <Button
-            onPress={this.saveBusinessCategory}
-            // onPress={() => this.props.navigation.navigate("CompanyProfile")} //Change
+            // onPress={this.saveBusinessCategory}
+            onPress={() => this.props.navigation.navigate("CompanyProfile")} //Change
             style={{
               backgroundColor: "#00203b",
               alignSelf: "center",
